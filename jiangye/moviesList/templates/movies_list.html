@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movies_list</title>
+</head>
+<body>
+    <form action="demo_form.php">
+        movies_name: <input type="text" name="fname"><br>
+        typr: <input type="text" name="lname"><br>
+        <input type="submit" value="提交">
+      </form>
+
+{%for i in img%}
+<img src="{{MEDIA_URL}}{{i.img}}">
+
+{% endfor %}
+<img src="{{ MEDIA_URL }}imgurl/cat.JPG">
+
+<div>----------------------------------</div>
+
+<div>-------------------------------------</div>
+
+
+{% for obj in queryset %}
+
+<li><img src="{{ MEDIA_URL }}{{obj.img_url}}" alt="">AAA</li>
+{% endfor %}
+<!--
+  头像<img src="{{ MEDIA_URL }}imgurl{{ queryset }}"alt='无' width='50' height='50'>
+<img src="{{ MEDIA_URL }}imgurl{{obj.queryset}}">
+<a href="{{ MEDIA_URL }}imgurl{{obj.queryset}}"></a>
+
+<li><img src="{{ MEDIA_URL }}{{obj.img_url}}" alt="">AAA</li>  
+-->
+
+</body>
+</html>
