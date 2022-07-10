@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>resgister</title>
+    {%csrf_token%}
+</head>
+<body>
+    {%csrf_token%}
+    <form action="" method="post"    {%csrf_token%}>
+        {% csrf_token %}
+    <ul>
+        <li>
+<label>username</label>
+<input type="text" name="user_name" id="user_name">
+
+    </li>
+
+    <li>
+        <label>password</label>
+        <input type="password" name="pwd" value="pwd">
+        
+            </li>
+
+            <li>
+                <label>confirmPassword</label>
+                <input type="password" name="pwd" id="pwd">
+                
+                    </li>
+                    <li>
+                        <label>email</label>
+                        <input type="text" name="email" id="email">
+                        
+                            </li>
+
+                            <li>
+                                <label>age</label>
+                                <input type="number" name="age" id="age">
+                                
+                                    </li>
+                                    <li>
+                                        <label>date</label>
+                                        <input type="number" name="pwd" id="pwd">
+                                        
+                                            </li>
+                                            <li>
+                                                <label>time</label>
+                                                <input type="time" name="time" id="time">
+                                                
+                                                    </li>
+                            <li class="agreement">
+                                <input type="checkbox" name="allow" id="allow" checked="checked">
+                                <label> agreement with giaogiao promote</label>
+                            </li>
+
+                            <li class="reg_sub">
+                                <input type="submit" value="resgister" name="">
+                            </li>
+                        </form>
+                            <li>
+                                <p style="color: royalblue;">{{ errmsg }}</p>
+                            </li>
+
+
+                            <li><img src="{{MEDIA_URL}}{{username1.icon}}" alt="aaa"</li>
+                            <li><img src="{{icon}}" alt="aaa"</li>
+</ul>
+</body>
+</html>

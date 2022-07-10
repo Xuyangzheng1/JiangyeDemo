@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="static/css/bootstrap-5.2.0-beta1/dist/css/bootstrap.min.css">
+    
+</head>
+<table border="2"> <!-- 线粗-->
+<body>
+    <a href="/index" class="bootstrap">index</a>
+
+
+<a href="/info/add" class="pink-100">添加</a>
+    <tr>
+        <th>ID</th>
+        <th>name</th>
+        <th>password</th>
+        <th>age</th>
+        <th>操作</th>
+    </tr>
+    {% for obj in data_list %}
+    <tr>
+        <td>{{ obj.id}}</td>
+        <td>{{ obj.name}}</td>
+        <td>{{ obj.password}}</td>
+        <td>{{ obj.age}}</td>
+        <td><a href="/info/delete/?nid={{ obj.id }}">删除</a></td>
+        {%endfor%}
+
+    </tr>
+</table>
+
+</body>
+</html>
