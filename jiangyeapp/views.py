@@ -13,7 +13,10 @@ from django.shortcuts import render, HttpResponse, redirect
 from jiangyeapp.models import Department, UserInfo
 from jiangyeapp import models
 from django.core.mail import send_mail
-
+from isodate import parse_duration#
+#pip install pipenv
+#pipenv install isodate
+#pip install -U rdflib
 import requests
 from django.conf import settings
 
@@ -200,9 +203,9 @@ def youtube(request):
     
     search_params = {
         'part':'snippet',
-        'q':'learn python',
+        'q':'Forrest Gump',
         'key': settings.YOUTUBE_DATA_API_KEY,
-        'maxResults' : 9,
+        'maxResults' : 200,
         'type':'video',
         
     } 
@@ -222,22 +225,37 @@ def youtube(request):
         'key': settings.YOUTUBE_DATA_API_KEY,
         'part':'snippet,contentDetails',
         'id':','.join(video_ids),
+        'maxResults' : 200,
 
     }#二次搜索
     
     r=requests.get(video_url,params=video_params)
     resultes = r.json()['items']
     #print(r.text)
+    print(resultes)
+    videos=[]
     for result in resultes:
-        print(result)
-        print(result['snippet']['title'])
-        print(result['id'])
-        print(result['contentDetails']['duration'])
-        print(result['kind'])
-        print(result['snippet']['channelId'])
        
-        print(result['snippet']['thumbnails']['high']['url'])
+        video_data = {
+            'title':result['snippet']['title'],
+            'id':result['id'],
+            'url': f'https://www.youtube.com/watch?v={ result["id"] }',
+            'duration': int(parse_duration(result['contentDetails']['duration']).total_seconds()//60),#持续时间
+            'thumbnail':result['snippet']['thumbnails']['high']['url'],#略缩图
+        }
+        print(video_data)
+        videos.append(video_data)
+    #print(videos)
+    context = {
+        'videos' : videos
+    }
+    print(context)
+    return render(request,'test.html',context)
 
-    
-
-    return render(request,'test.html')
+     #print(result)
+        # print(result['snippet']['title'])
+        # print(result['id'])
+        # print(parse_duration(result['contentDetails']['duration']).total_seconds()//60)#秒
+        # print(result['snippet']['thumbnails']['high']['url'])
+         #print(result['kind'])
+       #print(result['snippet']['channelId'])

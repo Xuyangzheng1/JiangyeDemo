@@ -13,5 +13,15 @@
 
 <img src="/jiangye/jiangyeapp/static/cat.jpg">
 </div>
+
+    {% for video in videos %}
+<div>
+
+    <img class="bd-placeholder-img card-img-top" src="{{ video.thumbnail }}">
+    {{ video.title }}
+    <a type="button" href="{{ video.url }}" class="btn btn-sm btn-outline-secondary">view</a>
+    {{ video.duration }}
+    {% endfor %}
+</div>
 </body>
 </html>
