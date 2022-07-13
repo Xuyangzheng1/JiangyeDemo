@@ -199,16 +199,27 @@ def bootstrap5(request):
 def youtube(request):
     url= 'https://www.googleapis.com/youtube/v3/search'
     video_url='https://www.googleapis.com/youtube/v3/videos'
-   
-    
+
+
+    # if request.method == "GET":
+    #     
+
+    #     print(search_params['q'])
+    #     return render(request,'test.html',context) 
     search_params = {
         'part':'snippet',
-        'q':'Forrest Gump',
+        'q':'1',
         'key': settings.YOUTUBE_DATA_API_KEY,
-        'maxResults' : 200,
+        'maxResults' : 9,
         'type':'video',
         
     } 
+    search_params['q']=request.POST.get('search')
+
+    print("==========",search_params['q'],"=========================================================================================================================================================================================")
+    
+
+
     
     r=requests.get(url,params=search_params)
 
