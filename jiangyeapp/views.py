@@ -1,3 +1,4 @@
+from django.http import HttpResponse, JsonResponse
 from asyncio.windows_events import NULL
 from calendar import month
 from contextlib import nullcontext
@@ -13,19 +14,20 @@ from django.shortcuts import render, HttpResponse, redirect
 from jiangyeapp.models import Department, UserInfo
 from jiangyeapp import models
 from django.core.mail import send_mail
-from isodate import parse_duration#
-#pip install pipenv
-#pipenv install isodate
-#pip install -U rdflib
+from isodate import parse_duration
+# pip install pipenv
+# pipenv install isodate
+# pip install -U rdflib
 import requests
 from django.conf import settings
 
 # Create your views here.
 
+
 def index(request):
     # return HttpResponse("welcome")
-    #return render(request, "index.html",+month)错误写法
-    return render(request,'index.html')
+    # return render(request, "index.html",+month)错误写法
+    return render(request, 'index.html')
 
 
 def user_list(request):
@@ -119,17 +121,14 @@ def info_add(request):
     if request.method == "GET":
         return render(request, "info_add.html")
 
-    
-    if user==NULL :
+    if user == NULL:
         # return render(request,"info_add.html",'3213')
             return HttpResponse('3213')
     else:
-            UserInfo.objects.create(name=user, password=pwd, age=age)# 获取数据
-            
+            UserInfo.objects.create(name=user, password=pwd, age=age)  # 获取数据
+
    # except models.UserInfo.DoesNotExist:
-       #return render(request,"info_add.html",'3213')
-        
-    
+       # return render(request,"info_add.html",'3213')
 
     return redirect("/info_list/")
 
@@ -139,12 +138,14 @@ def info_delete(request):
     UserInfo.objects.filter(id=nid).delete()
     return redirect("/info_list/")
 
-#test
+
+# test
 # views.py的myvariable函数
-from django.http import HttpResponse, JsonResponse
+
 
 def myvariable(request, year, month, day):
     return HttpResponse(str(year)+'/'+str(month)+'/'+str(day))
+
 
 def mydate(request, year, month, day):
     return HttpResponse(str(year)+'/'+str(month)+'/'+str(day))
@@ -153,9 +154,11 @@ def mydate(request, year, month, day):
 def book(request):
     return HttpResponse('这是jiangyetest')
 
-def book_detail(request,book_id):
-    text = '图书id是 %s'% book_id
+
+def book_detail(request, book_id):
+    text = '图书id是 %s' % book_id
     return HttpResponse(text)
+
 
 def register(request):
     if request.method == 'POST':
@@ -163,110 +166,195 @@ def register(request):
         pwd = request.POST.get('pwd')
         cpwd = request.POST.get('cpwd')
         email = request.POST.get('email')
-        allow=request.POST.get('allow')
-        age=request.POST.get('age')
-        date=request.POST.get('date')
-        time1=request.POST.get('time')
+        allow = request.POST.get('allow')
+        age = request.POST.get('age')
+        date = request.POST.get('date')
+        time1 = request.POST.get('time')
         print(allow)
-        #if allow !='on':
+        # if allow !='on':
          #   return render(request,'register.html',{'errmsg':'huoyigeiwoligiaogiao'})
-        uuu=UserInfo.objects.create(name=username1,password=pwd,email=email,age=age,date=date,create_time=time1)
-    #userinfov.is_active()=0
+        uuu = UserInfo.objects.create(
+            name=username1, password=pwd, email=email, age=age, date=date, create_time=time1)
+    # userinfov.is_active()=0
         uuu.save()
-        #发送邮件
-        subject='youjian'
-        message="huanying <br> <a href=''dianjijihuo" 
-        #res=send_mail(subject=subject,message=message,from_email=settings.EMAIL_HOST_USER,recipient_list=[email,])
-        #print(res)
+        # 发送邮件
+        subject = 'youjian'
+        message = "huanying <br> <a href=''dianjijihuo"
+        # res=send_mail(subject=subject,message=message,from_email=settings.EMAIL_HOST_USER,recipient_list=[email,])
+        # print(res)
 
-        return render(request,'tpl.html')
-    return render(request,'register.html')
+        return render(request, 'tpl.html')
+    return render(request, 'register.html')
 
 
-    
 def check_user(request):
     username = request.GET.get('username')
-    user=UserInfo.objects.filter(username=username).first
-    
+    user = UserInfo.objects.filter(username=username).first
+
 
 def login():
     return HttpResponse('login')
 
+
 def bootstrap5(request):
-    return render(request,'bootstrap5.html')
- 
+    return render(request, 'bootstrap5.html')
+
 
 def youtube(request):
-    url= 'https://www.googleapis.com/youtube/v3/search'
-    video_url='https://www.googleapis.com/youtube/v3/videos'
-
+    url = 'https://www.googleapis.com/youtube/v3/search'
+    video_url = 'https://www.googleapis.com/youtube/v3/videos'
 
     # if request.method == "GET":
-    #     
+    #
 
     #     print(search_params['q'])
-    #     return render(request,'test.html',context) 
+    #     return render(request,'test.html',context)
     search_params = {
-        'part':'snippet',
-        'q':'1',
+        'part': 'snippet',
+        'q': '1',
         'key': settings.YOUTUBE_DATA_API_KEY,
-        'maxResults' : 9,
-        'type':'video',
-        
-    } 
-    search_params['q']=request.POST.get('search')
+        'maxResults': 10,
+        'type': 'video',
 
-    print("==========",search_params['q'],"=========================================================================================================================================================================================")
-    
+    }
+    search_params['q'] = request.POST.get('search')
 
+    # print("==========",search_params['q'],"=========================================================================================================================================================================================")
 
-    
-    r=requests.get(url,params=search_params)
+    r = requests.get(url, params=search_params)
 
-    #print(r.text)
-    #print(r.json()['items'][0]['id']['videoId'])
-    video_ids=[]
-    resultes=r.json()['items']
+    # print(r.text)
+    # print(r.json()['items'][0]['id']['videoId'])
+    video_ids = []
+    resultes = r.json()['items']
     for result in resultes:
        # print(result['id']['videoId'])
         video_ids.append(result['id']['videoId'])
-      
 
     video_params = {
         'key': settings.YOUTUBE_DATA_API_KEY,
-        'part':'snippet,contentDetails',
-        'id':','.join(video_ids),
-        'maxResults' : 200,
+        'part': 'snippet,contentDetails',
+        'id': ','.join(video_ids),
+        'maxResults': 200,
 
-    }#二次搜索
-    
-    r=requests.get(video_url,params=video_params)
+    }  # 二次搜索
+
+    r = requests.get(video_url, params=video_params)
     resultes = r.json()['items']
-    #print(r.text)
+    # print(r.text)
     print(resultes)
-    videos=[]
+    videos = []
     for result in resultes:
-       
+
         video_data = {
-            'title':result['snippet']['title'],
-            'id':result['id'],
+            'title': result['snippet']['title'],
+            'id': result['id'],
             'url': f'https://www.youtube.com/watch?v={ result["id"] }',
-            'duration': int(parse_duration(result['contentDetails']['duration']).total_seconds()//60),#持续时间
-            'thumbnail':result['snippet']['thumbnails']['high']['url'],#略缩图
+            # 持续时间
+            'duration': int(parse_duration(result['contentDetails']['duration']).total_seconds()//60),
+            'thumbnail': result['snippet']['thumbnails']['high']['url'],  # 略缩图
         }
         print(video_data)
         videos.append(video_data)
-    #print(videos)
+    # print(videos)
     context = {
-        'videos' : videos
+        'videos': videos
     }
     print(context)
-    return render(request,'test.html',context)
+    return render(request, 'test.html', context)
 
-     #print(result)
+     # print(result)
         # print(result['snippet']['title'])
         # print(result['id'])
         # print(parse_duration(result['contentDetails']['duration']).total_seconds()//60)#秒
         # print(result['snippet']['thumbnails']['high']['url'])
-         #print(result['kind'])
-       #print(result['snippet']['channelId'])
+         # print(result['kind'])
+       # print(result['snippet']['channelId'])
+
+
+def test1(request):
+
+#     url = "https://online-movie-database.p.rapidapi.com/auto-complete"
+
+#     querystring = {
+#         "q":"giao",
+#         'maxResults' : 1,
+#     }
+
+#     headers = {
+# 	"X-RapidAPI-Key": "0a952dfc75mshbffb8cda5ffcbf8p112dcdjsnd7e8e0ce4569",
+# 	"X-RapidAPI-Host": "online-movie-database.p.rapidapi.com"
+# }
+
+#     response = requests.request("GET", url, headers=headers, params=querystring)
+#     response.json()
+
+#     print(response.text)
+#     print(response.json())
+
+    url = "https://moviesdatabase.p.rapidapi.com/titles/search/title/%7Btitle%7D"
+
+    actors_url="https://moviesdatabase.p.rapidapi.com/actors"
+
+    querystring = {"info": "mini_info", "limit": "10",
+        "page": "1", "titleType": "movie"}
+
+    headers = {
+	"X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
+	"X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
+}
+
+    response = requests.request(
+        "GET", url, headers=headers, params=querystring)
+
+    print(response.text)
+
+    return render(request, 'test1.html',querystring)
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# titleType":
+# {"text":"Movie","id":"movie","isSeries":false,"isEpisode":false,"__typename":"TitleType"},"titleText":
+# {"text":"Not About a Title","__typename":"TitleText"},
+# "releaseYear":{"year":2019,"endYear":null,"__typename":"YearRange"},
+# "releaseDate":
+# {"day":19,"month":6,"year":2019,"__typename":"ReleaseDate"}},{"id":"tt18808946","primaryImage":null,"titleType":{"text":"Movie","id":"movie","isSeries":false,"isEpisode":false,"__typename":"TitleType"},"titleText":{"text":"Title Fight","__typename":"TitleText"},"releaseYear":null,"releaseDate":null},{"id":"tt17537948","primaryImage":null,"titleType":{"text":"Movie","id":"movie","isSeries":false,"isEpisode":false,"__typename":"TitleType"},
+# "titleText":
+# {"text":"Title Merge","__typename":"TitleText"},"releaseYear":null,"releaseDate":null},{"id":"tt7311992","primaryImage":null,"titleType":
+# {"text":"Movie","id":"movie","isSeries":false,"isEpisode":false,"__typename":"TitleType"},"titleText":{"text":"Working Title","__typename":"TitleText"},"releaseYear":null,"releaseDate":null},{"id":"tt7208118","primaryImage":null,"titleType":{"text":"Movie","id":"movie","isSeries":false,"isEpisode":false,"__typename":"TitleType"},"titleText":{"text":"Undisclosed Title","__typename":"TitleText"},"releaseYear":null,"releaseDate":null},{"id":"tt3667646","primaryImage":null,"titleType":{"text":"Movie","id":"movie","isSeries":false,"isEpisode":false,"__typename":"TitleType"},"titleText":{"text":"Undisclosed Title","__typename":"TitleText"},"releaseYear":null,"releaseDate":null},{"id":"tt13348040","primaryImage":null,"titleType":{"text":"Movie","id":"movie","isSeries":false,"isEpisode":false,"__typename":"TitleType"},"titleText":{"text":"Unknown Title","__typename":"TitleText"},"releaseYear":null,"releaseDate":null},{"id":"tt13236364","primaryImage":null,
+# "titleType":{"text":"Movie","id":"movie","isSeries":false,"isEpisode":false,"__typename":"TitleType"},
+# "titleText":{"text":"Salvage Title","__typename":"TitleText"},"releaseYear":null,"releaseDate": null}]}

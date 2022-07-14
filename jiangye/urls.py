@@ -45,7 +45,7 @@ urlpatterns = [
     path('<year>/<int:month>/<slug:day>',views.myvariable,),
     path('index/',views.index,{'month':'2019/10/10'}),
     path('test/',views.youtube),
-
+    path('test1/',views.test1),
     #jaingyetest
     #path('book/',views.book),
     #path('book/detail<book_id>',views.book_detail),

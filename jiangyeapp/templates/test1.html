@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<link rel="stylesheet" type="text/css" href='/static/plugins/bootstrap-5.2.0-beta1-dist/css/bootstrap.css'>
+<script src="/static/plugins/bootstrap-5.2.0-beta1-dist/js/bootstrap.js"></script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+  
+
+<!-- <script src="/jiangye/jiangyeapp/static/plugins/bootstrap-5.2.0-beta1-dist/cs"></script> -->
+
+<!--test----------------1------------------------------------------------------------------------------------------------------------------------------------------------------>
+------------------------------------------------------------------------------------------------------------
+<script>
+  function myFunction(){
+	document.getElementById("myText").placeholder = "Button A";
+
+  console.log(document.getElementById("myText").value)
+  console.log(1111)
+  alert(document.getElementById("myText").value);
+}
+function myFunctionTwo(){
+	document.getElementById("myText").placeholder = "Button B";
+  console.log(document.getElementById("myText").value)
+  alert(document.getElementById("myText").value);
+}
+
+ 
+</script>
+
+<style>
+  .search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  width: 100%;
+  border: 3px solid #00B4CC;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+}
+
+.searchTerm:focus{
+  color: #00B4CC;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #00B4CC;
+  background: #00B4CC;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.wrap{
+  width: 30%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+</style>
+<form action="#" method="post" name="myform">
+<div class="wrap">
+  <div class="search">
+     <input type="text" class="searchTerm" placeholder="What are you looking for?" id="myText" >
+     <button type="submit" class="searchButton">11
+       <i class="fa fa-search"></i>
+     </button>
+  </div>
+    <button type="submit" onclick="myFunction()">a</button>
+     <button type="submit" onclick="myFunctionTwo()">b</button>
+</div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+---------------------------------------------------------------------------------------------------------
+<!--test----------------2------------------------------------------------------------------------------------------------------------------------------------------------------>
+
+   <!--test-----------------1----------------------------------------------------------------------------------------------------------------------------------------------------->
+   
+   
+  <div class="card" style="width: 18rem">
+    <img src="/static/images/cat.jpg" class="card-img-top"/>
+      <div class="card-body">
+          <h5 class="card-title">title</h5>
+            <p class="card-text">
+              dasda
+            </p>
+              <a href="#" class="btn btn-primary">sda</a>
+
+      </div>
+  
+ 
+  
+    </div> 
+
+    {% for video in videos %}
+
+
+    <img class="" width="255" height="me-auto" src="{{ video.thumbnail }}">
+    <li>{{ video.title }}</li>
+    <li><a type="button" href="{{ video.url }}" class="btn btn-sm btn-outline-secondary">view</a></li>
+   <li>{{ video.duration }}</li> 
+    {% endfor %}
+    
+
+  
+  
+  
+  
+  
+  
+
+
+<!--
+  test2
+-->
+<!-- Gallery -->
+<!-- <div class="row">
+    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+      <img
+        src="/static/images/cat.jpg"
+        class="w-100 shadow-1-strong rounded mb-4"
+        alt="Boat on Calm Water"
+      />
+  
+      <img
+        src="/static/images/cat.jpg"
+        class="w-100 shadow-1-strong rounded mb-4"
+        alt="Wintry Mountain Landscape"
+      />
+    </div>
+  </div>
+  < Gallery -->
+
+  <!-- <div class="row">
+    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+      <img
+        src="/static/images/cat.jpg"
+        class="w-100 shadow-1-strong rounded mb-4"
+        alt="Boat on Calm Water"
+      />
+  
+      <img
+        src="/static/images/cat.jpg"
+        class="w-100 shadow-1-strong rounded mb-4"
+        alt="Wintry Mountain Landscape"
+      />
+    </div>
+  </div> --> -->
+  <!-- <div class="row">
+  {% for video in videos %}
+  
+    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0"></div>
+      <img class="w-100 shadow-1-strong rounded mb-4" src="{{ video.thumbnail }}" alt="Boat on Calm Water"/>
+      
+      {{ video.title }}
+      <a type="button" href="{{ video.url }}" class="btn btn-sm btn-outline-secondary">view</a>
+      {{ video.duration }}
+      {% endfor %}
+      
+  </div> -->
+
+
+ 
+ 
+
+  <!-- {% for video in videos %}
+  
+    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+      
+
+      <a class="ripple" href="{{ video.url }}">
+        <img
+          class="img-fluid rounded"
+          class="img-fluid rounded-circle"
+          src="{{ video.thumbnail }}"
+        />
+      </a>
+      
+      {{ video.title }}
+      <a type="button" href="" class="btn btn-sm btn-outline-secondary">view</a>
+      {{ video.duration }}
+      {% endfor %}
+      
+  </div></div> -->
+
+<!--test---------------------2------------------------------------------------------------------------------------------------------------------------------------------------->
+   
+
+
+
+
+
+
+
+
+<!--导航条-->
+    <!-- <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Navbar</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link disabled">Disabled</a>
+              </li>
+            </ul>
+            <form class="d-flex" role="search" method="post">
+              <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success"  type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav> -->
+
+
+<!-- <img src="/static/images/cat.jpg"> -->
+
+<!--=====================test-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--=====================test-->
+
+</body>
+</html>
+
+
+
+
+
