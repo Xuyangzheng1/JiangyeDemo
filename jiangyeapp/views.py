@@ -1,3 +1,5 @@
+from ast import Param
+import json
 from django.http import HttpResponse, JsonResponse
 from asyncio.windows_events import NULL
 from calendar import month
@@ -20,6 +22,9 @@ from isodate import parse_duration
 # pip install -U rdflib
 import requests
 from django.conf import settings
+import imdb
+
+
 
 # Create your views here.
 
@@ -271,8 +276,284 @@ def youtube(request):
          # print(result['kind'])
        # print(result['snippet']['channelId'])
 
-
+    
 def test1(request):
+
+   #https://rapidapi.com/rapidapi/api/movie-database-alternative/
+
+    url = "https://movie-database-alternative.p.rapidapi.com/"
+
+    querystring = {"s":"Avengers Endgame",
+    "r":"json",
+    "page":"1"}
+
+    headers = {
+	"X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
+	"X-RapidAPI-Host": "movie-database-alternative.p.rapidapi.com"
+}
+
+    response = requests.request("GET", url, headers=headers, params=querystring)
+
+    print(response.text)
+    fielddict = response.json()
+    
+    return render(request,'test1.html',{'field':fielddict})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    {"Search":[{"Title":"Avengers: Endgame",
+    "Year":"2019",
+    "imdbID":"tt4154796",
+    "Type":"movie",
+    "Poster":"https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_SX300.jpg"},
+    {"Title":"Avengers: Endgame and the Latest Captain Marvel Outrage!!",
+    "Year":"2019",
+    "imdbID":"tt10025738",
+    "Type":"movie",
+    "Poster":"https://m.media-amazon.com/images/M/MV5BZjg2ZTM3OTgtY2ExMS00OGM4LTg3NDEtNjQ0MjJiZDFmMGFkXkEyXkFqcGdeQXVyMDY3OTcyOQ@@._V1_SX300.jpg"},
+    {"Title":"Marvel Studios' Avengers: Endgame LIVE Red Carpet World Premiere",
+    "Year":"2019",
+    "imdbID":"tt10240638",
+    "Type":"movie",
+    "Poster":"https://m.media-amazon.com/images/M/MV5BNThjZDgwZTYtMjdmYy00ZmUyLTk4NTUtMzdjZmExODQ3ZmY4XkEyXkFqcGdeQXVyMjkzMDgyNTg@._V1_SX300.jpg"},
+    {"Title":"Avengers Endgame: the Butt Plan",
+    "Year":"2019",
+    "imdbID":"tt10399328",
+    "Type":"movie",
+    "Poster":"https://m.media-amazon.com/images/M/MV5BNTQ1OWQzODktMTY3Zi00OTQxLWExOTYtZTNjZjY5ZTY4M2UyXkEyXkFqcGdeQXVyMTAzMzk0NjAy._V1_SX300.jpg"},
+    {"Title":"Avengers: Endgame (2019)",
+    "Year":"2019",
+    "imdbID":"tt16416424",
+    "Type":"movie",
+    "Poster":"N/A"},
+    {"Title":"Avengers: Endgame (2019) - Spoiler Full Review",
+    "Year":"2019",
+    "imdbID":"tt17978032",
+    "Type":"movie",
+    "Poster":"N/A"}],
+    "totalResults":"6",
+    "Response":"True"}
+    
+# Base url that connects us to the server where the movie info is located
+#     url = "https://imdb8.p.rapidapi.com/auto-complete"
+
+# # These headers are used to authenticate your connection
+#     headers = {
+#     'x-rapidapi-host': "imdb8.p.rapidapi.com",
+#     'x-rapidapi-key': ""
+#     }
+
+# # These are my keywords I'd like to search for
+#     searchTerms = ["spider", "ironman", "avengers", "star wars"]
+
+# # I store all the responses in a list
+#     responses = []
+
+# # Here I loop through the search terms
+#     for x in range(len(searchTerms)):
+#   # Update the searchterm in the url parameters
+#         querystring = {"q": searchTerms[x]}
+
+#   # Query the API and save the result
+#     response = requests.request("GET", url, headers=headers, params=querystring)
+
+#   # Turn the json text from the response into a useful json python object
+#     data = json.loads(response.text)
+
+#   # Format the json to be more readable this is mostly for viewing raw
+#   # response data when debugging
+#     formattedData = json.dumps(data, indent=4)
+#   # Uncomment the following line to see the raw response from the api
+#   # print(formattedData)
+
+#   # Load the json data into a dictionary
+#     dataDict = json.loads(formattedData)
+
+#   # Save the most important data in our list
+#     responses.append(dataDict["d"])
+
+# # Print out the results
+#     for x in range(len(searchTerms)):
+#         print("\n\nSearch Term: \"" + str(searchTerms[x]) + "\"")
+#     for movie in responses[x]:
+#         try:
+#     # I used try/except here to keep going just incase a movie doesn't have
+#     # the data I'm asking for. 
+                
+#              print("Title: " + movie["l"])
+#              print("Image: " + movie["i"]["imageUrl"])
+#         except:
+#              pass
+#     return render(request,'test1.html',querystring)
+#     url = "https://moviesdatabase.p.rapidapi.com/titles/search/title/%7Btitle%7D"
+
+#     actors_url="https://moviesdatabase.p.rapidapi.com/actors"
+
+#     # querystring = {"q":"game",
+#     #         #         "info": "mini_info",
+#     #         #       "limit": "10",
+#     #         #        "page": "1", 
+#     #         #   "titleType": "movie",
+#     #           }
+
+#     headers = {
+# 	"X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
+# 	"X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
+# }
+
+#     searchTerms = ["avengers",]#search
+
+#     response = []
+
+#     # for x in range(len(searchTerms)):
+#     querystring = {"q":"game",}
+
+
+
+#     response = requests.request(
+#         "GET", url, headers=headers, params=querystring)#save the result,send request
+
+#     data = json.loads(response.text)    #turn the json text from the response into a useful json python object
+
+#     #format the json to be more readable this is mostly for viewing raw
+#     #response data when debugging
+#     formattedData = json.dumps(data,indent=4)
+#     #uncomment the following line to see the raw response from the api
+#     print(formattedData)
+
+#     # print(response.text)
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#test>---------------------------------------------
+#     
+#     moviesDB = imdb.IMDb()
+#     # test=dir(moviesDB)
+#     # print(dir(moviesDB))
+
+#     #search for a title
+#     movies = moviesDB.search_movie('inception')
+#     print('searching for "inception"')
+#     for movie in movies:
+#         title = movie['title']
+#         year = movie['year']
+
+#         print(f'{title}-{year}')
+#         test=(f'{title}-{year}')
+# #>---------------------------------list movies info
+#     # return render(request, 'test1.html',moviesDB)
+
+#     id = movies[0].getID()
+#     movie = moviesDB.get_movie(id)
+#     title = movie['title']
+#     year = movie['year']
+#     rating = movie['rating']
+#     directors = movie['directors']
+#     casting = movie['cast']
+
+#     print('Movie info:')
+#     print(f'{title}-{year}')
+#     print(f'rating: {rating}')
+
+#     direcStr = ''.join(map(str,directors))
+#     print(f'directors: {direcStr}')
+
+#     actors = ','.join(map(str,casting))
+#     print(f'actors:{actors}')
+   # return HttpResponse(test)
+#>-----------------------------------list actor info
+
+    
+
+
+
+# def movies():
+#     moviesDB = imdb.IMDb()
+#     print(moviesDB)
+
+# movies()
+
+
 
 #     url = "https://online-movie-database.p.rapidapi.com/auto-complete"
 
@@ -291,36 +572,6 @@ def test1(request):
 
 #     print(response.text)
 #     print(response.json())
-
-    url = "https://moviesdatabase.p.rapidapi.com/titles/search/title/%7Btitle%7D"
-
-    actors_url="https://moviesdatabase.p.rapidapi.com/actors"
-
-    querystring = {"info": "mini_info", "limit": "10",
-        "page": "1", "titleType": "movie"}
-
-    headers = {
-	"X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
-	"X-RapidAPI-Host": "moviesdatabase.p.rapidapi.com"
-}
-
-    response = requests.request(
-        "GET", url, headers=headers, params=querystring)
-
-    print(response.text)
-
-    return render(request, 'test1.html',querystring)
-
-    
-
-
-
-
-
-
-
-
-
 
 
 

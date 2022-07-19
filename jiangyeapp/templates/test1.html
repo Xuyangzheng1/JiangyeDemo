@@ -190,15 +190,38 @@ function myFunctionTwo(){
  
   
     </div> 
+    {% for m,n in field.items %}
+    <li>1</li>
+    {{ m }}:{{ n }}
+    <li>2</li>
+    <img class="card-img-top" width="255" height="me-auto" src="{{ field.Poster }}">
+    {% endfor %}
+    <li>3</li>
+    {{field.Search}}
 
-    {% for video in videos %}
+
+    <!-- <li>4</li>
+    {% for field in fielddict %} -->
+    <div class="card" style="width: 18rem">
+    
+        <img class="card-img-top" width="255" height="me-auto" src="{{ video.thumbnail }}">
+        <h3 class="card-title">{{ field.title }}</h3>
+        <h3><a type="button" href="{{ video.url }}" class="btn btn-primary">view</a></h3>
+       <h3>{{ video.duration }} mins</h3>
+          {% endfor %}
+      </div>
+     
+
+    
+
+    <!-- {% for video in videos %}
 
 
     <img class="" width="255" height="me-auto" src="{{ video.thumbnail }}">
     <li>{{ video.title }}</li>
     <li><a type="button" href="{{ video.url }}" class="btn btn-sm btn-outline-secondary">view</a></li>
    <li>{{ video.duration }}</li> 
-    {% endfor %}
+    {% endfor %} -->
     
 
   
