@@ -90,9 +90,32 @@ function myFunctionTwo(){
 </form>
 
 
+<!-- <div>
+  {% for obj in moviesdata %}
+  {{ obj.movieId }}
+  {{ obj.imageUrl }}
+  {{ obj.movieName }}
+  {{ obj.movieType}}
+  {{ obj.movieActor }}
+  {{ obj.movieRank}}
 
 
+  {%endfor%}
+</div> -->
 
+
+<div>
+  {% for obj in moviesdata %}
+  <div class="card" style="width: 18rem">
+  
+      <img class="card-img-top" width="255" height="me-auto" src="{{ obj.imageUrl }}">
+      <h3 class="card-title">{{ obj.movieName }}</h3>
+      <h3><a type="button" href="{{ obj.movieId }}" class="btn btn-primary">view</a></h3>
+     <h3>rank:{{ obj.movieRank}}</h3>
+        {% endfor %}
+    </div>
+  
+</div>
 
 
 
@@ -190,24 +213,17 @@ function myFunctionTwo(){
  
   
     </div> 
-    {% for m,n in field.items %}
-    <li>1</li>
-    {{ m }}:{{ n }}
-    <li>2</li>
-    <img class="card-img-top" width="255" height="me-auto" src="{{ field.Poster }}">
-    {% endfor %}
-    <li>3</li>
-    {{field.Search}}
+    
 
 
-    <!-- <li>4</li>
-    {% for field in fielddict %} -->
+    <li>4</li>
+    {% for Info in IMDBmoviesInfo %}
     <div class="card" style="width: 18rem">
     
-        <img class="card-img-top" width="255" height="me-auto" src="{{ video.thumbnail }}">
-        <h3 class="card-title">{{ field.title }}</h3>
-        <h3><a type="button" href="{{ video.url }}" class="btn btn-primary">view</a></h3>
-       <h3>{{ video.duration }} mins</h3>
+        <img class="card-img-top" width="255" height="me-auto" src="{{ Info.Poster }}">
+        <h3 class="card-title">{{ Info.Title }}</h3>
+        <!-- <h3><a type="button" href="{{ video.url }}" class="btn btn-primary">view</a></h3> -->
+       <h3>{{ Info.Year }} mins</h3>
           {% endfor %}
       </div>
      
