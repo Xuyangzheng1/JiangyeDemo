@@ -2,118 +2,135 @@
 <link rel="stylesheet" type="text/css" href='/static/plugins/bootstrap-5.2.0-beta1-dist/css/bootstrap.css'>
 <script src="/static/plugins/bootstrap-5.2.0-beta1-dist/js/bootstrap.js"></script>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 
 
 
-  
-
-<!-- <script src="/jiangye/jiangyeapp/static/plugins/bootstrap-5.2.0-beta1-dist/cs"></script> -->
-
-<!--test----------------1------------------------------------------------------------------------------------------------------------------------------------------------------>
-------------------------------------------------------------------------------------------------------------
-<script>
-  function myFunction(){
-	document.getElementById("myText").placeholder = "Button A";
-
-  console.log(document.getElementById("myText").value)
-  console.log(1111)
-  alert(document.getElementById("myText").value);
-}
-function myFunctionTwo(){
-	document.getElementById("myText").placeholder = "Button B";
-  console.log(document.getElementById("myText").value)
-  alert(document.getElementById("myText").value);
-}
-
- 
-</script>
-
-<style>
-  .search {
-  width: 100%;
-  position: relative;
-  display: flex;
-}
-
-.searchTerm {
-  width: 100%;
-  border: 3px solid #00B4CC;
-  border-right: none;
-  padding: 5px;
-  height: 20px;
-  border-radius: 5px 0 0 5px;
-  outline: none;
-  color: #9DBFAF;
-}
-
-.searchTerm:focus{
-  color: #00B4CC;
-}
-
-.searchButton {
-  width: 40px;
-  height: 36px;
-  border: 1px solid #00B4CC;
-  background: #00B4CC;
-  text-align: center;
-  color: #fff;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 20px;
-}
-
-/*Resize the wrap to see the search bar change!*/
-.wrap{
-  width: 30%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-</style>
-<form action="#" method="post" name="myform">
-<div class="wrap">
-  <div class="search">
-     <input type="text" class="searchTerm" placeholder="What are you looking for?" id="myText" >
-     <button type="submit" class="searchButton">11
-       <i class="fa fa-search"></i>
-     </button>
-  </div>
-    <button type="submit" onclick="myFunction()">a</button>
-     <button type="submit" onclick="myFunctionTwo()">b</button>
-</div>
-</form>
 
 
-<!-- <div>
-  {% for obj in moviesdata %}
-  {{ obj.movieId }}
-  {{ obj.imageUrl }}
-  {{ obj.movieName }}
-  {{ obj.movieType}}
-  {{ obj.movieActor }}
-  {{ obj.movieRank}}
+  <!-- <script src="/jiangye/jiangyeapp/static/plugins/bootstrap-5.2.0-beta1-dist/cs"></script> -->
+
+  <!--test----------------1------------------------------------------------------------------------------------------------------------------------------------------------------>
+  ------------------------------------------------------------------------------------------------------------
+  <script>
+    function myFunction() {
+      document.getElementById("myText").placeholder = "Button A";
+
+      console.log(document.getElementById("myText").value)
+      console.log(1111)
+      alert(document.getElementById("myText").value);
+    }
+    function myFunctionTwo() {
+      document.getElementById("myText").placeholder = "Button B";
+      console.log(document.getElementById("myText").value)
+      alert(document.getElementById("myText").value);
+    }
 
 
-  {%endfor%}
-</div> -->
+  </script>
+
+  <style>
+    .search {
+      width: 100%;
+      position: relative;
+      display: flex;
+    }
+
+    .searchTerm {
+      width: 100%;
+      border: 3px solid #00B4CC;
+      border-right: none;
+      padding: 5px;
+      height: 20px;
+      border-radius: 5px 0 0 5px;
+      outline: none;
+      color: #9DBFAF;
+    }
+
+    .searchTerm:focus {
+      color: #00B4CC;
+    }
+
+    .searchButton {
+      width: 40px;
+      height: 36px;
+      border: 1px solid #00B4CC;
+      background: #00B4CC;
+      text-align: center;
+      color: #fff;
+      border-radius: 0 5px 5px 0;
+      cursor: pointer;
+      font-size: 20px;
+    }
+
+    /*Resize the wrap to see the search bar change!*/
+    .wrap {
+      width: 30%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  </style>
+  <form action="#" method="post" name="myform">
+    <div class="wrap">
+      <div class="search">
+        <input type="text" class="searchTerm" placeholder="What are you looking for?" id="myText">
+        <button type="submit" class="searchButton">11
+          <i class="fa fa-search"></i>
+        </button>
+      </div>
+      <button type="submit" onclick="myFunction()">Search video</button>
+      <button type="submit" onclick="myFunctionTwo()">Search moviesInfo</button>
+    </div>
+  </form>
 
 
-<div>
-  {% for obj in moviesdata %}
-  <div class="card" style="width: 18rem">
-  
+
+
+  <div>
+    {% for obj in moviesdata %}
+    <div class="card" style="width: 18rem">
+      {{ obj.movieType}}
+      <li>{{ obj.movieActor }}</li>
       <img class="card-img-top" width="255" height="me-auto" src="{{ obj.imageUrl }}">
       <h3 class="card-title">{{ obj.movieName }}</h3>
       <h3><a type="button" href="{{ obj.movieId }}" class="btn btn-primary">view</a></h3>
-     <h3>rank:{{ obj.movieRank}}</h3>
-        {% endfor %}
+      <h3>rank:{{ obj.movieRank}}</h3>
+      {% endfor %}
     </div>
+
+  </div>
+
+
+
+
+
+  <div class="card" style="width: 18rem">
+    <img src="/static/images/cat.jpg" class="card-img-top" />
+    <div class="card-body">
+      <h5 class="card-title">title</h5>
+      <p class="card-text">
+        dasda
+      </p>
+      <a href="#" class="btn btn-primary">sda</a>
+
+    </div>
+
+
+
+  </div>
+<div>test--
+<form action="test1.html">
+  <input type="search" name="testzx">
+  <button type="submit" id="submit">submit</button>
+  <button type="submit1" id="submit1">submit1</button>
+</form>
   
 </div>
 
@@ -133,104 +150,72 @@ function myFunctionTwo(){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
----------------------------------------------------------------------------------------------------------
-<!--test----------------2------------------------------------------------------------------------------------------------------------------------------------------------------>
-
-   <!--test-----------------1----------------------------------------------------------------------------------------------------------------------------------------------------->
-   
-   
+  <!-- <li>4</li>
+  {% for Info in IMDBmoviesInfo %}
   <div class="card" style="width: 18rem">
-    <img src="/static/images/cat.jpg" class="card-img-top"/>
-      <div class="card-body">
-          <h5 class="card-title">title</h5>
-            <p class="card-text">
-              dasda
-            </p>
-              <a href="#" class="btn btn-primary">sda</a>
 
-      </div>
-  
- 
-  
-    </div> 
-    
+    <img class="card-img-top" width="255" height="me-auto" src="{{ Info.Poster }}">
+    <h3 class="card-title">{{ Info.Title }}</h3>
+    <h3><a type="button" href="{{ video.url }}" class="btn btn-primary">view</a></h3> -->
+    <!-- <h3>{{ Info.Year }} mins</h3>
+    {% endfor %}
+  </div> --> -->
 
 
-    <li>4</li>
-    {% for Info in IMDBmoviesInfo %}
-    <div class="card" style="width: 18rem">
-    
-        <img class="card-img-top" width="255" height="me-auto" src="{{ Info.Poster }}">
-        <h3 class="card-title">{{ Info.Title }}</h3>
-        <!-- <h3><a type="button" href="{{ video.url }}" class="btn btn-primary">view</a></h3> -->
-       <h3>{{ Info.Year }} mins</h3>
-          {% endfor %}
-      </div>
-     
 
-    
 
-    <!-- {% for video in videos %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <!-- {% for video in videos %}
 
 
     <img class="" width="255" height="me-auto" src="{{ video.thumbnail }}">
@@ -238,21 +223,21 @@ function myFunctionTwo(){
     <li><a type="button" href="{{ video.url }}" class="btn btn-sm btn-outline-secondary">view</a></li>
    <li>{{ video.duration }}</li> 
     {% endfor %} -->
-    
-
-  
-  
-  
-  
-  
-  
 
 
-<!--
+
+
+
+
+
+
+
+
+  <!--
   test2
 -->
-<!-- Gallery -->
-<!-- <div class="row">
+  <!-- Gallery -->
+  <!-- <div class="row">
     <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
       <img
         src="/static/images/cat.jpg"
@@ -298,8 +283,8 @@ function myFunctionTwo(){
   </div> -->
 
 
- 
- 
+
+
 
   <!-- {% for video in videos %}
   
@@ -321,8 +306,7 @@ function myFunctionTwo(){
       
   </div></div> -->
 
-<!--test---------------------2------------------------------------------------------------------------------------------------------------------------------------------------->
-   
+  <!--test---------------------2------------------------------------------------------------------------------------------------------------------------------------------------->
 
 
 
@@ -331,8 +315,9 @@ function myFunctionTwo(){
 
 
 
-<!--导航条-->
-    <!-- <nav class="navbar navbar-expand-lg bg-light">
+
+  <!--导航条-->
+  <!-- <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
           <a class="navbar-brand" href="#">Navbar</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -370,11 +355,9 @@ function myFunctionTwo(){
       </nav> -->
 
 
-<!-- <img src="/static/images/cat.jpg"> -->
+  <!-- <img src="/static/images/cat.jpg"> -->
 
-<!--=====================test-->
-
-
+  <!--=====================test-->
 
 
 
@@ -390,12 +373,10 @@ function myFunctionTwo(){
 
 
 
-<!--=====================test-->
 
-</body>
+
+  <!--=====================test-->
+
+  </body>
+
 </html>
-
-
-
-
-

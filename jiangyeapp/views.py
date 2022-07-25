@@ -283,14 +283,13 @@ def test1(request):
 
 #https://rapidapi.com/apidojo/api/online-movie-database/
 
-
-
     url = "https://online-movie-database.p.rapidapi.com/auto-complete"
 
     querystring = {
-                    "q":"The Black Phone"
+                    "q":"Avengers"#Avengers
 }
-
+#-----------------------------------------------------------------
+    
     headers = {
 	"X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
 	"X-RapidAPI-Host": "online-movie-database.p.rapidapi.com"
@@ -302,39 +301,7 @@ def test1(request):
 
     fielddict = response.json()
 
-    # text=fielddict['d'][0]
-   
-    # print(fielddict.get('d')[0]['i'])#{'height': 2048, 'imageUrl': 'https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg', 'width': 1382}
-    # print(fielddict.get('d')[0]['id'])#tt4154796
-    # print(fielddict.get('d')[0]['l'])#Avengers: Endgame
-    # print(fielddict.get('d')[0]['q'])#feature
-    # print(fielddict.get('d')[0]['rank'])#157
-    # print(fielddict.get('d')[0]['s'])#Robert Downey Jr., Chris Evans
-
-
-    # print(fielddict.get('d')[0]['v'][0]["i"]['height'])#1080
-    # print(fielddict.get('d')[0]['v'][0]["i"]['imageUrl'])#https://m.media-amazon.com/images/M/MV5BOThlNjdhZmQtNzlkOS00M2VjLWI0ZjUtZDExZDI1MjRhZGFkXkEyXkFqcGdeQW1yb3NzZXI@._V1_.jpg
-    # print(fielddict.get('d')[0]['v'][0]['i']['width'])#1920
-
-    # print(fielddict.get('d')[0]['v'][0]['id'])#vi2163260441
-    # print(fielddict.get('d')[0]['v'][0]['l'])#"Policy" Trailer
-    # print(fielddict.get('d')[0]['v'][0]['s'])#1:06
-
-    # print(fielddict.get('d')[0]['v'][1]["i"]['height'])#1080
-    # print(fielddict.get('d')[0]['v'][1]["i"]['imageUrl'])#https://m.media-amazon.com/images/M/MV5BZTFiN2Y4NzEtNDBiNC00MGRiLWFjODAtMzFiYTY2NmE5YmZhXkEyXkFqcGdeQWplZmZscA@@._V1_.jpg
-    # print(fielddict.get('d')[0]['v'][1]["i"]['width'])#1920
-    # print(fielddict.get('d')[0]['v'][1]["id"])#vi2232337177
-    # print(fielddict.get('d')[0]['v'][1]["l"])#The 6 Most Romantic Moments in the Marvel Cinematic Universe
-    # print(fielddict.get('d')[0]['v'][1]["s"])#1:48
-
-    # print(fielddict.get('d')[0]['v'][2]["i"]['height'])#1080
-    # print(fielddict.get('d')[0]['v'][2]["i"]["imageUrl"])#https://m.media-amazon.com/images/M/MV5BZTNhMWM0M2ItMDY1Ny00MmQ5LWI3N2QtYmY4Njc2MWEyMTYzXkEyXkFqcGdeQXRyYW5zY29kZS13b3JrZmxvdw@@._V1_.jpg
-    # print(fielddict.get('d')[0]['v'][2]["i"]["width"])#1920
-    # print(fielddict.get('d')[0]['v'][2]["id"])#vi1865596185
-    # print(fielddict.get('d')[0]['v'][2]["l"])#"Stakes" Featurette
-    # print(fielddict.get('d')[0]['v'][2]["s"])#1:01
-    # print(fielddict.get('d')[0]['vt'])#117
-    # print(fielddict.get('d')[0]['y'])#2019
+    
     moviesdata = []
     for x in range(0,len(fielddict)):
         print('-----------------------------------------')
@@ -365,6 +332,116 @@ def test1(request):
         'moviesdata': moviesdata
     }
     return render(request,'test1.html',context)
+
+
+
+#ajax
+def testjs(request):
+    if request.method == 'POST':
+        n1=str(request.POST.get('n1'))
+        n2=str(request.POST.get('n2'))
+    
+        print('n1'+n1)
+        print('------')
+        print('n2'+n2)
+        return HttpResponse(n1+n2)
+   
+    
+    return render(request,"testjs.html")
+
+    
+   # return HttpResponse('adsdasdasdasdasd')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         #  video_data = {
         #     'title': result['snippet']['title'],
         #     'id': result['id'],
@@ -1207,3 +1284,61 @@ def test1(request):
 # {"text":"Movie","id":"movie","isSeries":false,"isEpisode":false,"__typename":"TitleType"},"titleText":{"text":"Working Title","__typename":"TitleText"},"releaseYear":null,"releaseDate":null},{"id":"tt7208118","primaryImage":null,"titleType":{"text":"Movie","id":"movie","isSeries":false,"isEpisode":false,"__typename":"TitleType"},"titleText":{"text":"Undisclosed Title","__typename":"TitleText"},"releaseYear":null,"releaseDate":null},{"id":"tt3667646","primaryImage":null,"titleType":{"text":"Movie","id":"movie","isSeries":false,"isEpisode":false,"__typename":"TitleType"},"titleText":{"text":"Undisclosed Title","__typename":"TitleText"},"releaseYear":null,"releaseDate":null},{"id":"tt13348040","primaryImage":null,"titleType":{"text":"Movie","id":"movie","isSeries":false,"isEpisode":false,"__typename":"TitleType"},"titleText":{"text":"Unknown Title","__typename":"TitleText"},"releaseYear":null,"releaseDate":null},{"id":"tt13236364","primaryImage":null,
 # "titleType":{"text":"Movie","id":"movie","isSeries":false,"isEpisode":false,"__typename":"TitleType"},
 # "titleText":{"text":"Salvage Title","__typename":"TitleText"},"releaseYear":null,"releaseDate": null}]}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# text=fielddict['d'][0]
+   
+    # print(fielddict.get('d')[0]['i'])#{'height': 2048, 'imageUrl': 'https://m.media-amazon.com/images/M/MV5BMTc5MDE2ODcwNV5BMl5BanBnXkFtZTgwMzI2NzQ2NzM@._V1_.jpg', 'width': 1382}
+    # print(fielddict.get('d')[0]['id'])#tt4154796
+    # print(fielddict.get('d')[0]['l'])#Avengers: Endgame
+    # print(fielddict.get('d')[0]['q'])#feature
+    # print(fielddict.get('d')[0]['rank'])#157
+    # print(fielddict.get('d')[0]['s'])#Robert Downey Jr., Chris Evans
+
+
+    # print(fielddict.get('d')[0]['v'][0]["i"]['height'])#1080
+    # print(fielddict.get('d')[0]['v'][0]["i"]['imageUrl'])#https://m.media-amazon.com/images/M/MV5BOThlNjdhZmQtNzlkOS00M2VjLWI0ZjUtZDExZDI1MjRhZGFkXkEyXkFqcGdeQW1yb3NzZXI@._V1_.jpg
+    # print(fielddict.get('d')[0]['v'][0]['i']['width'])#1920
+
+    # print(fielddict.get('d')[0]['v'][0]['id'])#vi2163260441
+    # print(fielddict.get('d')[0]['v'][0]['l'])#"Policy" Trailer
+    # print(fielddict.get('d')[0]['v'][0]['s'])#1:06
+
+    # print(fielddict.get('d')[0]['v'][1]["i"]['height'])#1080
+    # print(fielddict.get('d')[0]['v'][1]["i"]['imageUrl'])#https://m.media-amazon.com/images/M/MV5BZTFiN2Y4NzEtNDBiNC00MGRiLWFjODAtMzFiYTY2NmE5YmZhXkEyXkFqcGdeQWplZmZscA@@._V1_.jpg
+    # print(fielddict.get('d')[0]['v'][1]["i"]['width'])#1920
+    # print(fielddict.get('d')[0]['v'][1]["id"])#vi2232337177
+    # print(fielddict.get('d')[0]['v'][1]["l"])#The 6 Most Romantic Moments in the Marvel Cinematic Universe
+    # print(fielddict.get('d')[0]['v'][1]["s"])#1:48
+
+    # print(fielddict.get('d')[0]['v'][2]["i"]['height'])#1080
+    # print(fielddict.get('d')[0]['v'][2]["i"]["imageUrl"])#https://m.media-amazon.com/images/M/MV5BZTNhMWM0M2ItMDY1Ny00MmQ5LWI3N2QtYmY4Njc2MWEyMTYzXkEyXkFqcGdeQXRyYW5zY29kZS13b3JrZmxvdw@@._V1_.jpg
+    # print(fielddict.get('d')[0]['v'][2]["i"]["width"])#1920
+    # print(fielddict.get('d')[0]['v'][2]["id"])#vi1865596185
+    # print(fielddict.get('d')[0]['v'][2]["l"])#"Stakes" Featurette
+    # print(fielddict.get('d')[0]['v'][2]["s"])#1:01
+    # print(fielddict.get('d')[0]['vt'])#117
+    # print(fielddict.get('d')[0]['y'])#2019
