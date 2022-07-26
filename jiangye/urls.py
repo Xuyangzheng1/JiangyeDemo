@@ -44,7 +44,7 @@ urlpatterns = [
     path('info/delete/',views.info_delete),
     path('<year>/<int:month>/<slug:day>',views.myvariable,),
     path('index/',views.index,{'month':'2019/10/10'}),
-    path('test/',views.testjs),
+    # path('test/',views.testjs),
     path('test/',views.youtube),
     path('test1/',views.test1),
     path('testjs/',views.testjs),
