@@ -5,15 +5,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>testjs</title>
     
 {% load static %}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href='/static/plugins/bootstrap-5.2.0-beta1-dist/css/bootstrap.css'>
+<script src="/static/plugins/bootstrap-5.2.0-beta1-dist/js/bootstrap.js"></script>
     <!-- <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script> -->
 </head>
 <body>
 
+ 
     
+
 
   <div class="body">
     <div class="input">
@@ -21,8 +25,8 @@
     </div>
 
     <div class="submit">
-      <button onclick="clickFunOne()">clickMe1</button>
-      <button onclick="clickFunTwo()">clickMe2</button>
+      <button onclick="clickFunOne()">YouTube</button>
+      <button onclick="clickFunTwo()">post</button>
     </div>
   </div>
 
@@ -33,8 +37,8 @@
 	 console.log(document.getElementById('input').value);
 
   console.log(document.getElementById('input').value);
-  const text1 = document.getElementById('input').value
-  console.log(text1 + text1)
+  // const text1 = document.getElementById('input').value
+  // console.log(text1 + text1)
 	$.ajax({
     type: 'POST',
 		url: '',
@@ -42,12 +46,20 @@
   
       n1: $("#input").val(),},
 		success: function(result) {
+      if(result){
+        // window.location.href='https://www.javbus.com/'
+        // window.location.href='/test/'
+        $(document.body).html(result);
+
+      }
 			console.log(result);
+      
 		}
 	});
 }
 
 function clickFunTwo() {
+  console.log('otwo click');
   console.log(document.getElementById('input').value);
   const text = document.getElementById('input').value
   console.log(text)
@@ -58,190 +70,55 @@ function clickFunTwo() {
   
       n2: $("#input").val(),},
 		success: function(result) {
+      if(result){
+        // window.location.href='https://www.javbus.com/uncensored/star/sfy'
+        // window.location.href='/test1/'
+        $(document.body).html(result);
+
+
+      }
 			console.log(result);
+      
+      
 		}
 	});
 }
 
-  </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--
-
-        -----------------------------------------------------------------
-    -->
-    
-
-
-    <!--
-        ----------------------------------------------------------------
-    -->
-    
-
-<!-- 
-<form action="" method="post">
-    <input type="search" name="testzx">
-    <button type="submit" id="submit" key="submit">submit</button>
-    <button type="submit1" id="submit1" key="submit1">submit1</button>
-  </form> -->
-    
-  <!-- </div>
-
-
-  <script>
-    function myFunction(){
-	document.getElementById("myText").placeholder = "Button A";
-
-  console.log(document.getElementById("myText").value)
-  console.log(1111)
-  alert(document.getElementById("myText").value + "one");
-}
-function myFunctionTwo(){
-	document.getElementById("myText").placeholder = "Button B";
-  console.log(document.getElementById("myText").value)
-  alert(document.getElementById("myText").value + "two");
-}
-
 
 
   </script>
 
 
-
-  
-<form action="#" method="post" name="myform">
-    <div class="wrap">
-      <div class="search">
-         <input type="text" class="searchTerm" placeholder="What are you looking for?" id="myText" name="myText" >
-         <button type="submit" class="searchButton">11
-           <i class="fa fa-search"></i>
-         </button>
-      </div>
-        <button type="submit" onclick="myFunction()">a</button>
-         <button type="submit" onclick="myFunctionTwo()">b</button>
-    </div>
-    </form>
-     -->
-
-
-
-
-  
-
+<div>
+  {% for obj in moviesdata %}
+  <div class="card" style="width: 18rem">
+    {{ obj.movieType}}
+    <li>{{ obj.movieActor }}</li>
+    <img class="card-img-top" width="255" height="me-auto" src="{{ obj.imageUrl }}">
+    <h3 class="card-title">{{ obj.movieName }}</h3>
+    <h3><a type="button" href="{{ obj.movieId }}" class="btn btn-primary">view</a></h3>
+    <h3>rank:{{ obj.movieRank}}</h3>
+    {% endfor %}
   </div>
 
-
-
-
-
-  
-
-
-
-  </div>
-<!-- <div>test--
-<form action="test1.html">
-  <input type="search" name="testzx">
-  <button type="submit" id="submit">submit</button>
-  <button type="submit1" id="submit1">submit1</button>
-</form> -->
-  
 </div>
-<!-- <div class="card" style="width: 18rem">
-    <img src="/static/images/cat.jpg" class="card-img-top" />
-    <div class="card-body">
-      <h5 class="card-title">title</h5>
-      <p class="card-text">
-       
-      </p>
-      <a href="#" class="btn btn-primary">sda</a>
 
-    </div> -->
+   
+<!--
+  youtube
+-->
+{% for video in videos %}
+<div class="card" style="width: 18rem">
 
-
-
-
-<li>------------------------------------------------------------------------------------------------------------</li>
-
-
-
-
-<style>
-    .search {
-      width: 100%;
-      position: relative;
-      display: flex;
-    }
-
-    .searchTerm {
-      width: 100%;
-      border: 3px solid #00B4CC;
-      border-right: none;
-      padding: 5px;
-      height: 20px;
-      border-radius: 5px 0 0 5px;
-      outline: none;
-      color: #9DBFAF;
-    }
-
-    .searchTerm:focus {
-      color: #00B4CC;
-    }
-
-    .searchButton {
-      width: 40px;
-      height: 36px;
-      border: 1px solid #00B4CC;
-      background: #00B4CC;
-      text-align: center;
-      color: #fff;
-      border-radius: 0 5px 5px 0;
-      cursor: pointer;
-      font-size: 20px;
-    }
-
-    /*Resize the wrap to see the search bar change!*/
-    .wrap {
-      width: 30%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  </style>
- -->
-
-
+    <img class="card-img-top" width="255" height="me-auto" src="{{ video.thumbnail }}">
+    <h3 class="card-title">{{ video.title }}</h3>
+    <h3><a type="button" href="{{ video.url }}" class="btn btn-primary">view</a></h3>
+   <h3>{{ video.duration }} mins</h3>
+      {% endfor %}
+  </div>
+ <!--
+  youtube
+-->
 
 
 </body>

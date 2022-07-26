@@ -7,32 +7,144 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>test1</title>
+
+
+
+<li>li----test1</li>
+
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled">Disabled</a>
+        </li>
+      </ul>
+      <form class="d-flex" role="search" method="post">
+        <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success"  type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav> 
+
+
+<img src="/static/images/cat.jpg">
+
+
+
+
+  {% for video in videos %}
+  
+  <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+    
+
+    <a class="ripple" href="{{ video.url }}">
+      <img
+        class="img-fluid rounded"
+        class="img-fluid rounded-circle"
+        src="{{ video.thumbnail }}"
+      />
+    </a>
+    
+    {{ video.title }}
+    <a type="button" href="" class="btn btn-sm btn-outline-secondary">view</a>
+    {{ video.duration }}
+    {% endfor %}
+    
+</div>
 
 
 
 
 
-  <!-- <script src="/jiangye/jiangyeapp/static/plugins/bootstrap-5.2.0-beta1-dist/cs"></script> -->
-
-  <!--test----------------1------------------------------------------------------------------------------------------------------------------------------------------------------>
-  ------------------------------------------------------------------------------------------------------------
-  <script>
-    function myFunction() {
-      document.getElementById("myText").placeholder = "Button A";
-
-      console.log(document.getElementById("myText").value)
-      console.log(1111)
-      alert(document.getElementById("myText").value);
-    }
-    function myFunctionTwo() {
-      document.getElementById("myText").placeholder = "Button B";
-      console.log(document.getElementById("myText").value)
-      alert(document.getElementById("myText").value);
-    }
 
 
-  </script>
+
+
+
+
+
+
+
+
+  
+
+  <div>
+    {% for obj in moviesdata %}
+    <div class="card" style="width: 18rem">
+      {{ obj.movieType}}
+      <li>{{ obj.movieActor }}</li>
+      <img class="card-img-top" width="255" height="me-auto" src="{{ obj.imageUrl }}">
+      <h3 class="card-title">{{ obj.movieName }}</h3>
+      <h3><a type="button" href="{{ obj.movieId }}" class="btn btn-primary">view</a></h3>
+      <h3>rank:{{ obj.movieRank}}</h3>
+      {% endfor %}
+    </div>
+
+  </div>
+
+
+
+
+
+  <div class="card" style="width: 18rem">
+    <img src="/static/images/cat.jpg" class="card-img-top" />
+    <div class="card-body">
+      <h5 class="card-title">title</h5>
+      <p class="card-text">
+        dasda
+      </p>
+      <a href="#" class="btn btn-primary">sda</a>
+
+    </div>
+
+
+
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
 
   <style>
     .search {
@@ -76,288 +188,172 @@
       left: 50%;
       transform: translate(-50%, -50%);
     }
-  </style>
-  <form action="#" method="post" name="myform">
-    <div class="wrap">
-      <div class="search">
-        <input type="text" class="searchTerm" placeholder="What are you looking for?" id="myText">
-        <button type="submit" class="searchButton">11
-          <i class="fa fa-search"></i>
-        </button>
-      </div>
-      <button type="submit" onclick="myFunction()">Search video</button>
-      <button type="submit" onclick="myFunctionTwo()">Search moviesInfo</button>
-    </div>
-  </form>
+  </style> 
+
+ 
 
 
 
+  Gallery 
 
-  <div>
-    {% for obj in moviesdata %}
-    <div class="card" style="width: 18rem">
-      {{ obj.movieType}}
-      <li>{{ obj.movieActor }}</li>
-      <img class="card-img-top" width="255" height="me-auto" src="{{ obj.imageUrl }}">
-      <h3 class="card-title">{{ obj.movieName }}</h3>
-      <h3><a type="button" href="{{ obj.movieId }}" class="btn btn-primary">view</a></h3>
-      <h3>rank:{{ obj.movieRank}}</h3>
-      {% endfor %}
-    </div>
-
-  </div>
-
-
-
-
-
-  <div class="card" style="width: 18rem">
-    <img src="/static/images/cat.jpg" class="card-img-top" />
-    <div class="card-body">
-      <h5 class="card-title">title</h5>
-      <p class="card-text">
-        dasda
-      </p>
-      <a href="#" class="btn btn-primary">sda</a>
-
-    </div>
-
-
-
-  </div>
-<div>test--
-<form action="test1.html">
-  <input type="search" name="testzx">
-  <button type="submit" id="submit">submit</button>
-  <button type="submit1" id="submit1">submit1</button>
-</form>
+  <div class="row">
+    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+      <img
+        src="/static/images/cat.jpg"
+        class="w-100 shadow-1-strong rounded mb-4"
+        alt="Boat on Calm Water"
+      />
   
+      <img
+        src="/static/images/cat.jpg"
+        class="w-100 shadow-1-strong rounded mb-4"
+        alt="Wintry Mountain Landscape"
+      />
+    </div>
+  
+  
+    {% load static %}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href='/static/plugins/bootstrap-5.2.0-beta1-dist/css/bootstrap.css'>
+<script src="/static/plugins/bootstrap-5.2.0-beta1-dist/js/bootstrap.js"></script>
+    <!-- <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script> -->
+</head>
+<body>
+
+ 
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="body">
+    <div class="input">
+      <input type="text" placeholder="placeholder" id="input" />
+    </div>
+
+    <div class="submit">
+      <button onclick="clickFunOne()">YouTube</button>
+      <button onclick="clickFunTwo()">post</button>
+    </div>
+  </div>
+
+
+  <script>
+    function clickFunOne() {
+	 console.log('one click');
+	 console.log(document.getElementById('input').value);
+
+  console.log(document.getElementById('input').value);
+  // const text1 = document.getElementById('input').value
+  // console.log(text1 + text1)
+	$.ajax({
+    type: 'POST',
+		url: '',
+		data: {
+  
+      n1: $("#input").val(),},
+		success: function(result) {
+      if(result){
+        // window.location.href='https://www.javbus.com/'
+        // window.location.href='/test/'
+        $(document.body).html(result);
+
+      }
+			console.log(result);
+      
+		}
+	});
+}
+
+function clickFunTwo() {
+  console.log('otwo click');
+  console.log(document.getElementById('input').value);
+  const text = document.getElementById('input').value
+  console.log(text)
+	$.ajax({
+    type: 'POST',
+		url: '',
+		data: {
+  
+      n2: $("#input").val(),},
+		success: function(result) {
+      if(result){
+        // window.location.href='https://www.javbus.com/uncensored/star/sfy'
+        // window.location.href='/test1/'
+        $(document.body).html(result);
+
+
+      }
+			console.log(result);
+      
+      
+		}
+	});
+}
+
+
+
+  </script>
+
+
+<div>
+  {% for obj in moviesdata %}
+  <div class="card" style="width: 18rem">
+    {{ obj.movieType}}
+    <li>{{ obj.movieActor }}</li>
+    <img class="card-img-top" width="255" height="me-auto" src="{{ obj.imageUrl }}">
+    <h3 class="card-title">{{ obj.movieName }}</h3>
+    <h3><a type="button" href="{{ obj.movieId }}" class="btn btn-primary">view</a></h3>
+    <h3>rank:{{ obj.movieRank}}</h3>
+    {% endfor %}
+  </div>
+
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-- <li>4</li>
-  {% for Info in IMDBmoviesInfo %}
-  <div class="card" style="width: 18rem">
-
-    <img class="card-img-top" width="255" height="me-auto" src="{{ Info.Poster }}">
-    <h3 class="card-title">{{ Info.Title }}</h3>
-    <h3><a type="button" href="{{ video.url }}" class="btn btn-primary">view</a></h3> -->
-    <!-- <h3>{{ Info.Year }} mins</h3>
-    {% endfor %}
-  </div> --> -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-- {% for video in videos %}
-
-
-    <img class="" width="255" height="me-auto" src="{{ video.thumbnail }}">
-    <li>{{ video.title }}</li>
-    <li><a type="button" href="{{ video.url }}" class="btn btn-sm btn-outline-secondary">view</a></li>
-   <li>{{ video.duration }}</li> 
-    {% endfor %} -->
-
-
-
-
-
-
-
-
-
-
-  <!--
-  test2
+   
+<!--
+  youtube
 -->
-  <!-- Gallery -->
-  <!-- <div class="row">
-    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-      <img
-        src="/static/images/cat.jpg"
-        class="w-100 shadow-1-strong rounded mb-4"
-        alt="Boat on Calm Water"
-      />
-  
-      <img
-        src="/static/images/cat.jpg"
-        class="w-100 shadow-1-strong rounded mb-4"
-        alt="Wintry Mountain Landscape"
-      />
-    </div>
+{% for video in videos %}
+<div class="card" style="width: 18rem">
+
+    <img class="card-img-top" width="255" height="me-auto" src="{{ video.thumbnail }}">
+    <h3 class="card-title">{{ video.title }}</h3>
+    <h3><a type="button" href="{{ video.url }}" class="btn btn-primary">view</a></h3>
+   <h3>{{ video.duration }} mins</h3>
+      {% endfor %}
   </div>
-  < Gallery -->
+ <!--
+  youtube
+-->
 
-  <!-- <div class="row">
-    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-      <img
-        src="/static/images/cat.jpg"
-        class="w-100 shadow-1-strong rounded mb-4"
-        alt="Boat on Calm Water"
-      />
+
+
+
+
+ 
+
   
-      <img
-        src="/static/images/cat.jpg"
-        class="w-100 shadow-1-strong rounded mb-4"
-        alt="Wintry Mountain Landscape"
-      />
-    </div>
-  </div> --> -->
-  <!-- <div class="row">
-  {% for video in videos %}
+
+
+
+
+
+
+
+
+
   
-    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0"></div>
-      <img class="w-100 shadow-1-strong rounded mb-4" src="{{ video.thumbnail }}" alt="Boat on Calm Water"/>
-      
-      {{ video.title }}
-      <a type="button" href="{{ video.url }}" class="btn btn-sm btn-outline-secondary">view</a>
-      {{ video.duration }}
-      {% endfor %}
-      
-  </div> -->
-
-
-
-
-
-  <!-- {% for video in videos %}
-  
-    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-      
-
-      <a class="ripple" href="{{ video.url }}">
-        <img
-          class="img-fluid rounded"
-          class="img-fluid rounded-circle"
-          src="{{ video.thumbnail }}"
-        />
-      </a>
-      
-      {{ video.title }}
-      <a type="button" href="" class="btn btn-sm btn-outline-secondary">view</a>
-      {{ video.duration }}
-      {% endfor %}
-      
-  </div></div> -->
-
-  <!--test---------------------2------------------------------------------------------------------------------------------------------------------------------------------------->
-
-
-
-
-
-
-
-
-
-  <!--导航条-->
-  <!-- <nav class="navbar navbar-expand-lg bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Navbar</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link disabled">Disabled</a>
-              </li>
-            </ul>
-            <form class="d-flex" role="search" method="post">
-              <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success"  type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-      </nav> -->
-
-
-  <!-- <img src="/static/images/cat.jpg"> -->
-
-  <!--=====================test-->
 
 
 
@@ -369,13 +365,7 @@
 
 
 
-
-
-
-
-
-
-  <!--=====================test-->
+ 
 
   </body>
 
