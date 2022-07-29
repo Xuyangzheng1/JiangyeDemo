@@ -61,8 +61,13 @@ ROOT_URLCONF = 'jiangye.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates',
-                BASE_DIR / 'jiangyeapp/templates'],
+        'DIRS': [os.path.join(BASE_DIR, 'moviesList/templates'),
+                BASE_DIR / 'templates',
+                BASE_DIR / 'jiangyeapp/templates',
+                BASE_DIR / 'moviesList/templates',
+                
+                ],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -92,11 +97,15 @@ WSGI_APPLICATION = 'jiangye.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'jiangyetest',  # 数据库名字
+        'NAME': 'zxyy',  # 数据库名字
         'USER': 'root',
         'PASSWORD': 'zxy013',
         'HOST': '127.0.0.1',  # 那台机器安装了MySQL
         'PORT': 3306,
+        'TEST': {
+            'CHARSET' : 'utf8',
+            'COLLATION':'utf8_general_ci'
+        }
     }
 }
 #=======================================================

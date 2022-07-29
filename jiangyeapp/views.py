@@ -16,7 +16,7 @@ from wsgiref.handlers import read_environ
 from django.conf import settings
 from django.forms import PasswordInput
 from django.shortcuts import render, HttpResponse, redirect
-from jiangyeapp.models import Department, UserInfo
+from jiangyeapp.models import Department, userinformation
 from jiangyeapp import models
 from django.core.mail import send_mail
 from isodate import parse_duration
@@ -94,29 +94,29 @@ def login(request):
 def orm(request):
     models.Department.objects.create(title="giao12")
 
-    models.UserInfo.objects.create(name="曾宪国", age=12, size=21)
-    models.UserInfo.objects.create(name="钱其德", age=1234, size=221)
-    models.UserInfo.objects.create(name="高红梅", age=122, size=216)
+    models.userinformation.objects.create(name="曾宪国", age=12, size=21)
+    models.userinformation.objects.create(name="钱其德", age=1234, size=221)
+    models.userinformation.objects.create(name="高红梅", age=122, size=216)
 
-    # UserInfo.objects.all().delete()
+    # userinformation.objects.all().delete()
     # Department.objects.all().delete()
-    UserInfo.objects.filter(id=111).delete()
-    # data_list = UserInfo.objects.all()
+    userinformation.objects.filter(id=111).delete()
+    # data_list = userinformation.objects.all()
     # -=-=-=--=-------------------------
     # for obj in data_list:
     #    print(obj.id,obj.name)
     # =======================
-    # data_list = UserInfo.objects.filter(name="钱其德")
+    # data_list = userinformation.objects.filter(name="钱其德")
     # print(data_list)
     # ---------------------------------------------更新数据
-    UserInfo.objects.filter(name="giaogiao").update(password="dsa")
+    userinformation.objects.filter(name="giaogiao").update(password="dsa")
 
     return HttpResponse("火花！一给窝里给gioagiao")
 
 
 def info_list(request):
     # 获取数据库种所有用户信息
-    datalist = UserInfo.objects.all()
+    datalist = userinformation.objects.all()
 
     return render(request, "info_list.html", {"data_list": datalist})
 
@@ -132,9 +132,9 @@ def info_add(request):
         # return render(request,"info_add.html",'3213')
         return HttpResponse('3213')
     else:
-        UserInfo.objects.create(name=user, password=pwd, age=age)  # 获取数据
+        userinformation.objects.create(name=user, password=pwd, age=age)  # 获取数据
 
-   # except models.UserInfo.DoesNotExist:
+   # except models.userinformation.DoesNotExist:
    # return render(request,"info_add.html",'3213')
 
     return redirect("/info_list/")
@@ -142,7 +142,7 @@ def info_add(request):
 
 def info_delete(request):
     nid = request.GET.get('nid')  # 提交方式是GET方式
-    UserInfo.objects.filter(id=nid).delete()
+    userinformation.objects.filter(id=nid).delete()
     return redirect("/info_list/")
 
 
@@ -180,9 +180,9 @@ def register(request):
         print(allow)
         # if allow !='on':
         #   return render(request,'register.html',{'errmsg':'huoyigeiwoligiaogiao'})
-        uuu = UserInfo.objects.create(
+        uuu = userinformation.objects.create(
             name=username1, password=pwd, email=email, age=age, date=date, create_time=time1)
-    # userinfov.is_active()=0
+    # userinformationv.is_active()=0
         uuu.save()
         # 发送邮件
         subject = 'youjian'
@@ -196,7 +196,7 @@ def register(request):
 
 def check_user(request):
     username = request.GET.get('username')
-    user = UserInfo.objects.filter(username=username).first
+    user = userinformation.objects.filter(username=username).first
 
 
 def login():
@@ -463,7 +463,7 @@ def testjs(request):
                     'movieActor': fielddict.get('d')[x]["s"],
                     'movieRank': fielddict.get('d')[x]["rank"],
 
-        }
+                }
 
                 moviesdata.append(moviesInfo)
             context = {

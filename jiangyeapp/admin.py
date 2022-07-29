@@ -3,21 +3,6 @@ from django.contrib import admin
 # Register your models here.
 from moviesList import models
 
-class moviesInfoAdmin(admin.ModelAdmin):
-    list_display = ('movies_name','classification','release_data','movies_rating','movies_posts','img_url')
-
-
-admin.site.register(models.moviesInfo,moviesInfoAdmin)
-
-
-from . import models
-class UserInfoAdmin(admin.ModelAdmin):
-    list_display = ('name','password','age','email')
-
-
-admin.site.register(models.UserInfo,UserInfoAdmin)
-
-
 
 
 from jiangyebook import models
@@ -52,3 +37,18 @@ admin.site.site_header='亚洲动漫'
 admin.site.site_title='亚洲动漫'
 
 #xadmin
+from django.contrib import admin
+
+# Register your models here.
+# from moviesList.models import Category, Page
+
+
+# class CategoryAdmin(admin.ModelAdmin):
+#     prepopulated_fields = {'slug':('name',)}
+
+# admin.site.register(Category, CategoryAdmin)
+
+# class PageAdmin(admin.ModelAdmin):
+#     list_display = ('title', 'category', 'url')
+
+# admin.site.register(Page, PageAdmin)
