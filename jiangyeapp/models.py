@@ -1,11 +1,12 @@
 import email
+from email.policy import default
 from turtle import title
 from unicodedata import name
 from django.db import models
 from pkg_resources import require
 
 # Create your models here.
-
+MEDIA_ADDR = 'http://localhost:8000/media/'
 class userinformation(models.Model):
     userid = models.AutoField(primary_key=True)
     name = models.CharField(max_length=32,verbose_name='usersname',null=True)#如果是charfield 必须写max_length
@@ -16,6 +17,10 @@ class userinformation(models.Model):
    # account=models.DecimalField(max_digits=10,decimal_places=2,default=0)#decimal保留两位小数
     create_time = models.DateTimeField(null=False,blank=True)#添加新字段需要在sql上同步
     email = models.CharField(max_length=32,verbose_name='email',null=True)
+    uesrImg = models.ImageField(upload_to='usersImg/',verbose_name=u'img',default=0)
+
+    def get_uesrImg_url(self):
+        return MEDIA_ADDR + str(self.uesrImg)
 
 
     

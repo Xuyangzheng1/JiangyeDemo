@@ -3,6 +3,7 @@ from django.db import models
 from django.template.defaultfilters import slugify
 from jiangyeapp.models import userinformation
 
+
 MEDIA_ADDR = 'http://localhost:8000/media/'
 
 

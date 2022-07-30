@@ -170,9 +170,10 @@ MEDIA_URL = '/media/'
 #MEDIA_ROOT = BASE_DIR / 'media'
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "jiangyeapp/media/")#此代码可以计算出文件夹的相对路径，配合print进行调试
+# MEDIA_ROOT = os.path.join(BASE_DIR, "/media/")#此代码可以计算出文件夹的相对路径，配合print进行调试
 
-MEDIA_ROOT = os.path.join(BASE_DIR, "/media/")
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')#应为’media‘ 不是’/media/‘
+# MEDIA_ROOT = 'C:/Users/Administrator/workspace/jiangye/jiangye/media'
 
 print(MEDIA_ROOT)
     
