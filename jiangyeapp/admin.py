@@ -5,7 +5,7 @@ from moviesList import models
 
 
 
-from jiangyebook import models
+from user import models
 
 # Register your models here.
 #---------------------------------------

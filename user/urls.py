@@ -11,5 +11,8 @@ urlpatterns = [
     path('',views.book),
     path('detail/<book_id>',views.book_detail),
     path('test',views.test),
+    path('register/',views.register,name='register'),
+    
+
 
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

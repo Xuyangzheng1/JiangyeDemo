@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'jiangyeapp.apps.JiangyeappConfig',
-    'jiangyebook',
+    'user',
     'moviesList',
     "bootstrap5",
     

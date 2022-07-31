@@ -13,45 +13,77 @@
 
 <li>li----test1</li>
 
-<nav class="navbar navbar-expand-lg bg-light">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
-        </li>
-      </ul>
-      <form class="d-flex" role="search" method="post">
-        <input class="form-control me-2" type="search" name="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success"  type="submit">Search</button>
-      </form>
-    </div>
+<li><a href="http://localhost:8000/index" type="button">index</li>
+
+<div class="body">
+  <div class="input">
+    <input type="text" placeholder="placeholder" id="input" />
   </div>
-</nav> 
+
+  <div class="submit">
+    <button onclick="clickFunOne()">YouTube</button>
+    <button onclick="clickFunTwo()">post</button>
+  </div>
+</div>
 
 
-<img src="/static/images/cat.jpg">
+<script>
+  function clickFunOne() {
+ console.log('one click');
+ console.log(document.getElementById('input').value);
+
+console.log(document.getElementById('input').value);
+// const text1 = document.getElementById('input').value
+// console.log(text1 + text1)
+$.ajax({
+  type: 'POST',
+  url: '',
+  data: {
+
+    n1: $("#input").val(),},
+  success: function(result) {
+    if(result){
+      // window.location.href='https://www.javbus.com/'
+      // window.location.href='/test/'
+      $(document.body).html(result);
+
+    }
+    console.log(result);
+    
+  }
+});
+}
+
+function clickFunTwo() {
+console.log('otwo click');
+console.log(document.getElementById('input').value);
+const text = document.getElementById('input').value
+console.log(text)
+$.ajax({
+  type: 'POST',
+  url: '',
+  data: {
+
+    n2: $("#input").val(),},
+  success: function(result) {
+    if(result){
+      // window.location.href='https://www.javbus.com/uncensored/star/sfy'
+      // window.location.href='/test1/'
+      $(document.body).html(result);
+
+
+    }
+    console.log(result);
+    
+    
+  }
+});
+}
+
+
+
+</script>
+
 
 
 
@@ -236,74 +268,7 @@
 
 
 
-  <div class="body">
-    <div class="input">
-      <input type="text" placeholder="placeholder" id="input" />
-    </div>
-
-    <div class="submit">
-      <button onclick="clickFunOne()">YouTube</button>
-      <button onclick="clickFunTwo()">post</button>
-    </div>
-  </div>
-
-
-  <script>
-    function clickFunOne() {
-	 console.log('one click');
-	 console.log(document.getElementById('input').value);
-
-  console.log(document.getElementById('input').value);
-  // const text1 = document.getElementById('input').value
-  // console.log(text1 + text1)
-	$.ajax({
-    type: 'POST',
-		url: '',
-		data: {
-  
-      n1: $("#input").val(),},
-		success: function(result) {
-      if(result){
-        // window.location.href='https://www.javbus.com/'
-        // window.location.href='/test/'
-        $(document.body).html(result);
-
-      }
-			console.log(result);
-      
-		}
-	});
-}
-
-function clickFunTwo() {
-  console.log('otwo click');
-  console.log(document.getElementById('input').value);
-  const text = document.getElementById('input').value
-  console.log(text)
-	$.ajax({
-    type: 'POST',
-		url: '',
-		data: {
-  
-      n2: $("#input").val(),},
-		success: function(result) {
-      if(result){
-        // window.location.href='https://www.javbus.com/uncensored/star/sfy'
-        // window.location.href='/test1/'
-        $(document.body).html(result);
-
-
-      }
-			console.log(result);
-      
-      
-		}
-	});
-}
-
-
-
-  </script>
+ 
 
 
 <div>
@@ -341,31 +306,7 @@ function clickFunTwo() {
 
 
 
- 
 
-  
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
- 
 
   </body>
 

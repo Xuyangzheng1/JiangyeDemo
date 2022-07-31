@@ -4,12 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>resgister</title>
     {%csrf_token%}
+    <a href="http://localhost:8000/index" type="button">index</a>
 </head>
 <body>
+
+   
     {%csrf_token%}
-    <form action="" method="post"    {%csrf_token%}>
+    <form action="" method="post" >
         {% csrf_token %}
     <ul>
         <li>
@@ -45,10 +49,16 @@
                                         <input type="number" name="pwd" id="pwd">
                                         
                                             </li>
-                                            <li>
+                                            <!-- <li>
                                                 <label>time</label>
                                                 <input type="time" name="time" id="time">
                                                 
+                                                    </li> -->
+                                                    <li>
+                                                        <label>IMG</label>
+                                                        <input type="file" name='userimg' id="userimg">
+
+                                                        
                                                     </li>
                             <li class="agreement">
                                 <input type="checkbox" name="allow" id="allow" checked="checked">
@@ -56,7 +66,7 @@
                             </li>
 
                             <li class="reg_sub">
-                                <input type="submit" value="resgister" name="">
+                                <input type="submit" value="resgister" >
                             </li>
                         </form>
                             <li>
@@ -67,5 +77,10 @@
                             <li><img src="{{MEDIA_URL}}{{username1.icon}}" alt="aaa"</li>
                             <li><img src="{{icon}}" alt="aaa"</li>
 </ul>
+
+
+
+
 </body>
 </html>
+

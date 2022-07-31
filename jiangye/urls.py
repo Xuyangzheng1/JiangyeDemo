@@ -26,10 +26,10 @@ from django.views.static import serve
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('register/',views.register,name='register'),
+    
     #www.jiangye.com/index/  ->函数
     #注意，更新完路由信息后要重启django
-    path('index/', views.index),
+    path('index/', views.index,name='index'),
     path('user/list/', views.user_list),
     path('user/add/', views.user_add),
     path('tpl/',views.tpl),
@@ -49,6 +49,10 @@ urlpatterns = [
     path('test1/',views.test1),
     path('testjs/',views.testjs),
     path('test2/',views.test1),
+
+    
+
+    
     
     
 
@@ -59,7 +63,7 @@ urlpatterns = [
  #movieslist
     
     path('moviesList/',include(('moviesList.urls','moviesList'),namespace='moviesList')),
-    path('book/',include(('jiangyebook.urls','jiangyebook'),namespace='book')),#一定要加上app名字
+    path('user/',include(('user.urls','user'),namespace='user')),#一定要加上app名字
     # 配置媒体文件的路由地址
     re_path('media/(?P<path>.*)',serve,
        {'document_root': settings.MEDIA_ROOT}, name='media'),
