@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 
 # Create your views here.
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 from jiangyeapp.models import userinformation
 
@@ -26,17 +26,20 @@ def register(request):
     if request.method == 'POST':
         username1 = request.POST.get('user_name')
         pwd = request.POST.get('pwd')
+
         cpwd = request.POST.get('cpwd')
         email = request.POST.get('email')
         allow = request.POST.get('allow')
         age = request.POST.get('age')
         date = request.POST.get('date')
         time1 = request.POST.get('time')
+        userimg = request.POST.get('userimg')
         print(allow)
+        print(pwd)
         # if allow !='on':
         #   return render(request,'register.html',{'errmsg':'huoyigeiwoligiaogiao'})
         uuu = userinformation.objects.create(
-            name=username1, password=pwd, email=email, age=age, date=date, create_time=time1)
+            name=username1, password=pwd, email=email, age=age, date=date, create_time=time1,userImg=userimg)
     # userinformationv.is_active()=0
         uuu.save()
         # 发送邮件
@@ -47,3 +50,14 @@ def register(request):
 
         return redirect('http://localhost:8000/testjs/')
     return render(request, 'register.html')
+
+
+def check_user(request):
+   username= request.GET.get('username')
+   user = userinformation.objects.filter(name=username).first()
+   if user:
+        return JsonResponse({'status':'fail','msg':'此用户名已被注册'})
+   else:
+        return JsonResponse({'status':'success','msg':'giao!'})
+
+

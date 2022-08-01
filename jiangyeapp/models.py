@@ -17,7 +17,7 @@ class userinformation(models.Model):
    # account=models.DecimalField(max_digits=10,decimal_places=2,default=0)#decimal保留两位小数
     create_time = models.DateTimeField(null=True,blank=True)#添加新字段需要在sql上同步
     email = models.CharField(max_length=32,verbose_name='email',null=True)
-    uesrImg = models.ImageField(upload_to='usersImg/',verbose_name=u'img',default=0)
+    userImg = models.ImageField(upload_to='usersImg/',verbose_name=u'img',default=0)
 
     def get_uesrImg_url(self):
         return MEDIA_ADDR + str(self.uesrImg)

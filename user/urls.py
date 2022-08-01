@@ -12,6 +12,7 @@ urlpatterns = [
     path('detail/<book_id>',views.book_detail),
     path('test',views.test),
     path('register/',views.register,name='register'),
+    path('check_user/',views.check_user,name='check_user')
     
 
 
