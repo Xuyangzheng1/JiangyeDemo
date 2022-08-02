@@ -3,7 +3,9 @@ from django.shortcuts import redirect, render
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
 
-from jiangyeapp.models import userinformation
+from user.models import userinformation
+
+from django.conf import settings
 
 
 def book(request):
@@ -27,11 +29,11 @@ def register(request):
         username1 = request.POST.get('user_name')
         pwd = request.POST.get('pwd')
 
-        cpwd = request.POST.get('cpwd')
+        # cpwd = request.POST.get('cpwd')
         email = request.POST.get('email')
         allow = request.POST.get('allow')
         age = request.POST.get('age')
-        date = request.POST.get('date')
+        # date = request.POST.get('date')
         time1 = request.POST.get('time')
         userimg = request.POST.get('userimg')
         print(allow)
@@ -39,9 +41,12 @@ def register(request):
         # if allow !='on':
         #   return render(request,'register.html',{'errmsg':'huoyigeiwoligiaogiao'})
         uuu = userinformation.objects.create(
-            name=username1, password=pwd, email=email, age=age, date=date, create_time=time1,userImg=userimg)
+            username=username1, password=pwd, email=email, age=age,create_time=time1,userImg=userimg)
     # userinformationv.is_active()=0
+    #-----------------------------------------test area------------------------<>-----------{
+        uuu.is_active =0
         uuu.save()
+        #}----------------------------
         # 发送邮件
         subject = 'youjian'
         message = "huanying <br> <a href=''dianjijihuo"
@@ -54,7 +59,7 @@ def register(request):
 
 def check_user(request):
    username= request.GET.get('username')
-   user = userinformation.objects.filter(name=username).first()
+   user = userinformation.objects.filter(username=username).first()
    if user:
         return JsonResponse({'status':'fail','msg':'此用户名已被注册'})
    else:

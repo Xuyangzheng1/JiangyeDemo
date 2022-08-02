@@ -97,7 +97,7 @@ WSGI_APPLICATION = 'jiangye.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'zxyy',  # 数据库名字
+        'NAME': 'ZXYZXYZXY',  # 数据库名字
         'USER': 'root',
         'PASSWORD': 'zxy013',
         'HOST': '127.0.0.1',  # 那台机器安装了MySQL
@@ -192,3 +192,6 @@ YOUTUBE_DATA_API_KEY ='AIzaSyD_rx9dvz2vXgFMXzwWey2CDweIotkaKmA'
 
 # AIzaSyD_rx9dvz2vXgFMXzwWey2CDweIotkaKmA
 # AIzaSyC7AzByBAZCy_ElGo08hsR7oKz9hmeFzQs
+
+
+AUTH_USER_MODEL = "user.userinformation"

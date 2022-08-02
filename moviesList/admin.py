@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 
-from jiangyeapp.models import userinformation
+from user.models import userinformation
 from .models import moviesInformation
 
 

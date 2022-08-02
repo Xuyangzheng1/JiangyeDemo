@@ -16,7 +16,7 @@ from wsgiref.handlers import read_environ
 from django.conf import settings
 from django.forms import PasswordInput
 from django.shortcuts import render, HttpResponse, redirect
-from jiangyeapp.models import Department, userinformation
+from user.models import userinformation
 from jiangyeapp import models
 from django.core.mail import send_mail
 from isodate import parse_duration
