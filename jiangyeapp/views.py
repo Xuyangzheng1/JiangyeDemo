@@ -74,21 +74,7 @@ def something(request):
     return redirect("http://www.javdb.com")
 
 
-def login(request):
-    if request.method == "GET":
-        return render(request, "login.html")
-    else:
-        # 如果是post请求就获取用户提交的数据
 
-        # print(request.POST)
-        username = request.POST.get("user")
-        password = request.POST.get("password")
-        if username == '1' and password == "1":
-            # return HttpResponse("登陆成功")
-            return redirect("http://www.javbus.com")
-        else:
-            # return HttpResponse("登陆成功")
-            return render(request, "login.html", {"error_msg": "登陆失败"})
 
 
 def orm(request):

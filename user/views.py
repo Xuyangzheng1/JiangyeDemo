@@ -7,6 +7,10 @@ from user.models import userinformation
 
 from django.conf import settings
 
+from django.contrib.auth.hashers import make_password, check_password
+
+from django.contrib.auth import authenticate, login as userlogin
+
 
 def book(request):
     return HttpResponse('这是jiangyetest')
@@ -40,13 +44,16 @@ def register(request):
         print(pwd)
         # if allow !='on':
         #   return render(request,'register.html',{'errmsg':'huoyigeiwoligiaogiao'})
+
+        pwd = make_password(password=pwd)
         uuu = userinformation.objects.create(
             username=username1, password=pwd, email=email, age=age,create_time=time1,userImg=userimg)
     # userinformationv.is_active()=0
     #-----------------------------------------test area------------------------<>-----------{
-        uuu.is_active =0
+        uuu.is_active =1
         uuu.save()
-        #}----------------------------
+        return HttpResponse('注册成功')
+        #}----------------------------test area-----------------------
         # 发送邮件
         subject = 'youjian'
         message = "huanying <br> <a href=''dianjijihuo"
@@ -66,3 +73,35 @@ def check_user(request):
         return JsonResponse({'status':'success','msg':'giao!'})
 
 
+def userlogin(request):
+    if request.method == "POST":
+        username = request.POST.get("user_name")
+        pwd = request.POST.get('pwd')
+        print(username)
+
+        user = userinformation.objects.filter(username=username).first()
+        
+       
+        if user:
+            print('用户存在')
+            if user.is_active:
+                flag= check_password(pwd,user.password)
+                print(flag)
+                print('判断密码')
+                if flag:
+                    print('mimazhengque')
+                    return HttpResponse('success')
+                    
+                else:
+                    return render (request,'login.html',{'errmsg':'密码错误'})
+                    
+            else:    
+                return render(request,'login.html',{'errmsg':'未激活'})
+        
+        else:
+            return render(request,'login.html',{'errmsg':'密码错误giao'})
+            
+
+    print('11111')
+    return render(request,'login.html')
+    
