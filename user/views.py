@@ -1,7 +1,12 @@
+from email import message
+from lib2to3.pgen2 import token
+from os import path
+import uuid
 from django.shortcuts import redirect, render
 
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
+
 
 from user.models import userinformation
 
@@ -10,6 +15,9 @@ from django.conf import settings
 from django.contrib.auth.hashers import make_password, check_password
 
 from django.contrib.auth import authenticate, login as userlogin
+
+from django.core.mail import send_mail
+
 
 
 def book(request):
@@ -49,14 +57,46 @@ def register(request):
         uuu = userinformation.objects.create(
             username=username1, password=pwd, email=email, age=age,create_time=time1,userImg=userimg)
     # userinformationv.is_active()=0
-    #-----------------------------------------test area------------------------<>-----------{
-        uuu.is_active =1
+    #-----------------------------------------test area------------------------<>-----------
+        uuu.is_active =0
         uuu.save()
+
+        #>------------------------------mail test-------------------------------------------{
+        # send_mail()
+        token = str(uuid.uuid4()).replace('-','')
+        token_dict={token:uuu.id}
+
+        
+
+        subject='giaogiaogiao'
+
+        message='''8====D >>>>>>>>>>
+        <li>giao</li>
+        <li><a href='#'>点击激活</a>
+        
+        '''.format(path,path)
+        print('>-------')
+        print(email)
+        print(settings.EMAIL_HOST_USER)
+        
+        result= send_mail(subject=subject,
+                          message="",
+                          from_email=settings.EMAIL_HOST_USER,
+                          
+                          recipient_list=[email],
+                          html_message=message
+                  )
+        print(result)
+        #>------------------------------mail test-------------------------------------------{
+        # 
+        # 
+        # }
         return HttpResponse('注册成功')
         #}----------------------------test area-----------------------
         # 发送邮件
-        subject = 'youjian'
-        message = "huanying <br> <a href=''dianjijihuo"
+        
+        # subject = 'youjian'
+        # message = "huanying <br> <a href=''dianjijihuo"
         # res=send_mail(subject=subject,message=message,from_email=settings.EMAIL_HOST_USER,recipient_list=[email,])
         # print(res)
 
@@ -90,7 +130,8 @@ def userlogin(request):
                 print('判断密码')
                 if flag:
                     print('mimazhengque')
-                    return HttpResponse('success')
+                    # return HttpResponse('success')
+                    return render(request,'testjs.html')
                     
                 else:
                     return render (request,'login.html',{'errmsg':'密码错误'})

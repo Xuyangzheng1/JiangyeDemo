@@ -22,6 +22,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib import auth
 # Create your models here.
 MEDIA_ADDR = 'http://localhost:8000/media/'
+
 class userinformation(AbstractUser):
     userid = models.AutoField(primary_key=True)
     username = models.CharField(max_length=32,verbose_name='usersname',null=True,unique=True)#如果是charfield 必须写max_length

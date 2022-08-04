@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+from smtpd import SMTPServer
+import smtplib
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -178,14 +180,54 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')#应为’media‘ 不是’/media/�
 print(MEDIA_ROOT)
     
 
+from django.core.mail import get_connection,send_mail
+#--------------------------------------test area----------------------------------------------->><><><><><><><><><><><><><><><><><
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST='smtp.office365.com'
+# EMAIL_PORT=587
+
+
+# EMAIL_HOST_USER='Jiangye_zhengxuyang@outlook.com'
+# EMAIL_HOST_PASSWORD='zxy013cc'
+# EMAIL_USE_TLS=False
+# EMAIL_USE_SSL = False
+
+
+#--------------------------------------test area----------------------------------------------->><><><><><><><><><><><><><><><><><
+
+
+
+
+
+
+
+
 
 #email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST='smtp.qq.com'
+EMAIL_PORT=465
 
-EMAIL_HOST='smtp.163.com'
-EMAIL_PORT='25'
-EMAIL_HOST_USER='15225107379@163.com'
-EMAIL_HOST_PASSWORD='CYKXOMJWJICDEOV'
-EMAIL_USER_TLS=True
+
+EMAIL_HOST_USER='654427140@qq.com'
+EMAIL_HOST_PASSWORD='ijlzajryyrzqbedc'
+EMAIL_USE_TLS=False
+EMAIL_USE_SSL = True
+
+#LSTAQJURWDDOICHL
+
+#qq pop password ijlzajryyrzqbedc
+
+#jigeygfzhogjbdic
+
+
+
+
+
+
+
+
+
 
 
 YOUTUBE_DATA_API_KEY ='AIzaSyD_rx9dvz2vXgFMXzwWey2CDweIotkaKmA'
