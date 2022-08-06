@@ -123,7 +123,8 @@ def userlogin(request):
         
        
         if user:
-            print('用户存在')
+            print('用户存在...')
+            print(".....")
             if user.is_active:
                 flag= check_password(pwd,user.password)
                 print(flag)
@@ -132,7 +133,7 @@ def userlogin(request):
                     print('mimazhengque')
                     # return HttpResponse('success')
                     return render(request,'testjs.html')
-                    
+                    #zxy是傻逼
                 else:
                     return render (request,'login.html',{'errmsg':'密码错误'})
                     
