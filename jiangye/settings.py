@@ -178,7 +178,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')#应为’media‘ 不是’/media/‘
 # MEDIA_ROOT = 'C:/Users/Administrator/workspace/jiangye/jiangye/media'
 
-print(MEDIA_ROOT)
+print('-=-=-==-=-=-=-=-',MEDIA_ROOT)
     
 
 from django.core.mail import get_connection,send_mail
@@ -256,3 +256,8 @@ SESSION_CACHE_ALIAS = "default"
 
 SESSION_ENGINE = "django.contrib.sessions.backends.cache"
 
+# LOGIN_URL = '/login/'
+
+LOGIN_REDIRECT_URL = '/testjs/'
+
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']

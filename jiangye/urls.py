@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path, re_path
-from django.conf import settings
+from . import settings
 
 from jiangyeapp import views
 from django.conf.urls.static import static
@@ -23,13 +23,16 @@ from django.conf.urls.static import static
 
 from django.views.static import serve
 
+from jiangye.settings import MEDIA_ROOT
+from django.contrib.auth.decorators import login_required
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     
     #www.jiangye.com/index/  ->函数
     #注意，更新完路由信息后要重启django
-    path('index/', views.index,name='index'),
+    path('', views.index,name='index'),
     path('user/list/', views.user_list),
     path('user/add/', views.user_add),
     path('tpl/',views.tpl),
@@ -48,6 +51,10 @@ urlpatterns = [
     path('test/',views.youtube),
     path('test1/',views.test1),
     path('testjs/',views.testjs,name='testjs'),
+    # path(r'testjs/',as_views.testjs)
+    # path(r'testjs/', login_required(views.testjs.as_view()), name='order'),
+    # path('login/?next=/testjs/',views.testjs),
+
     path('test2/',views.test1),
 
     
@@ -64,9 +71,10 @@ urlpatterns = [
     
     path('moviesList/',include(('moviesList.urls','moviesList'),namespace='moviesList')),
     path('user/',include(('user.urls','user'),namespace='user')),#一定要加上app名字
+
+    
     # 配置媒体文件的路由地址
-    re_path('media/(?P<path>.*)',serve,
-       {'document_root': settings.MEDIA_ROOT}, name='media'),
+    re_path('media/(?P<path>.*)',serve,{'document_root': MEDIA_ROOT}, name='media'),
        #正则表达[0-9]从0到9，{4}四位
     re_path('(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2}).html',
 views.mydate)   
@@ -75,6 +83,6 @@ views.mydate)
     
 
 
-]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+]+static(settings.MEDIA_URL,document_root=MEDIA_ROOT)
 
 #+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

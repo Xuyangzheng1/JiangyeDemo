@@ -6,18 +6,20 @@ from os import path
 import uuid
 from django.shortcuts import redirect, render
 
+from django.contrib.auth import login
+
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
 from user.models import MySession
-
-
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 from user.models import userinformation
 
 from django.conf import settings
 
 from django.contrib.auth.hashers import make_password, check_password
 
-from django.contrib.auth import authenticate, login as userlogin
+from django.contrib.auth import authenticate, login as userlogin,logout
 
 from django.core.mail import send_mail
 
@@ -35,6 +37,7 @@ def book(request):
     return HttpResponse('这是jiangyetest')
 
 def book_detail(request,book_id):
+    book_id=90
     text = '图书id是 %s'% book_id
     return HttpResponse(text)
 
@@ -53,6 +56,13 @@ def test730(request):
 global token_dict
 token_dict={}
 s=SessionStore()
+def userimg_upload(req):
+    file = req.FILES.get('file', None)        
+    path = default_storage.save('C:\\Users\\Administrator\\workspace\\jiangyenew\\JiangyeDemo\\media\\usersImg/' + file.name, ContentFile(file.read()))
+    re={}
+    re['']=0
+    return JsonResponse(re)
+    
 def register(request):
     if request.method == 'POST':
         username1 = request.POST.get('user_name')
@@ -65,6 +75,7 @@ def register(request):
         # date = request.POST.get('date')
         time1 = request.POST.get('time')
         userimg = request.POST.get('userimg')
+        # print("path------------",path)
         print(allow)
         print(pwd)
         # if allow !='on':
@@ -188,6 +199,9 @@ def check_user(request):
         return JsonResponse({'status':'success','msg':'giao!'})
 
 
+from django.contrib.auth.backends import ModelBackend
+
+# class userloginMobileBackend(ModelBackend):
 def userlogin(request):
     if request.method == "POST":
         username = request.POST.get("user_name")
@@ -196,7 +210,7 @@ def userlogin(request):
 
         user = userinformation.objects.filter(username=username).first()
         
-       
+    
         if user:
             print('用户存在...')
             print(".....")
@@ -207,7 +221,20 @@ def userlogin(request):
                 if flag:
                     print('mimazhengque')
                     # return HttpResponse('success')
-                    return redirect('http://127.0.0.1:8000/testjs/')
+                    login(request,user)
+                    if request.user.is_authenticated:
+                        print('登录')
+                        print(request.user.is_authenticated)
+
+
+                       
+                    else:
+                        print('未登录')    
+                        print(request.user.is_authenticated)
+
+
+                    
+                    return redirect('/testjs/')
                     #zxy是傻逼
                 else:
                     return render (request,'login.html',{'errmsg':'密码错误'})
@@ -226,7 +253,10 @@ def userlogin(request):
 
 
 
+def loginoutUser(request):
+    logout(request)
 
+    return redirect('/index/')
 
 
 

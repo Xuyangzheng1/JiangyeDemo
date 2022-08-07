@@ -157,7 +157,28 @@ $(function () {
 
 })
 })
-
+$(function(){
+    $file = $("#userimg")
+    $file.change(function(){
+        var formData = new FormData();
+        formData.append('file', $('#userimg')[0].files[0]); // 固定格式
+        alert(formData)
+        $.ajax({        // ajax前记得加点 . !!!!!!!!!!!!!!!!!
+            url:"http://127.0.0.1:8000/user/userimg_upload",
+            type:"POST",
+            cache:false,
+            data:formData,
+            processData:false,
+            contentType:false,
+            success:function(data){
+                //alert(data)
+            },
+            fail:function(data){
+               // alert("++++++++++++++++")
+            }
+        });
+    });
+});
     </script>
 
 

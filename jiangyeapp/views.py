@@ -16,10 +16,16 @@ from wsgiref.handlers import read_environ
 from django.conf import settings
 from django.forms import PasswordInput
 from django.shortcuts import render, HttpResponse, redirect
+
 from user.models import userinformation
 from jiangyeapp import models
 from django.core.mail import send_mail
 from isodate import parse_duration
+
+from django.contrib.auth import login
+
+
+from django.contrib.auth.decorators import login_required
 # pip install pipenv
 # pipenv install isodate
 # pip install -U rdflib
@@ -30,7 +36,7 @@ import imdb
 
 # Create your views here.
 
-
+@login_required(login_url='/user/login/',redirect_field_name='testjs/')
 def index(request):
     # return HttpResponse("welcome")
     # return render(request, "index.html",+month)错误写法
