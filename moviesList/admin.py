@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 
-from user.models import userinformation
+from user.models import userinformation,MySession
 from .models import moviesInformation
 
 
@@ -14,10 +14,15 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CategoryAdmin)
 
+
+
 class PageAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'url')
 
 admin.site.register(Page, PageAdmin)
+
+
+
 
 @admin.register(moviesInformation)
 class moviesInfo(admin.ModelAdmin):

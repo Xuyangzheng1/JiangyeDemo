@@ -1,3 +1,5 @@
+from audioop import reverse
+
 from email import message
 from lib2to3.pgen2 import token
 from os import path
@@ -6,6 +8,7 @@ from django.shortcuts import redirect, render
 
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
+from user.models import MySession
 
 
 from user.models import userinformation
@@ -17,6 +20,14 @@ from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth import authenticate, login as userlogin
 
 from django.core.mail import send_mail
+
+from django.contrib.sessions.backends.db import SessionStore
+
+from importlib import import_module
+from django.conf import settings
+SessionStore = import_module(settings.SESSION_ENGINE).SessionStore
+
+from django.urls import reverse
 
 
 
@@ -36,6 +47,12 @@ def test730(request):
     return render(request,'index')
 
 
+
+#can not use session so use token_dict={}
+
+global token_dict
+token_dict={}
+s=SessionStore()
 def register(request):
     if request.method == 'POST':
         username1 = request.POST.get('user_name')
@@ -63,16 +80,44 @@ def register(request):
 
         #>------------------------------mail test-------------------------------------------{
         # send_mail()
-        token = str(uuid.uuid4()).replace('-','')
-        token_dict={token:uuu.id}
+        token = str(uuid.uuid4()).replace('-','')#随机数
+        session= MySession.objects.create(token=token,Sessionkey=uuu.userid)
+        session.save()
 
+        print('[][][][][][][][][][][]>>>>>>',token)
+
+
+        print('----------------------------------------------------------------------------------->regirest-token',token)
+        token_dict={token:uuu.userid}
+        # request.session[token]=uuu.userid
+        print('giaogiaogaio-----------------------',token_dict)
+        # print('----------------------------------------------------------------------------------->regirest-token',request.session)
+        s=SessionStore()
+        print('newSession---',token)
+        s.create()
+        s[token]=uuu.userid
+        # print('----------------------------------------------------------------------------------->regirest-Session-token-value',s[token])
+        request.session[token]={token:uuu.userid}
+        # re=request.session[token]
         
 
+        # print('-=-1-=1-=-1=-1=-1=-1', re)
+        # s._set_session_key=token
+        
+        # print('----------------------------------------------------------------------------------->regirest-Session-token-keys',s.session_key)
+        
+
+        print('------=-=-=-=-=-=-=->>>>>',s[token])
+        print('...................>>>>>>>>>>>>>>',token)
+        print('------=-=-=-=-=-=-=->>>>>',s.session_key)
+        
+        path='http://127.0.0.1:8000/user/active?token={}'.format(token)
         subject='giaogiaogiao'
 
         message='''8====D >>>>>>>>>>
         <li>giao</li>
-        <li><a href='#'>点击激活</a>
+        <li><a href='{}'>点击激活</a>
+        test:{}
         
         '''.format(path,path)
         print('>-------')
@@ -86,22 +131,52 @@ def register(request):
                           recipient_list=[email],
                           html_message=message
                   )
-        print(result)
-        #>------------------------------mail test-------------------------------------------{
-        # 
-        # 
-        # }
-        return HttpResponse('注册成功')
+        print('register------end--------------------------------------------------------------------------->',result)
+        # #>------------------------------mail test-------------------------------------------{
+       
+        # return HttpResponse('注册成功')
         #}----------------------------test area-----------------------
-        # 发送邮件
         
-        # subject = 'youjian'
-        # message = "huanying <br> <a href=''dianjijihuo"
-        # res=send_mail(subject=subject,message=message,from_email=settings.EMAIL_HOST_USER,recipient_list=[email,])
-        # print(res)
 
         return redirect('http://localhost:8000/testjs/')
     return render(request, 'register.html')
+
+
+
+def getSession(key):
+    ll= MySession.objects.raw("select * from user_mysession where token='"+key+"'")
+    if len(ll)==0:
+        return ""
+    return ll[0].Sessionkey
+    
+# def setSession(k,v):
+#     mySession= MySession(k=k,value=v)
+#     mySession.save()
+
+def user_active(request):
+    # MySession.objects.get(token=)
+    
+    token=request.GET.get('token')
+    print('[][][][][][-----------------------][][][]][',token)
+    uid=getSession(token)
+
+    print('-=-=-=+-+_=_=_=',uid)
+
+    
+
+    user=userinformation.objects.get(pk=uid)
+    user.is_active=1
+    user.save()
+
+    return redirect(reverse('user:login'))
+
+
+
+    
+    # print('.........................',ss[token])
+    
+
+
 
 
 def check_user(request):
@@ -132,7 +207,7 @@ def userlogin(request):
                 if flag:
                     print('mimazhengque')
                     # return HttpResponse('success')
-                    return render(request,'testjs.html')
+                    return redirect('http://127.0.0.1:8000/testjs/')
                     #zxy是傻逼
                 else:
                     return render (request,'login.html',{'errmsg':'密码错误'})
@@ -147,3 +222,48 @@ def userlogin(request):
     print('11111')
     return render(request,'login.html')
     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# ttt=request.session.get(token)
+    # print(request.session.keys())
+    # print('-=-=-=-=>>>ttt',ttt)
+    # uid=request.session.get(token)
+    # # request.session[token]
+    # # print(request.session[token])
+    # print('user_active_uid---------------------------------------------------------------------------------->',uid)
+
+    # s=SessionStore(session_key=token)
+    
+    
+    # print('165-----------------------------------------------------------',s.values())
+    # # print('>>>>..。.。.。》》。。.。》》',s[token])
+    
+
+
+    # print(('user_activate---------------------s.Session_key------------------------------------------------------------>',s.session_key))
+    # print('user_activate--------------------------------------------------------------------------------->',token)
+    
+    # # uid=token_dict.get('token')
+    
+    # ss=SessionStore(session_key=token)
+    
+    # print('----------------------------------------------------------------------------------->regirest-Session-token',ss.session_key)

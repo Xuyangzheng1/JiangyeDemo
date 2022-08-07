@@ -14,7 +14,8 @@ urlpatterns = [
     path('test',views.test),
     path('register/',views.register,name='register'),
     path('check_user/',views.check_user,name='check_user'),
-    path('login/',views.userlogin,name='login')
+    path('login/',views.userlogin,name='login'),
+    path('active/',views.user_active,name='active')
     
 
 

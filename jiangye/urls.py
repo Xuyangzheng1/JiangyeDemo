@@ -47,7 +47,7 @@ urlpatterns = [
     # path('test/',views.testjs),
     path('test/',views.youtube),
     path('test1/',views.test1),
-    path('testjs/',views.testjs),
+    path('testjs/',views.testjs,name='testjs'),
     path('test2/',views.test1),
 
     

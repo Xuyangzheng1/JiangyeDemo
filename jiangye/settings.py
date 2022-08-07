@@ -51,6 +51,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    
     'django.middleware.common.CommonMiddleware',
     #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -99,7 +100,7 @@ WSGI_APPLICATION = 'jiangye.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ZXYZXYZXY',  # 数据库名字
+        'NAME': 'zxyforever',  # 数据库名字
         'USER': 'root',
         'PASSWORD': 'zxy013',
         'HOST': '127.0.0.1',  # 那台机器安装了MySQL
@@ -237,3 +238,21 @@ YOUTUBE_DATA_API_KEY ='AIzaSyD_rx9dvz2vXgFMXzwWey2CDweIotkaKmA'
 
 
 AUTH_USER_MODEL = "user.userinformation"
+
+
+
+
+
+
+
+
+
+SESSION_SAVE_EVERY_REQUEST=True
+
+
+
+
+SESSION_CACHE_ALIAS = "default"
+
+SESSION_ENGINE = "django.contrib.sessions.backends.cache"
+

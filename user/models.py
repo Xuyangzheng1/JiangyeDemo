@@ -1,4 +1,5 @@
 #from django.contrib.auth.models import AbstractUser
+from lib2to3.pgen2 import token
 from tabnanny import verbose
 from django.db import models
 
@@ -20,6 +21,9 @@ from django.db import models
 from pkg_resources import require
 from django.contrib.auth.models import AbstractUser
 from django.contrib import auth
+
+from django.contrib.sessions.models import Session
+
 # Create your models here.
 MEDIA_ADDR = 'http://localhost:8000/media/'
 
@@ -39,4 +43,9 @@ class userinformation(AbstractUser):
         return MEDIA_ADDR + str(self.uesrImg)
 
 
-    
+class MySession(models.Model):
+    token=models.CharField(primary_key=True,max_length=225,verbose_name='token')
+    Sessionkey=models.CharField(max_length=225,default='0',verbose_name='Sessionkey')
+
+    class Meta:
+        verbose_name_plural = 'MySession'
