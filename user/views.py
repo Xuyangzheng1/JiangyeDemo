@@ -261,7 +261,8 @@ def loginoutUser(request):
 
 
 
-
+def base(request):
+    return render(request,'tbase.html')
 
 
 

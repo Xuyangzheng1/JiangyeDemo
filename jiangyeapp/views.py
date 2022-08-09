@@ -32,11 +32,12 @@ from django.contrib.auth.decorators import login_required
 import requests
 from django.conf import settings
 import imdb
+from serpapi import GoogleSearch
 
 
 # Create your views here.
 
-@login_required(login_url='/user/login/',redirect_field_name='testjs/')
+@login_required(login_url='/user/login/', redirect_field_name='testjs/')
 def index(request):
     # return HttpResponse("welcome")
     # return render(request, "index.html",+month)错误写法
@@ -80,9 +81,6 @@ def something(request):
     return redirect("http://www.javdb.com")
 
 
-
-
-
 def orm(request):
     models.Department.objects.create(title="giao12")
 
@@ -124,7 +122,8 @@ def info_add(request):
         # return render(request,"info_add.html",'3213')
         return HttpResponse('3213')
     else:
-        userinformation.objects.create(name=user, password=pwd, age=age)  # 获取数据
+        userinformation.objects.create(
+            name=user, password=pwd, age=age)  # 获取数据
 
    # except models.userinformation.DoesNotExist:
    # return render(request,"info_add.html",'3213')
@@ -159,9 +158,6 @@ def book_detail(request, book_id):
     return HttpResponse(text)
 
 
-
-
-
 def check_user(request):
     username = request.GET.get('username')
     user = userinformation.objects.filter(username=username).first
@@ -187,11 +183,9 @@ def youtube(request):
         'type': 'video',
 
     }
-    
 
     search_params['q'] = request.POST.get('search')
     search_params['q'] = str(request.POST.get('n1'))
-   
 
     # print("==========",search_params['q'],"=========================================================================================================================================================================================")
 
@@ -304,7 +298,7 @@ def test1(request):
 
 # ajax
 def testjs(request):
-    context={}
+    context = {}
     if request.method == 'POST':
         print('testjs')
         n1 = str(request.POST.get('n1'))
@@ -329,21 +323,19 @@ def testjs(request):
                 'type': 'video',
 
             }
-    
 
             search_params['q'] = str(n1)
-   
 
-                        # print("==========",search_params['q'],"=========================================================================================================================================================================================")
+            # print("==========",search_params['q'],"=========================================================================================================================================================================================")
 
             r = requests.get(url, params=search_params)
 
             print(r.text)
-                        # print(r.json()['items'][0]['id']['videoId'])
+            # print(r.json()['items'][0]['id']['videoId'])
             video_ids = []
             resultes = r.json()['items']
             for result in resultes:
-                     # print(result['id']['videoId'])
+                # print(result['id']['videoId'])
                 video_ids.append(result['id']['videoId'])
 
             video_params = {
@@ -357,8 +349,8 @@ def testjs(request):
             r = requests.get(video_url, params=video_params)
 
             resultes = r.json()['items']
-                    # print(r.text)
-                    # print(resultes)
+            # print(r.text)
+            # print(resultes)
             videos = []
             for result in resultes:
 
@@ -366,91 +358,249 @@ def testjs(request):
                     'title': result['snippet']['title'],
                     'id': result['id'],
                     'url': f'https://www.youtube.com/watch?v={ result["id"] }',
-                        # 持续时间
+                    # 持续时间
                     'duration': int(parse_duration(result['contentDetails']['duration']).total_seconds()//60),
-                    'thumbnail': result['snippet']['thumbnails']['high']['url'],  # 略缩图
+                    # 略缩图
+                    'thumbnail': result['snippet']['thumbnails']['high']['url'],
                 }
                 # print(video_data)
                 videos.append(video_data)
-                        # print(videos)
+                # print(videos)
             context = {
-                    'videos': videos
-                }
+                'videos': videos
+            }
             print(context)
             return render(request, 'test.html', context)
-           
-
-
-
-
-
-
-
 
         elif request.POST.get('n2'):
+            # https://rapidapi.com/dotero27022001/api/movies-app1/
             print('n2')
             print('-0-0-00-0-')
             print(n2)
-            
-            url = "https://online-movie-database.p.rapidapi.com/auto-complete"
+            # -------------------------------------------------+-+-+-+-施工区域!------------
+            # -------------------------------------------------+-+-+-+-施工区域!------------
 
-            querystring = {
-                'q': "Avengers"  # Avengers
-            }
+            # -------------------------------------------------+-+-+-+-施工区域!------------
+            # -------------------------------------------------+-+-+-+-施工区域!------------
+
+            # url = "https://online-movie-database.p.rapidapi.com/auto-complete"
+            url = "https://movie-database-alternative.p.rapidapi.com/"#-=-=-=-=-=-=-=-=-=-=-=-=
+
+            # querystring = {
+            #     'q': ""  # Avengers
+            # }
+
+            querystring = {"s":"Avengers","r":"json","page":"1"}#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+
 # -----------------------------------------------------------------
-            querystring['q'] = str(n2)
+            querystring['s'] = str(n2)
+            # headers = {
+            #     "X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
+            #     "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com"
+            # }
+
             headers = {
-                "X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
-                "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com"
-            }
+	"X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
+	"X-RapidAPI-Host": "movie-database-alternative.p.rapidapi.com"#>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+}
 
             response = requests.request(
-            "GET", url, headers=headers, params=querystring)
+                "GET", url, headers=headers, params=querystring)
 
-                # print(response.text)
+            print(response.text)
 
             fielddict = response.json()
 
             moviesdata = []
+            moviesdataactor=[]
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>unogsNG
+
+
+# >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>unogsNG
+            # -----------------------------------------------------dagaotegao!------------
+
+            unogsNGquerystring = {}
+            MovieDetailsquerystring = {}
+
             for x in range(0, len(fielddict)):
-                print('-----------------------------------------')
-                # print(fielddict.get('d')[x]['i']['height'])
-                print(fielddict.get('d')[x]['i']['imageUrl'])
-                    # print(fielddict.get('d')[x]['i']['width'])
-                print(fielddict.get('d')[x]["id"])
-                print(fielddict.get('d')[x]["l"])  # The Avengers
-                print(fielddict.get('d')[x]["q"])  # feature
-                print(fielddict.get('d')[x]["s"])  # Robert Downey Jr., Chris Evans
-                print(fielddict.get('d')[x]["rank"])  # 评分
+            
 
-                moviesInfo = {
-                    'imageUrl': fielddict.get('d')[x]['i']['imageUrl'],
-                    # https://www.imdb.com/title/tt10240638/
-                    'movieId': f'''https://www.imdb.com/title/{ fielddict.get('d')[x]["id"] }''',
+                # print('lange-===================================', len(fielddict))
+                # print('><><><><><><><><><><><><><><><><><><><><>->?<>',fielddict.get('d')[x]["id"])
+                
 
-                    'movieName': fielddict.get('d')[x]["l"],
-                    'movieType': fielddict.get('d')[x]["q"],
-                    'movieActor': fielddict.get('d')[x]["s"],
-                    'movieRank': fielddict.get('d')[x]["rank"],
+                # IMDBID = fielddict.get('d')[x]["id"]
+                IMDBIDlist = fielddict.get('Search')
+            for item in IMDBIDlist:
+                print('///////////////---=-=///-/-/-/-/',item["imdbID"])
+                IMDBID=item["imdbID"]
 
+
+
+
+
+#》《》《》《》《》《》《》《》《》》《》《》《》《》《》《》《》Movie Details《》《》《》《》《》《》《》《》《》《》《》《》《》《》
+                MovieDetailsurl = "https://movie-details1.p.rapidapi.com/imdb_api/movie"
+
+                MovieDetailsquerystring["id"]=IMDBID
+
+                MovieDetailsheaders = {
+                    "X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
+                    "X-RapidAPI-Host": "movie-details1.p.rapidapi.com"
                 }
 
-                moviesdata.append(moviesInfo)
+                MovieDetailsresponse = requests.request("GET", MovieDetailsurl, headers=MovieDetailsheaders, params=MovieDetailsquerystring)
+
+                print('moviesdateil>>>>>>>>>>>>>>>>>>>>>>',MovieDetailsresponse.text)
+                JsonMovieDetailsresponse=MovieDetailsresponse.json()
+
+                print('-=-=-=-=-=->>><><><><><+><><><>json',JsonMovieDetailsresponse)
+
+                print('actors><><><><><>=-=-=-=-=-=--=---------------------------------------------<><++',JsonMovieDetailsresponse.get('actors'))
+
+                actors=JsonMovieDetailsresponse.get('actors')
+
+                # for actor in actors:
+                #     print('/////////////////////////////////////////////////////////////actor',actor.get('id'))
+                #     print('/////////////////////////////////////////////////////////////actor',actor.get('name'))
+                #     print('/////////////////////////////////////natflix',f'''https://www.imdb.com/name/{ actor.get('id') }''',)
+                #     moviesInfoactor={
+                #         'actor':f'''https://www.imdb.com/name/{ actor.get('id') }'''
+
+                #     }
+                #     moviesdataactor.append(moviesInfoactor)
+
+                contextactor={
+                    'moviesdataactor':moviesdataactor
+
+            }
+            
+
+
+
+
+
+
+
+
+#》《》《》《》《》《》《》《》《》》《》《》《》《》《》《》《https://rapidapi.com/goodmoviesaps/api/movie-details1/》Movie Details《》《》《》《》《》《》《》《》《》《》《》《》《》《》
+
+
+    #》《》《》《》《》《》《》《》《》》《》《》《》《》《》《》unogsN《》《》《》《》《》《》《》《》《》《》《》《》《》《》《》
+
+
+
+#》《》《》《》《》《》《》《》《》》《》《》《》《》《》《》unogsN《》《》《》《》《》《》《》《》《》《》《》《》《》《》《》
+                unogsNGurl = "https://unogsng.p.rapidapi.com/title"
+
+                unogsNGquerystring["imdbid"] = IMDBID
+
+                unogsNGheaders = {
+                    "X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
+                    "X-RapidAPI-Host": "unogsng.p.rapidapi.com"
+                }
+
+                unogsNGresponse = requests.request(
+                    "GET", unogsNGurl, headers=unogsNGheaders, params=unogsNGquerystring)
+
+                # print('unogsNG--->',unogsNGresponse.text)
+                unogsNGresponsejson = unogsNGresponse.json()
+
+                # print(' unogsNGresponse>>>>>>>>>>',unogsNGresponsejson)
+
+                # print(' unogsNGresponse>>>>>>----->>>>',unogsNGresponsejson.get('results'))
+                print('---------------------->>>>++++_+_+_+_', x)
+                testlist = unogsNGresponsejson.get('results')
+                # print('-=-=-=-=-=-=-=-=-=-=-=testlist>>>>>>>>',testlist)
+#》《》《》《》《》《》《》《》《》》《》《》《》《》《》《unogsN》《》《》《》《》《》《》《》《》《》《》《》《》《》《》《》
+                for item in testlist:
+                    print('><><><><><><><><><><><><><><><><><><><><><><><><><><><><><')
+                    print(item['title'])
+                    print(item['matlabel'])
+                    print(item['matlevel'])
+                    print(item['avgrating'])
+                    print(item['predrating'])
+                    print(item['synopsis'])
+                    print(item['vtype'])
+                    print(item['img'])
+                    print(item['lgimg'])
+
+                    print(item['nfid'])
+                    print(item['nfdate'])
+                    print(item['curdate'])
+                    print(item['year'])
+                    print(item['imdbposter'])
+                    print(item['imdbgenre'])
+                    print(item['imdbrated'])
+                    print(item['imdbruntime'])
+                    print(item['imdbawards'])
+                    print(item['imdbcountry'])
+                    print(item['imdblanguage'])
+                    print(item['imdbrating'])
+                    print(item['imdbid'])
+                    print(item['imdbplot'])
+                    print(item['imdbmetascore'])
+                    print(item['imdbvotes'])
+                    print(item['netflixruntime'])
+
+                    print('><><><><><><><><><><><><><><><><><><><><><><><><><><><><><')
+
+                # print(' unogsNGresponse>>>>>>----->>>>',(unogsNGresponsejson.get('results'))[x])
+
+                    moviesInfo = {
+                    # 'movieId': f'''https://www.imdb.com/title/{ fielddict.get('d')[x]["id"] }''',
+                    'movieId': f'''https://www.imdb.com/title/{  item["imdbid"] }''',
+
+                    
+                    'natflix':f'''https://www.netflix.com/title/{ item['nfid'] }''',
+                    'title':item['title'],
+                    'matlabel':item['matlabel'],
+                    'matlevel':item['matlevel'],
+                    'avgrating':item['avgrating'],
+                    'predrating':item['predrating'],
+                    'synopsis':item['synopsis'],
+                    'vtype':item['vtype'],
+                    'img':item['img'],
+                    'lgimg':item['lgimg'],
+                    'nfid':item['nfid'],
+                    'nfdate':item['nfdate'],
+                    'curdate':item['curdate'],
+                    'year':item['year'],
+                    'imdbposter':item['imdbposter'],
+                    'imdbgenre':item['imdbgenre'],
+                    'imdbrated':item['imdbrated'],
+                    'imdbruntime':item['imdbruntime'],
+                    'imdbawards':item['imdbawards'],
+                    'imdbcountry':item['imdbcountry'],
+                    'imdblanguage':item['imdblanguage'],
+                    'imdbrating':item['imdbrating'],
+                    'imdbid':item['imdbid'],
+                    'imdbplot':item['imdbplot'],
+                    'imdbmetascore':item['imdbmetascore'],
+                    'imdbvotes':item['imdbvotes'],
+                    'netflixruntime':item['netflixruntime'],
+                    }
+
+                    moviesdata.append(moviesInfo)
+
+                    # allmovies=zip(moviesdata,moviesdataactor)
             context = {
-        'moviesdata': moviesdata
-    }
-        return render(request, 'test1.html', context)
-            # return HttpResponse(context)
+                    'moviesdata': moviesdata}
+                
+
+                
+
         
-           
+            # return render(request, 'test1.html', context,contextactor)
+            return render(request, 'test1.html',context)
+            # return HttpResponse(context)
 
+    return render(request, 'testjs.html')
 
-    
 
-    return render(request,'testjs.html')
-    
 
-   
 
 
 
@@ -494,31 +644,91 @@ def testjs(request):
 
 
 
+# --------------------------------------------------api重构----------------------------------------------------------------
 
 
+    # -----------------------------------------------------dagaotegao!------------
+    #         for x in range(0, len(fielddict)):
+    #             print('-----------------------------------------')
+    #             # print(fielddict.get('d')[x]['i']['height'])
+    #             print(fielddict.get('d')[x]['i']['imageUrl'])
+    #                 # print(fielddict.get('d')[x]['i']['width'])
+    #             print(fielddict.get('d')[x]["id"])
+    #             print(fielddict.get('d')[x]["l"])  # The Avengers
+    #             # print(fielddict.get('d')[x]["q"])  # feature
+    #             # print(fielddict.get('d')[x]["s"])  # Robert Downey Jr., Chris Evans
+    #             # print(fielddict.get('d')[x]["rank"])  # 评分
 
+    #             moviesInfo = {
+    #                 'imageUrl': fielddict.get('d')[x]['i']['imageUrl'],
+    #                 # https://www.imdb.com/title/tt10240638/
+    #                 'movieId': f'''https://www.imdb.com/title/{ fielddict.get('d')[x]["id"] }''',
 
+    #                 'movieName': fielddict.get('d')[x]["l"],
+    #                 # 'movieType': fielddict.get('d')[x]["q"],
+    #                 # 'movieActor': fielddict.get('d')[x]["s"],
+    #                 # 'movieRank': fielddict.get('d')[x]["rank"],
 
+    #             }
 
+    #
+    # }
 
 
+#  print('n2')
+#             print('-0-0-00-0-')
+#             print(n2)
 
+#             url = "https://online-movie-database.p.rapidapi.com/auto-complete"
 
+#             querystring = {
+#                 'q': "Avengers"  # Avengers
+#             }
+# # -----------------------------------------------------------------
+#             querystring['q'] = str(n2)
+#             headers = {
+#                 "X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
+#                 "X-RapidAPI-Host": "online-movie-database.p.rapidapi.com"
+#             }
 
+#             response = requests.request(
+#             "GET", url, headers=headers, params=querystring)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+#                 # print(response.text)
+
+#             fielddict = response.json()
+
+#             moviesdata = []
+#             for x in range(0, len(fielddict)):
+#                 print('-----------------------------------------')
+#                 # print(fielddict.get('d')[x]['i']['height'])
+#                 print(fielddict.get('d')[x]['i']['imageUrl'])
+#                     # print(fielddict.get('d')[x]['i']['width'])
+#                 print(fielddict.get('d')[x]["id"])
+#                 print(fielddict.get('d')[x]["l"])  # The Avengers
+#                 # print(fielddict.get('d')[x]["q"])  # feature--------------------
+#                 # print(fielddict.get('d')[x]["s"])  # Robert Downey Jr., Chris Evans
+#                 # print(fielddict.get('d')[x]["rank"])  # 评分------------------------
+#                 print(fielddict)
+
+#                 moviesInfo = {
+#                     'imageUrl': fielddict.get('d')[x]['i']['imageUrl'],
+#                     # https://www.imdb.com/title/tt10240638/
+#                     'movieId': f'''https://www.imdb.com/title/{ fielddict.get('d')[x]["id"] }''',
+
+#                     'movieName': fielddict.get('d')[x]["l"],
+#                     # 'movieType': fielddict.get('d')[x]["q"],
+#                     # 'movieActor': fielddict.get('d')[x]["s"],
+#                     # 'movieRank': fielddict.get('d')[x]["rank"],
+
+#                 }
+
+#                 moviesdata.append(moviesInfo)
+#             context = {
+#         'moviesdata': moviesdata
+#     }
+#         return render(request, 'test1.html', context)
+#             # return HttpResponse(context)
 
     # return HttpResponse('1')
 

@@ -23,6 +23,8 @@ urlpatterns = [
     path('check_user/',views.check_user,name='check_user'),
     path('login/',views.userlogin,name='login'),
 
+    path('tbase/',views.base),
+
     
     path('active/',views.user_active,name='active'),
     path('logout/',views.loginoutUser,name='logout'),

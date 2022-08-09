@@ -118,22 +118,62 @@ $.ajax({
 
 
 
+<!-- <div>
+{% for a in moviesdataactor %}
+      <h3><a type="button" href="{{ a.actor }}" class="btn btn-primary">actor</a></h3>
+      
+{% endfor %}
 
-
-
-
+</div> -->
   
 
   <div>
     {% for obj in moviesdata %}
     <div class="card" style="width: 18rem">
+
+      <li>{{obj.actor}}</li>
+
+
+
       {{ obj.movieType}}
+      {{obj.title}}
       <li>{{ obj.movieActor }}</li>
-      <img class="card-img-top" width="255" height="me-auto" src="{{ obj.imageUrl }}">
+      <li>{{obj.synopsis}}</li>
+      <li>{{obj.matlabel}}</li>
+      <li>{{obj.matlevel}}</li>
+      <li>{{obj.avgrating}}</li>
+      <li>{{obj.imdbplot}}</li>
+      <li>{{obj.imdbruntime}}</li>
+      <li>{{obj.year}}</li>
+      <li>{{obj.nfdate}}</li>
+      <li>{{obj.curdate}}</li>
+      <li>{{obj.actor}}</li>
+      <li>{{obj.}}</li>
+
+      
+
+      <img class="card-img-top" width="255" height="me-auto" src="{{ obj.imdbposter }}">
       <h3 class="card-title">{{ obj.movieName }}</h3>
-      <h3><a type="button" href="{{ obj.movieId }}" class="btn btn-primary">view</a></h3>
-      <h3>rank:{{ obj.movieRank}}</h3>
+      <h3><a type="button" href="{{ obj.movieId }}" class="btn btn-primary">view imdb</a></h3>
+      <h3><a type="button" href="{{ obj.natflix }}" class="btn btn-primary">view natflix</a></h3>
+      {% for a in moviesdataactor %}
+      <!-- <h3><a type="button" href="{{ a.actor }}" class="btn btn-primary">{{ a.actor }}</a></h3> -->
+      
+{% endfor %}
+<h3>rank:{{ obj.movieRank}}</h3>
+
+
+
+
+
       {% endfor %}
+
+      <!-- {% for actor in moviesdataactor %}
+      <h3><a type="button" href="{{ actor.actor }}" class="btn btn-primary">actor</a></h3>
+      
+      {% endfor %} -->
+
+
     </div>
 
   </div>
@@ -271,7 +311,7 @@ $.ajax({
  
 
 
-<div>
+<!-- <div>
   {% for obj in moviesdata %}
   <div class="card" style="width: 18rem">
     {{ obj.movieType}}
@@ -283,7 +323,7 @@ $.ajax({
     {% endfor %}
   </div>
 
-</div>
+</div> -->
 
    
 <!--

@@ -9,6 +9,23 @@
     <title>test</title>
 </head>
 <body>
+
+  <div>
+    {% if user.is_authenticated %}
+  
+    <a>giaogiaogiao</a>
+    <li>
+         {{ request.user.username }}
+         {{ request.user.email }}
+      <img src="{{ MEDIA_URL }}{{ user.userImg}}"+ alt="">
+    </li>
+  
+    <a href="{%url  'user:logout' %}">logout</a>
+    {% else %}
+    123123
+  
+    {% endif %}
+   </div>
     
 
 
