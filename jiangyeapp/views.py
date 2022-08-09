@@ -602,7 +602,8 @@ def testjs(request):
 
 
 
-
+def searchmovies (request):
+    return render(request,'searchmovies.html')
 
 
 

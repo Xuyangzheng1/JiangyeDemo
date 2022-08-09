@@ -56,6 +56,8 @@ urlpatterns = [
     # path('login/?next=/testjs/',views.testjs),
 
     path('test2/',views.test1),
+    path('searchmovies/',views.testjs,name='searchmovies'),
+
 
     
 
