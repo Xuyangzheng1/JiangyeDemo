@@ -17,6 +17,8 @@ class moviesInformation(models.Model):
     movies_posts = models.DateTimeField(verbose_name='时间')#添加新字段需要在sql上同步
     img_url = models.ImageField(upload_to='imgurl/',verbose_name=u'img')
     user_id = models.ForeignKey(verbose_name="user id",to=userinformation,on_delete=models.CASCADE)
+
+    
     
     def __str__(self):
         return self.movies_name

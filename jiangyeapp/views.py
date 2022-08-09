@@ -250,8 +250,8 @@ def test1(request):
         'q': "Avengers"  # Avengers
     }
 # -----------------------------------------------------------------
-    querystring['q'] = request.POST.get('searchpost')
-    print("-------------------->"+querystring['q'])
+    # querystring['q'] = request.POST.get('searchpost')
+    # print("-------------------->"+querystring['q'])
     querystring['q'] = str(request.POST.get('n2'))
     headers = {
         "X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
@@ -604,6 +604,12 @@ def testjs(request):
 
 def searchmovies (request):
     return render(request,'searchmovies.html')
+
+def superindex(request):
+    return render(request,'superindex.html')
+
+def youtube(request):
+    return render(request,'youtube.html')
 
 
 

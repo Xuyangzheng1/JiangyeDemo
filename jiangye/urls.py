@@ -57,6 +57,8 @@ urlpatterns = [
 
     path('test2/',views.test1),
     path('searchmovies/',views.testjs,name='searchmovies'),
+    path('superindex/',views.superindex,name='superindex'),
+    path('youtube/',views.youtube,name='youtube'),
 
 
     
