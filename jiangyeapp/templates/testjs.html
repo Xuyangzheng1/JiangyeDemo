@@ -20,13 +20,66 @@
    
   </style> -->
 <body>
+<div id="loading" style="z-index:2000;width:100%;display:none;height: 900px;position: absolute;background-color: gray;opacity: 0.5;">
+  <img src="http://localhost:8000/static/images/loading.gif" style="width:60px;height:60px;position: absolute;margin-left: 50%;margin-top: 300px;">
 
+</div>
+<div >
  <!-- <li><a href="index.html" ></li>
  <li><input href="index.html" type="button"></li> -->
  this is testjs
  
  <a href="http://localhost:8000/index" type="button">index</a>
  <a href="http://localhost:8000/user/register" type="button">register</a>
+ <a href="http://localhost:8000/superindex" type="button">superindex</a>
+ <button onclick="showPost()" type="button">show_post</button>
+ <button onclick="showPostList()" type="button">show_post_list</button>
+</div>
+<script>
+  showPost=function(){
+    let userid="{{request.user.userid}}"
+    alert(userid)
+    $.ajax({
+    type: 'POST',
+		url: 'http://localhost:8000/show_post',
+		data: {
+      userid:userid ,
+    },
+		success: function(result) {
+      
+        
+
+      // console.log("{{request.session.post}}")
+
+			console.log(result);
+      window.location.href='../show_post_user'
+      
+		},error:function(result){
+      console.log("error");
+      console.log(result);
+    }
+	  });
+  }
+  showPostList=function(){
+    let userid="{{request.user.userid}}"
+    alert(userid)
+    $.ajax({
+    type: 'POST',
+		url: '/showpostlist_pre',
+		data: {
+      userid:userid ,
+    },
+		success: function(result) {
+			console.log(result);
+      window.location.href='../showpost_list'
+      
+		},error:function(result){
+      console.log("error");
+      console.log(result);
+    }
+	  });
+  }
+</script>
  
 
  <div>
@@ -41,7 +94,7 @@
 
   <a href="{%url  'user:logout' %}">logout</a>
   {% else %}
-  123123
+  <a href="http://localhost:8000/user/login" type="button">userlogin</a>
 
   {% endif %}
  </div>
@@ -87,6 +140,7 @@
 }
 
 function clickFunTwo() {
+  $("#loading").attr('style',"z-index:2000;width:100%;display:block;height: 900px;position: absolute;background-color: gray;opacity: 0.5;");
   console.log('otwo click');
   console.log(document.getElementById('input').value);
   const text = document.getElementById('input').value
@@ -105,6 +159,7 @@ function clickFunTwo() {
 
 
       }
+      $("#loading").attr('style',"z-index:2000;width:100%;display:none;height: 900px;position: absolute;background-color: gray;opacity: 0.5;");
 			console.log(result);
       
       

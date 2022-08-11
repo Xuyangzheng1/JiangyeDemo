@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="forDivBody">
+    {%for x in request.session.post%} 
+    <div>
+        <a>{{x.title}}</a>
+        <a>{{x.save_number}}</a>
+        <a>{{x.publish_date}}</a>
+    {%endfor%}
+    </div> 
+    </div>
+</body>
+<script>
+    // console.log("{{request.session.post}}")
+    // // var ll=$.parseJSON("{{request.session.post}}" )
+   
+    // var dd='<div>'
+    // for(var i =0;i<ll.length;i++){
+    //     var obj=eval("("+ll[i]+")")
+    //     dd+="<div >"
+    //     dd+="<a>"+obj.title+"</a>"
+    //     dd+="<a>"+obj.body+"</a>"
+    //     dd+="</div>"
+    // }
+    //  dd+='</div>'
+</script>
+</html>

@@ -2,7 +2,7 @@
 from django.contrib import admin
 
 from user.models import userinformation,MySession
-from .models import moviesInformation
+from .models import BlogPost, moviesInformation
 
 
 # Register your models here.
@@ -31,3 +31,5 @@ class moviesInfo(admin.ModelAdmin):
 @admin.register(userinformation)
 class moviesInfo(admin.ModelAdmin):
      pass
+
+admin.site.register(BlogPost)

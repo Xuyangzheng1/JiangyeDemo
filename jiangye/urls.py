@@ -43,6 +43,10 @@ urlpatterns = [
     path('bootstrap5/',views.bootstrap5),
     #test
     path('info_list/',views.info_list),
+    path('show_post_user/',views.show_post_user),
+     path('showpostlist_pre',views.showpostlist_pre),
+    path('showpost_list',views.showpost_list),
+   
     path('info/add/',views.info_add),
     path('info/delete/',views.info_delete),
     path('<year>/<int:month>/<slug:day>',views.myvariable,),
@@ -59,6 +63,8 @@ urlpatterns = [
     path('searchmovies/',views.testjs,name='searchmovies'),
     path('superindex/',views.superindex,name='superindex'),
     path('youtube/',views.youtube,name='youtube'),
+    path('post/',views.publish_post,name='post'),
+    path('show_post',views.show_post),
 
 
     

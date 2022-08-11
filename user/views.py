@@ -78,8 +78,7 @@ def register(request):
         # print("path------------",path)
         print(allow)
         print(pwd)
-        # if allow !='on':
-        #   return render(request,'register.html',{'errmsg':'huoyigeiwoligiaogiao'})
+     
 
         pwd = make_password(password=pwd)
         uuu = userinformation.objects.create(
@@ -109,18 +108,10 @@ def register(request):
         s[token]=uuu.userid
         # print('----------------------------------------------------------------------------------->regirest-Session-token-value',s[token])
         request.session[token]={token:uuu.userid}
-        # re=request.session[token]
+       
         
 
-        # print('-=-1-=1-=-1=-1=-1=-1', re)
-        # s._set_session_key=token
-        
-        # print('----------------------------------------------------------------------------------->regirest-Session-token-keys',s.session_key)
-        
-
-        print('------=-=-=-=-=-=-=->>>>>',s[token])
-        print('...................>>>>>>>>>>>>>>',token)
-        print('------=-=-=-=-=-=-=->>>>>',s.session_key)
+       
         
         path='http://127.0.0.1:8000/user/active?token={}'.format(token)
         subject='giaogiaogiao'
@@ -145,8 +136,7 @@ def register(request):
         print('register------end--------------------------------------------------------------------------->',result)
         # #>------------------------------mail test-------------------------------------------{
        
-        # return HttpResponse('注册成功')
-        #}----------------------------test area-----------------------
+    
         
 
         return redirect('http://localhost:8000/testjs/')
@@ -184,7 +174,7 @@ def user_active(request):
 
 
     
-    # print('.........................',ss[token])
+  
     
 
 

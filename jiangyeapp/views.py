@@ -16,6 +16,7 @@ from wsgiref.handlers import read_environ
 from django.conf import settings
 from django.forms import PasswordInput
 from django.shortcuts import render, HttpResponse, redirect
+from moviesList.models import BlogPost
 
 from user.models import userinformation
 from jiangyeapp import models
@@ -23,6 +24,7 @@ from django.core.mail import send_mail
 from isodate import parse_duration
 
 from django.contrib.auth import login
+import django.contrib.auth
 
 
 from django.contrib.auth.decorators import login_required
@@ -538,6 +540,7 @@ def testjs(request):
                     print(item['imdbawards'])
                     print(item['imdbcountry'])
                     print(item['imdblanguage'])
+                    print('][][][][][][][][][]][][-=-=-[][][][')
                     print(item['imdbrating'])
                     print(item['imdbid'])
                     print(item['imdbplot'])
@@ -613,9 +616,61 @@ def youtube(request):
 
 
 
+@login_required(login_url='/user/login/')
+
+def publish_post(request):
+    if request.method=='POST':
+       title= request.POST.get('title')
+       number = request.POST.get('save_number')
+       context = request.POST.get('context')
+
+       print(title,number,context)
+       userid=request.user.userid
+       userObject = userinformation.objects.get(userid =userid)
+       post = BlogPost.objects.create(title=title,save_number=number,body=context,user_id=userObject)
+       if post:
+        return HttpResponse('ok')
+
+       
 
 
+    return render(request,'superindex.html')
 
+
+def show_post_user(request):
+    return render(request,'show_post.html')
+def showpost_list(request):
+    return render(request,'show_post_list.html')
+def showpostlist_pre(request):
+    print("1111111111")
+    def change(a):
+        return {
+            'title':str(a.title),
+            'body':str(a.body),
+            # 'publish_date':a.publish_date,
+            # 'save_number':a.save_number,
+        }
+    userid=request.POST['userid']
+    print("------ssssss--",userid)
+    if userid and str(userid)!='':
+        ll=BlogPost.objects.filter(user_id = userid)
+    else:
+        ll=BlogPost.objects.all()
+    request.session['post']=ll
+    print(request.session['post'])
+    re={}
+    return  JsonResponse(re)
+def show_post(request):
+
+    userid=request.POST['userid']
+    ll=BlogPost.objects.filter(user_id = userid)
+    if len(ll)>=1:
+        request.session['post']=ll[0]
+    else:
+         request.session['post']=""
+    re={}
+    # re['post']=BlogPost.objects.filter(user_id = userid)
+    return  JsonResponse(re)
 
 
 

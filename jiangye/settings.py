@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-#by2!sfq&54f0xa&cbcgmvk7$(^uf0)e^9n0nq)ga71!(3p#5r
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+# APPEND_SLASH=False
 ALLOWED_HOSTS = []
 
 
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'user',
     'moviesList',
     "bootstrap5",
+    'tinymce',
     
 ]
 
