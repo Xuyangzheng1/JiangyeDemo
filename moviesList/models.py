@@ -1,4 +1,5 @@
 from asyncio.windows_events import NULL
+from audioop import reverse
 from distutils.text_file import TextFile
 from typing import Text
 from django.db import models
@@ -75,7 +76,7 @@ class BlogPost(models.Model):
     save_number = models.IntegerField(verbose_name='save_number',default=0)
     publish_date = models.DateTimeField(auto_now_add=True,verbose_name='publish_date')
     user_id = models.ForeignKey(verbose_name="userBlog",to=userinformation,on_delete=models.CASCADE)
-   
+    BlogPostTop=models.BooleanField("BlogPostTop", default=False)
     class Meta:
         db_table = 'article'
         verbose_name = 'article_table'
@@ -83,6 +84,9 @@ class BlogPost(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+        return reverse('blog:detail', kwargs={'pk': self.pk})
 
 
 class BlogPost2(models.Model):

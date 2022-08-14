@@ -1,0 +1,442 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>论坛</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'forum_app/style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'forum_app/style-forum.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'forum_app/style-dark.css' %}" />
+    </head>
+    <body>
+
+        <style>
+            body, .header, #footer, h1, h2, h3, h4, h5, h6, p, span {
+    transition: background-color 0.2s ease,
+                color 0.2s ease;
+}
+body.dark-mode {
+    background-color: #111116;
+}
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4, 
+body.dark-mode h5, 
+body.dark-mode h6, 
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode input[type="submit"],
+body.dark-mode button,
+body.dark-mode li {
+    color: #DDD;
+}
+body.dark-mode #footer {
+    background-color: #333338;
+}
+body.dark-mode .banner {
+    background-color: #202025;
+}
+body.dark-mode .header {
+    background-color: #333338AA;
+    box-shadow: 0px 2px 8px #22222788;
+}
+body.dark-mode .dropdown-content {
+    background-color: #202025;
+}
+body.dark-mode .dropdown-content div {
+    background-color: #222227;
+    color: #DDD;
+}
+body.dark-mode .dropdown-content div:hover {
+    background-color: #404045;
+}
+body.dark-mode .dropdown-content div:active {
+    background-color: #505055;
+}
+body.dark-mode input[type="text"], 
+body.dark-mode textarea,
+body.dark-mode input[type="password"] {
+    background-color: transparent;
+    color: white;
+    border-color: #808085;
+}
+body.dark-mode input[type="text"]:hover, 
+body.dark-mode textarea:hover,
+body.dark-mode input[type="password"]:hover {
+    border-color: #448AFF;
+}
+body.dark-mode label {
+    color: #AAA;
+}
+body.dark-mode form {
+    border-color: #505055;
+}
+body.dark-mode .reply-list > li {
+    border: 1px solid #404045;
+}
+body.dark-mode .button-dropdown:hover {
+    background-color: #404045;
+    color: #DDD;
+}
+body.dark-mode .button-white {
+    background-color: transparent;
+    color: #DDD;
+}
+body.dark-mode .button-white:hover {
+    background-color: #404045;
+}
+body.dark-mode .button-white:active {
+    background-color: #808085;
+}
+button:disabled, input[type="submit"]:disabled {
+    background-color: #404045;
+    color: #888 !important;
+}
+
+.banner {
+    padding-top: 70px;
+    padding-bottom: 20px;
+    text-align: center;
+    background-color: #EEE;
+}
+.logout-button:hover {
+    background-color: red !important;
+}
+.logout-button:active {
+    background-color: #F88 !important;
+}
+.content {
+    padding: 10px 18%;
+}
+.flex {
+    display: flex;
+}
+.flex > * {
+    margin-right: 10px;
+}
+.topic-list {
+    list-style: none;
+}
+.topic-list > li > * {
+    vertical-align: middle;
+}
+.topic-list > li > span {
+    color: #888;
+    font-size: 12px;
+}
+#footer {
+    text-align: center;
+    background-color: #FAFAFA;
+    padding: 20px 0;
+    width: 100%;
+    margin-top: 100px;
+}
+.text-center {
+    text-align: center;
+}
+.text-red {
+    background-color: #ff0000aa;
+    border-radius: 3px;
+    padding: 1px;
+    color: white;
+}
+.text-blue {
+    background-color: #2962FFAA;
+    border-radius: 3px;
+    padding: 1px;
+    color: white;
+}
+.reply-list {
+    list-style: none;
+    padding: 0;
+}
+.reply-list > li {
+    border: 1px solid #82B1FF;
+    padding: 18px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+}
+.reply-list > li > p {
+    margin: 0;
+}
+.hr {
+    margin: 10px 0;
+    border-top: 1px solid #888;
+}
+.stats {
+    border: 1px solid #2962FF;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+            body {
+    margin: 0;
+}
+h1, h2, h3, h4, h5, h6, p {
+    color: black;
+}
+a {
+    text-decoration: none;
+    border: none;
+    color: #2962FF;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+    border-bottom: 1px solid transparent;
+}
+a:hover {
+    color: #448AFF;
+    border-bottom: 1px solid #448AFF;
+}
+a:active {
+    color: #82B1FF;
+    border-bottom: 1px solid #82B1FF;
+}
+button, input[type="submit"] {
+    padding: 7px 10px;
+    font-size: 14px;
+    color: #E3F2FD;
+    border-radius: 3px;
+    border: none;
+    background-color: #2962FF;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    transition-timing-function: ease;
+}
+button:hover, input[type="submit"]:hover {
+    background-color: #448AFF;
+}
+button:active, input[type="submit"]:active {
+    background-color: #82B1FF;
+}
+button:disabled, input[type="submit"]:disabled {
+    background-color: #DDD;
+    color: #888;
+    cursor: default;
+}
+input[type="text"], input[type="password"], textarea {
+    font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 5px;
+    width: 100%;
+    border: 1px solid #82B1FF;
+    border-radius: 3px;
+    outline: none;
+    transition: border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+input[type="text"]:hover, input[type="password"]:hover, textarea:hover {
+    border-color: #448AFF;
+}
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus {
+    border-color: #2962FF !important;
+    box-shadow: -1px -1px #2962FF, 1px 1px #2962FF,
+                -1px 1px #2962FF, 1px -1px #2962FF;
+}
+textarea {
+    height: 200px;
+    resize: none;
+}
+form {
+    border: 1px solid #BBDEFB;
+    padding: 18px;
+    border-radius: 5px;
+}
+label {
+    color: #666;
+    font-size: 16px;
+}
+
+.a-button {
+    border: none !important;
+}
+.header {
+    width: 100%;
+    height: 50px;
+    background-color: #BBDEFBAA;
+    backdrop-filter: blur(16px);
+    box-shadow: 0px 2px 8px #8888;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.header * {
+    margin: 0 3px;
+}
+.header-spacer {
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    margin: 0;
+}
+.margin {
+    width: 18%;
+    display: inline-block;
+}
+.button-white {
+    background-color: #FFF;
+    border: 1px solid #2962FF;
+    color: #2962FF;
+}
+.button-white:hover {
+    background-color: #BBDEFB;
+}
+.button-white:active {
+    background-color: #82B1FF;
+}
+.header-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.button-dropdown {
+    background: transparent;
+    color: #2962FF;
+    margin: 0;
+}
+.button-dropdown:hover {
+    background-color: #82B1FF;
+}
+.dropdown-content {
+    display: block;
+    opacity: 0;
+    position: absolute;
+    background-color: white;
+    min-width: 140px;
+    z-index: 114514;
+    right: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+.dropdown:hover .dropdown-content {
+    opacity: 1;
+    pointer-events: all;
+}
+.dropdown-content > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.dropdown-content > ul > li {
+    cursor: pointer;
+}
+.dropdown-content div {
+    background-color: white;
+    transition: all 0.3s ease;
+}
+.dropdown-content div:hover {
+    background-color: #2962FF;
+    color: white;
+}
+.dropdown-content div:active {
+    background-color: #82B1FF;
+}
+.dropdown-content a > div {
+    padding: 5px 10px;
+    color: black;
+    font-size: 14px;
+}
+.dropdown-content * {
+    margin: 0;
+}
+.alert-error {
+    background-color: #F004;
+    color: red;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid red;
+    border-radius: 5px;
+}
+.alert-warn {
+    background-color: #FF04;
+    color: #D80;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #FB0;
+    border-radius: 5px;
+}
+::selection {
+    background-color: #008AFB40;
+}
+
+        </style>
+        <header class="header">
+            <div class="margin"></div>
+            <a href="/" class="a-button header-title">论坛</a>
+
+            <div class="header-spacer"></div>
+
+            {% if user.is_authenticated %}
+                <div class="dropdown">
+                    <button class="button-dropdown">{{ request.user.username }}</button>
+                    <div class="dropdown-content">
+                        <ul>
+                            <li><a href="/user/{{ request.user.username }}"><div>个人主页</div></a></li>
+                            <li><a href="/settings/"><div>设置</div></a></li>
+                            <li><a onclick="toggle_theme()"><div>切换主题</div></a></li>
+                            <div class="hr" style="margin: 4% 3px;"></div>
+                            <li><a href="/logout/"><div class="logout-button">退出登录</div></a></li>
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <a onclick="toggle_theme()" style="cursor: pointer;">切换主题</a>
+                <a href="/login/" class="a-button"><button class="button-white">登录</button></a>
+                <a href="/register/" class="a-button"><button>注册</button></a>
+            {% endif %}
+            <div class="margin"></div>
+        </header>
+        <div id="main">
+            <div class="banner">
+                <h2>欢迎</h2>
+                <p>Lorem ipsum dolor sit am55555555555555555555555t consectetur adipisicing elit. Sapiente eveniet fuga dolore velit et quam dolores eos, distinctio perferendis. In consequuntur ipsam eaque delectus repellat. Dolore quod magni minima numquam.</p>
+            </div>
+            <div class="content flex">
+                <div style="margin-top: 18px; padding-right: 8px; border-right: 1px solid #BBB; min-width: 150px;">
+                    <a href="http://localhost:8000/moviesForum/create/" class="a-button"><button style="width: calc(100%); margin-bottom: 5px;">创建帖子</button></a>
+                    <a href="/users/">用户列表</a>
+                    <div class="stats">
+                        <h3 style="margin: 0;">统计</h3>
+                        <ul style="padding-left: 20px; margin-bottom: 0;">
+                            <li>用户总数：{{ stats.users }}</li>
+                            <li>帖子总数：{{ stats.topics }}</li>
+                            <li>回复总数：{{ stats.replies }}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div>
+                   
+                    {% if topics %}
+                        <h3>所有帖子</h3>
+                        <ul class="topic-list">
+                            {% for topic in topics %}
+                                <li class="flex">
+                                    <a href="topic/{{ topic.id }}/"><b>{{ topic.title }}</b></a>
+                                    <div class="header-spacer"></div>
+                                    <span>#{{ topic.id }}</span>
+                                    <span><a href="/user/{{ topic.topic_author }}">{{ topic.topic_author }}</a> <span title="{{ topic.topic_create_date }}">发布于{{ topic.publish_date }}</span></span>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>空空如也</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div id="footer">
+            <p>底部内容</p>
+        </div>
+        <script src="{% static 'forum_app/forum.js' %}"></script>
+    </body>
+</html>

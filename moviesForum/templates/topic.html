@@ -1,0 +1,82 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{{ topic.topic_title }}</title>
+        <link rel="stylesheet" type="text/css" href="{% static 'forum_app/style.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'forum_app/style-forum.css' %}" />
+        <link rel="stylesheet" type="text/css" href="{% static 'forum_app/style-dark.css' %}" />
+    </head>
+    <body>
+        <header class="header">
+            <div class="margin"></div>
+            <a href="/" class="a-button header-title">论坛</a>
+
+            <div class="header-spacer"></div>
+
+            {% if user.is_authenticated %}
+                <div class="dropdown">
+                    <button class="button-dropdown">{{ request.user.username }}</button>
+                    <div class="dropdown-content">
+                        <ul>
+                            <li><a href="/user/{{ request.user.username }}"><div>个人主页</div></a></li>
+                            <li><a href="/settings/"><div>设置</div></a></li>
+                            <li><a onclick="toggle_theme()"><div>切换主题</div></a></li>
+                            <div class="hr" style="margin: 4% 3px;"></div>
+                            <li><a href="/logout/"><div class="logout-button">退出登录</div></a></li>
+                        </ul>
+                    </div>
+                </div>
+            {% else %}
+                <a onclick="toggle_theme()" style="cursor: pointer;">切换主题</a>
+                <a href="/login/" class="a-button"><button class="button-white">登录</button></a>
+                <a href="/register/" class="a-button"><button>注册</button></a>
+            {% endif %}
+            <div class="margin"></div>
+        </header>
+        <div id="main">
+            <div class="banner">
+                <h2>{{ topic.title }}</h2>
+                <p>
+                    <a href="/user/{{ topic.user.user.name }}">{{ topic.user.user.name }}</a> <span title="{{ topic.publish_date }}">发布于{{ topic.publish_date }}</span>
+                    <!-- {% if topic.topic_topped %}
+                        <span class="text-red">已置顶</span>
+                    {% endif %} -->
+                </p>
+            </div>
+            <div class="content">
+                <ul class="reply-list">
+                    <li>
+                        {{ topic.body|linebreaks }}
+                    </li>
+                    <h3>{{ replies|length }}条回复</h3>
+                    {% for reply in replies %}
+
+                    
+                        <li>
+                            <a href="/user/{{ reply.reply_user }}">{{ reply.reply_user }}</a>
+                            {% if reply.reply_user == topic.user.user.name %}
+                                <span class="text-blue">帖子作者</span>
+                            {% endif %}
+                            <span title="回复于{{ reply.reply_create_date }}">{{ reply.reply_create_time}}</span>
+                            <div class="hr"></div>
+                            {{ reply.reply_body|linebreaks }}
+                        </li>
+                    {% endfor %}
+                </ul>
+                <form action="reply/" method="post">
+                    {% csrf_token %}
+                    <p style="margin-top: 0;">回复</p>
+                    <label for="content">内容</label>
+                    <textarea type="text" name="content" id="content" maxlength="4096"></textarea>
+                
+                    <input type="submit" value="发布" />
+                </form>
+            </div>
+        </div>
+        <script src="{% static 'forum_app/forum.js' %}"></script>
+    </body>
+</html>

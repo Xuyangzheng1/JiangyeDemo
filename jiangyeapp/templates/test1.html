@@ -24,7 +24,8 @@
   
     <a>giaogiaogiao</a>
     <li>
-         {{ request.user.username }}
+         {{ {{ request.user.username }}
+         {{ request.user.email }} }}
          {{ request.user.email }}
       <img src="{{ MEDIA_URL }}{{ user.userImg}}"+ alt="">
     </li>
@@ -39,6 +40,173 @@
 
 
 
+   <style>
+    .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+   
+  /* 创建两列 */
+  /* Left column */
+  .leftcolumn {   
+    float: left;
+    width: 100%;
+  }
+   
+  /* 右侧栏 */
+  .rightcolumn {
+    float: left;
+    width: 25%;
+    background-color: #f1f1f1;
+    padding-left: 20px;
+  }
+   
+  /* 图像部分 */
+  .fakeimg {
+    background-color: #aaa;
+    width: 100%;
+    padding: 40px;
+  }
+   
+  /* 文章卡片效果 */
+  .card {
+    background-color: white;
+    padding: 100px;
+    margin-top: 500px;
+  }
+   
+  /* 列后面清除浮动 */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+   
+  /* 底部 */
+  .footer {
+    padding: 20px;
+    text-align: center;
+    background: #ddd;
+    margin-top: 20px;
+  }
+   
+  /* 响应式布局 - 屏幕尺寸小于 800px 时，两列布局改为上下布局 */
+  @media screen and (max-width: 800px) {
+    .leftcolumn, .rightcolumn {   
+      width: 100%;
+      padding: 0;
+    }
+  }
+   
+  /* 响应式布局 -屏幕尺寸小于 400px 时，导航等布局改为上下布局 */
+  @media screen and (max-width: 400px) {
+    .topnav a {
+      float: none;
+      width: 100%;
+    }
+  }
+  </style>
+
+{% for obj in moviesdata %}
+<div class="row">
+  <div class="leftcolumn">
+    
+    <div class="card" >
+
+
+      <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="255" height="255"  src="{{ obj.imdbposter }}" onerror="this.src='/static/images/cat.jpg'"/>
+      <h2 class="featurette-heading">{{obj.title}} <span class="text-muted"></span></h2>
+        <p class="lead" ><span class="text-muted">movieType:</span>{{ obj.imdbgenre}}</p>
+         <p class="lead"> <span class="text-muted">title:</span>{{obj.title}}</p>
+         <p class="lead"> <span class="text-muted">language:</span>{{obj.imdblanguage}}</p>
+         <p class="lead"> <span class="text-muted">country:</span>{{obj.imdbcountry}}</p>
+        
+        <!-- <p class="lead"> <span class="text-muted">synopsis:</span>{{obj.synopsis}}</p> -->
+        <p class="lead"> <span class="text-muted">Movie viewing suggestions:</span>{{obj.matlabel}}</p>
+        <p class="lead"> <span class="text-muted">matlevel:</span>{{obj.matlevel}}</p>
+        <p class="lead"> <span class="text-muted">avg rating:</span>{{obj.avgrating}}</p>
+        <p class="lead"> <span class="text-muted">Movie Introduction:</span>{{obj.imdbplot}}</p>
+        <p class="lead"> <span class="text-muted">movie runtime:</span>{{obj.imdbruntime}}</p>
+        <p class="lead"> <span class="text-muted">release date:</span>{{obj.year}}</p>
+        <!-- <p class="lead"> <span class="text-muted">nfdate:</span>{{obj.nfdate}}</p> -->
+        <!-- <p class="lead"> <span class="text-muted">curdate:</span>{{obj.curdate}}</p> -->
+
+
+
+
+        
+      <h3><a type="button" href="{{ obj.movieId }}" target="_blank" class="btn btn-primary">view imdb</a></h3>
+      <h3><a type="button" href="{{ obj.natflix }}" target="_blank" class="btn btn-primary">view natflix</a></h3>
+
+      <form action="{% url 'post' %}" method="post">
+        {% csrf_token%}
+       rank:<p><input type="number" name="save_number" value="0" placeholder="number"></p>
+       
+  
+       input you idea <p><input type="text" name="title" placeholder="inputyouidea"></p>
+  <p>
+          <textarea id="mytextarea" name="context">Hello, World!</textarea>
+        </p>
+        
+        <p><input type="submit" value="publish"></p>
+      </form>
+      </div>
+      
+        
+       
+      
+    </div>
+    {% endfor %}
+
+   
+
+  </div>
+
+
+      <h2>文章标题</h2>
+      <h5>2019 年 4 月 17日</h5>
+      <div class="fakeimg" style="height:200px;">图片</div>
+      <p>一些文本...</p>
+      <p>菜鸟教程 - 学的不仅是技术，更是梦想！菜鸟教程 - 学的不仅是技术，更是梦想！菜鸟教程 - 学的不仅是技术，更是梦想！菜鸟教程 - 学的不仅是技术，更是梦想！</p>
+    </div>------------------------------------------------------
+    
+  </div>
+  <div class="rightcolumn">
+    <div class="card">
+      <h2>关于我</h2>
+      <div class="fakeimg" style="height:100px;">图片</div>
+      <p>关于我的一些信息..</p>
+    </div>
+    <div class="card">
+      <h3>热门文章</h3>
+      <div class="fakeimg"><p>图片</p></div>
+      <div class="fakeimg"><p>图片</p></div>
+      <div class="fakeimg"><p>图片</p></div>
+    </div>
+    <div class="card">
+      <h3>关注我</h3>
+      <p>一些文本...</p>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <h2>底部区域</h2>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
    <script>
     tinymce.init({
       selector: '#mytextarea',
@@ -48,7 +216,7 @@
       images_upload_url:'media/img',
       images_file_types: 'jpg,svg,webp',
       height: 300,
-      width: 300,
+      width: 500,
       resize: 'both'
 
     });
@@ -242,7 +410,7 @@ $.ajax({
         <p><input type="number" name="save_number" value="0" placeholder="number"></p>
        
   
-        <p><input type="text" name="title" placeholder="inputyouidea"></p>
+        <p><input type="text" name="title" placeholder="inputyouidea" style="width:200px; height:200px;margin:0 auto;"></p>
   <p>
           <textarea id="mytextarea" name="context">Hello, World!</textarea>
         </p>
@@ -257,37 +425,9 @@ $.ajax({
     </div>
     {% endfor %}
 
-    <!-- <hr class="featurette-divider">
+   
 
-    <div class="row featurette">
-      <div class="col-md-7 order-md-2">
-        <h2 class="featurette-heading">testq <span class="text-muted">testw</span></h2>
-        <p class="lead">testc</p>
-      </div>
-      <div class="col-md-5 order-md-1">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
-
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
-        <p class="lead">And yes, this is the last block of representative placeholder content. Again, not really intended to be actually read, simply here to give you a better view of what this would look like with some actual content. Your content.</p>
-      </div>
-      <div class="col-md-5">
-        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
-
-      </div>
-    </div>
-
-    <hr class="featurette-divider"> -->
-
-    <!-- /END THE FEATURETTES -->
-
-  </div><!-- /.container -->
+  </div>
 
 
   <!-- FOOTER -->

@@ -13,7 +13,7 @@ from django.http import HttpResponse, JsonResponse
 from user.models import MySession
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
-from user.models import userinformation
+from user.models import userinformation as User
 
 from django.conf import settings
 
@@ -80,13 +80,15 @@ def register(request):
         print(pwd)
      
 
-        pwd = make_password(password=pwd)
-        uuu = userinformation.objects.create(
+        # pwd = make_password(password=pwd)
+        uuu = User.objects.create_user(
             username=username1, password=pwd, email=email, age=age,create_time=time1,userImg=userimg)
     # userinformationv.is_active()=0
     #-----------------------------------------test area------------------------<>-----------
-        uuu.is_active =0
+        uuu.is_active =1
         uuu.save()
+
+
 
         #>------------------------------mail test-------------------------------------------{
         # send_mail()
@@ -165,7 +167,7 @@ def user_active(request):
 
     
 
-    user=userinformation.objects.get(pk=uid)
+    user=User.objects.get(pk=uid)
     user.is_active=1
     user.save()
 
@@ -182,7 +184,7 @@ def user_active(request):
 
 def check_user(request):
    username= request.GET.get('username')
-   user = userinformation.objects.filter(username=username).first()
+   user = User.objects.filter(username=username).first()
    if user:
         return JsonResponse({'status':'fail','msg':'此用户名已被注册'})
    else:
@@ -190,7 +192,9 @@ def check_user(request):
 
 
 from django.contrib.auth.backends import ModelBackend
+from django.contrib import auth
 
+# from django.contrib.auth.models import User   
 # class userloginMobileBackend(ModelBackend):
 def userlogin(request):
     if request.method == "POST":
@@ -198,20 +202,23 @@ def userlogin(request):
         pwd = request.POST.get('pwd')
         print(username)
 
-        user = userinformation.objects.filter(username=username).first()
+        user = User.objects.filter(username=username).first()
         
     
         if user:
             print('用户存在...')
             print(".....")
             if user.is_active:
-                flag= check_password(pwd,user.password)
+                # flag= check_password(pwd,user.password)
+                
+                flag = authenticate(username=username, password=pwd)
                 print(flag)
                 print('判断密码')
                 if flag:
                     print('mimazhengque')
                     # return HttpResponse('success')
-                    login(request,user)
+                    login(request,flag,backend='django.contrib.auth.backends.ModelBackend')
+                    print('////////////////userobj',login(request,flag))
                     if request.user.is_authenticated:
                         print('登录')
                         print(request.user.is_authenticated)
@@ -253,38 +260,3 @@ def loginoutUser(request):
 
 def base(request):
     return render(request,'tbase.html')
-
-
-
-
-
-
-
-
-
-
-
-# ttt=request.session.get(token)
-    # print(request.session.keys())
-    # print('-=-=-=-=>>>ttt',ttt)
-    # uid=request.session.get(token)
-    # # request.session[token]
-    # # print(request.session[token])
-    # print('user_active_uid---------------------------------------------------------------------------------->',uid)
-
-    # s=SessionStore(session_key=token)
-    
-    
-    # print('165-----------------------------------------------------------',s.values())
-    # # print('>>>>..。.。.。》》。。.。》》',s[token])
-    
-
-
-    # print(('user_activate---------------------s.Session_key------------------------------------------------------------>',s.session_key))
-    # print('user_activate--------------------------------------------------------------------------------->',token)
-    
-    # # uid=token_dict.get('token')
-    
-    # ss=SessionStore(session_key=token)
-    
-    # print('----------------------------------------------------------------------------------->regirest-Session-token',ss.session_key)

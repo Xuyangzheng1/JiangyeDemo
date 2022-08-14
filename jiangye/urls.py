@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, path, re_path
 from . import settings
 
-from jiangyeapp import views
+
 from django.conf.urls.static import static
 
 
@@ -25,6 +25,8 @@ from django.views.static import serve
 
 from jiangye.settings import MEDIA_ROOT
 from django.contrib.auth.decorators import login_required
+# from moviesForum import views 
+from jiangyeapp import views
 
 
 urlpatterns = [
@@ -65,8 +67,10 @@ urlpatterns = [
     path('youtube/',views.youtube,name='youtube'),
     path('post/',views.publish_post,name='post'),
     path('show_post',views.show_post),
+    path('quote/',views.Famous_Quotes),
+    path('posts/<int:pk>/', views.detail, name='detail'),
 
-
+    
     
 
     
@@ -81,6 +85,7 @@ urlpatterns = [
     
     path('moviesList/',include(('moviesList.urls','moviesList'),namespace='moviesList')),
     path('user/',include(('user.urls','user'),namespace='user')),#一定要加上app名字
+    path('moviesForum/',include(('moviesForum.urls','moviesForum'),namespace='moviesForum')),#一定要加上app名字
 
     
     # 配置媒体文件的路由地址

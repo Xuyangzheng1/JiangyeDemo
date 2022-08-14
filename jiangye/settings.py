@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'moviesList',
     "bootstrap5",
     'tinymce',
+    'moviesForum',
+    # 'moviesForum.apps.moviesForumConfig',
     
 ]
 

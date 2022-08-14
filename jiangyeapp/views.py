@@ -677,6 +677,40 @@ def show_post(request):
 
 
 
+def Famous_Quotes(request):
+    url = "https://andruxnet-random-famous-quotes.p.rapidapi.com/"
+
+    querystring = {"cat":"movies","count":"10"}
+
+    headers = {
+	"X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
+	"X-RapidAPI-Host": "andruxnet-random-famous-quotes.p.rapidapi.com"
+}
+
+    response = requests.request("POST", url, headers=headers, params=querystring)
+
+    # print(response.text)
+    quolist=[]
+    quodic={}
+    Quotes=response.json()
+    for x in range(0,len(Quotes)):
+        print(Quotes[x].get('quote'))
+        print(Quotes[x].get('author'))
+
+        quodic={
+            "quote":Quotes[x].get('quote'),
+            "author":Quotes[x].get('author')
+        }
+        quolist.append(quodic)
+    context={
+        'quolist':quolist
+    }
+
+
+
+
+
+    return render(request,'quote.html',context)
 
 
 
@@ -684,8 +718,12 @@ def show_post(request):
 
 
 
+from django.shortcuts import render, get_object_or_404
+from moviesList.models import BlogPost
 
-
+def detail(request,pk):
+    post = get_object_or_404(BlogPost, pk=pk)
+    return render(request, 'blog/detail.html', context={'post': post})
 
 
 
