@@ -383,14 +383,14 @@ label {
                         <ul>
                             <li><a href="/user/{{ request.user.username }}"><div>个人主页</div></a></li>
                             <li><a href="/settings/"><div>设置</div></a></li>
-                            <li><a onclick="toggle_theme()"><div>切换主题</div></a></li>
+                            
                             <div class="hr" style="margin: 4% 3px;"></div>
                             <li><a href="/logout/"><div class="logout-button">退出登录</div></a></li>
                         </ul>
                     </div>
                 </div>
             {% else %}
-                <a onclick="toggle_theme()" style="cursor: pointer;">切换主题</a>
+                
                 <a href="/login/" class="a-button"><button class="button-white">登录</button></a>
                 <a href="/register/" class="a-button"><button>注册</button></a>
             {% endif %}
@@ -400,6 +400,9 @@ label {
             <div class="banner">
                 <h2>欢迎</h2>
                 <p>Lorem ipsum dolor sit am55555555555555555555555t consectetur adipisicing elit. Sapiente eveniet fuga dolore velit et quam dolores eos, distinctio perferendis. In consequuntur ipsam eaque delectus repellat. Dolore quod magni minima numquam.</p>
+
+
+                -==================================
             </div>
             <div class="content flex">
                 <div style="margin-top: 18px; padding-right: 8px; border-right: 1px solid #BBB; min-width: 150px;">

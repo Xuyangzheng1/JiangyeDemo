@@ -11,14 +11,10 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href='/static/plugins/bootstrap-5.2.0-beta1-dist/css/bootstrap.css'>
 <script src="/static/plugins/bootstrap-5.2.0-beta1-dist/js/bootstrap.js"></script>
-    <!-- <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script> -->
+    
 </head>
 
-<!-- <style type="text/css">
- 
-  body {transform: scale(1.5) translate(200px, 100px); }
-   
-  </style> -->
+
 <body>
 <div id="loading" style="z-index:2000;width:100%;display:none;height: 900px;position: absolute;background-color: gray;opacity: 0.5;">
   <img src="http://localhost:8000/static/images/loading.gif" style="width:60px;height:60px;position: absolute;margin-left: 50%;margin-top: 300px;">
@@ -48,17 +44,17 @@
             <a class="nav-link disabled" href="http://localhost:8000/index" tabindex="-1" aria-disabled="true">index</a>
           </li>
           <li>
-            <div style="color: #000406">
+            <div style="color: #dde8ed">
               {% if user.is_authenticated %}
             
-              <a>giaogiaogiao</a>
+              <a>welcome!</a>
               <li style="color: #f2f7fa">
                    {{ request.user.username }}
-                   {{ request.user.email }}
+                   <!-- {{ request.user.email }} -->
                 <img src="{{ MEDIA_URL }}{{ user.userImg}}"+ alt="">
               </li>
             
-              <a class="nav-link disabled" href="{%url  'user:logout' %}">logout</a>
+              
 
               <li class="nav-item">
                 <a class="nav-link" href="{%url  'user:logout' %}">logout</a>
@@ -169,75 +165,6 @@
 
 
 
-<div >
- 
- this is testjs
- 
- 
- <button onclick="showPost()" type="button">show_post</button>
- <button onclick="showPostList()" type="button">show_post_list</button>
-</div>
-<script>
-  showPost=function(){
-    let userid="{{request.user.userid}}"
-    alert(userid)
-    $.ajax({
-    type: 'POST',
-		url: 'http://localhost:8000/show_post',
-		data: {
-      userid:userid ,
-    },
-		success: function(result) {
-      
-        
-
-      // console.log("{{request.session.post}}")
-
-			console.log(result);
-      window.location.href='../show_post_user'
-      
-		},error:function(result){
-      console.log("error");
-      console.log(result);
-    }
-	  });
-  }
-  showPostList=function(){
-    let userid="{{request.user.userid}}"
-    alert(userid)
-    $.ajax({
-    type: 'POST',
-		url: '/showpostlist_pre',
-		data: {
-      userid:userid ,
-    },
-		success: function(result) {
-			console.log(result);
-      window.location.href='../showpost_list'
-      
-		},error:function(result){
-      console.log("error");
-      console.log(result);
-    }
-	  });
-  }
-</script>
- 
-
- 
-
-
-  <!-- <div class="body">
-    <div class="input">
-      <input type="text" placeholder="placeholder" id="input" />
-    </div>
-
-    <div class="submit">
-      <button onclick="clickFunOne()">YouTube</button>
-      <button onclick="clickFunTwo()">post</button>
-    </div>
-  </div> -->
-
 
   <script>
     function clickFunOne() {
@@ -299,19 +226,7 @@ function clickFunTwo() {
   </script>
 
 
-<!-- <div>
-  {% for obj in moviesdata %}
-  <div class="card" style="width: 18rem">
-    {{ obj.movieType}}
-    <li>{{ obj.movieActor }}</li>
-    <img class="card-img-top" width="255" height="me-auto" src="{{ obj.imageUrl }}">
-    <h3 class="card-title">{{ obj.movieName }}</h3>
-    <h3><a type="button" href="{{ obj.movieId }}" class="btn btn-primary">view</a></h3>
-    <h3>rank:{{ obj.movieRank}}</h3>
-    {% endfor %}
-  </div>
 
-</div> -->
 
    
 <!--

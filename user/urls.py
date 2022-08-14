@@ -25,7 +25,7 @@ urlpatterns = [
 
     path('tbase/',views.base),
 
-    
+    path('<str:user_name>/', views.user, name="user"), 
     # path('active/',views.user_active,name='active'),
     path('logout/',views.loginoutUser,name='logout'),
     re_path('media/(?P<path>.*)',serve,{'document_root': settings.MEDIA_ROOT}, name='media'),

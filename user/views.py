@@ -10,6 +10,9 @@ from django.contrib.auth import login
 
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
+
+from moviesForum.models import Reply
+from moviesList.models import BlogPost
 from user.models import MySession
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
@@ -260,3 +263,24 @@ def loginoutUser(request):
 
 def base(request):
     return render(request,'tbase.html')
+
+from django.http import Http404
+def user(request, user_name):
+    """ 用户 GET """
+    users = list(User.objects.filter(username=user_name))
+    if len(users) == 0:
+        raise Http404("用户不存在")
+    user_obj = users[0]
+    if request.user:
+        return render(request, 'useraccount.html', {
+            'user': user_obj,
+            'topics': BlogPost.objects.filter(user_id=user_obj),
+            'replies': Reply.objects.filter(reply_user=user_obj),
+            'logged_in_user': request.user
+        })
+    else:
+        return render(request, 'useraccount.html', {
+            'user': user_obj,
+            'topics': BlogPost.objects.filter(user_id=user_obj),
+            'replies': Reply.objects.filter(reply_user=user_obj),
+        })
