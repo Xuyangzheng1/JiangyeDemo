@@ -16,7 +16,7 @@ from wsgiref.handlers import read_environ
 from django.conf import settings
 from django.forms import PasswordInput
 from django.shortcuts import render, HttpResponse, redirect
-from moviesList.models import BlogPost
+from moviesList.models import BlogPost, moviesInformation
 
 from user.models import userinformation
 from jiangyeapp import models
@@ -588,6 +588,41 @@ def testjs(request):
 
                     moviesdata.append(moviesInfo)
 
+                    moviesInformation1 = moviesInformation.objects.filter(movie_imdbid= item['imdbid'])
+                    if moviesInformation1.exists():
+                        print('exits')
+                    else:
+                        print('not exits')
+                    moviesInformation1 = moviesInformation(
+
+                       
+                        
+                        movie_imdbid=item['imdbid'],
+                                                    classification =str(item['imdbgenre']),
+                                                       movies_title=str(item['title']),
+                                                       movies_language=str(item['imdblanguage']),
+                                                       movies_country=str(item['imdbcountry']),
+                                                       movies_suggestions=str(item['matlabel']),
+                                                       movies_matlevel=str(item['matlevel']),
+                                                       movies_avg_rating=float(item['avgrating']),
+                                                       movie_introduction=str(item['imdbplot']),
+                                                        movie_runtime=str(item['imdbruntime']),
+                                                         movie_imdblink=str(f'''https://www.imdb.com/title/{  item["imdbid"] }'''),
+                                                         movie_natflixlink=str(f'''https://www.netflix.com/title/{ item['nfid'] }'''),
+                                                         release_data=item['year'],
+                                                          img_url=item['imdbposter'],
+
+
+
+
+
+                                                       
+                                                       )
+                    
+                    moviesInformation1.save()
+
+
+
                     # allmovies=zip(moviesdata,moviesdataactor)
             context = {
                     'moviesdata': moviesdata}
@@ -623,11 +658,17 @@ def publish_post(request):
        title= request.POST.get('title')
        number = request.POST.get('save_number')
        context = request.POST.get('context')
+       movie=moviesInformation.objects.filter(movies_title=str(title)).first()
+       print('-----------------',movie)
+       print('-----------------',movie.id)
+       movieid=movie.id
+       
+
 
        print(title,number,context)
        userid=request.user.userid
        userObject = userinformation.objects.get(userid =userid)
-       post = BlogPost.objects.create(title=title,save_number=number,body=context,user_id=userObject)
+       post = BlogPost.objects.create(movie_id=movieid,title=title,save_number=number,body=context,user_id=userObject)
        if post:
         return HttpResponse('ok')
 

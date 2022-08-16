@@ -33,3 +33,5 @@ class moviesInfo(admin.ModelAdmin):
      pass
 
 admin.site.register(BlogPost)
+
+# admin.site.register(BlogPost2)

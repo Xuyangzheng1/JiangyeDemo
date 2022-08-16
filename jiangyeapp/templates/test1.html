@@ -140,10 +140,10 @@
 
       <form action="{% url 'post' %}" method="post">
         {% csrf_token%}
-       rank:<p><input type="number" name="save_number" value="0" placeholder="number"></p>
+       rating:<p><input type="number" name="save_number" value="0" placeholder="number"></p>
        
   
-       input you idea <p><input type="text" name="title" placeholder="inputyouidea"></p>
+       Blog title: <p><input type="text" name="title" placeholder="{{obj.title}}" value="{{obj.title}}"></p>
   <p>
           <textarea id="mytextarea" name="context">Hello, World!</textarea>
         </p>

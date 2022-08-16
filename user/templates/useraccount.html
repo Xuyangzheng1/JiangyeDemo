@@ -310,7 +310,7 @@ label {
 
     <header class="header">
         <div class="margin"></div>
-        <a href="/" class="a-button header-title">论坛</a>
+        <a href="/testjs/" class="a-button header-title">论坛</a>
 
         <div class="header-spacer"></div>
 
@@ -341,30 +341,30 @@ label {
             <p title="{{ user.create_time }}">于{{ user.create_time }}加入</p>
         </div>
         <div class="content">
-            <h3>{{ user.user_name }}发布的帖子</h3>
+            <h3>{{ user.username }}发布的帖子</h3>
             <ul class="topic-list">
                 {% for topic in topics %}
                     <li class="flex">
-                        <a href="/topic/{{ topic.id }}/"><b>{{ topic.topic_title }}</b></a>
+                        <a href="http://localhost:8000/moviesForum/index/topic/{{ topic.id }}/"><b>{{ topic.title }}</b></a>
                         <span style="color: #888; font-size: 14px;" title="{{ user.user_bio }}">{{ user.user_bio|slice:":30" }}{% if user.user_bio|length > 30 %}…{% endif %}</span>
                         <div class="header-spacer"></div>
                         <span>#{{ topic.id }}</span>
-                        <span><span title="{{ topic.topic_create_date }}">发布于{{ topic.topic_create_date}}</span></span>
+                        <span><span title="{{ topic.publish_date }}">发布于{{ topic.publish_date}}</span></span>
                     </li>
                 {% endfor %}
             </ul>
-            <h3>{{ user.user_name }}发布的回复</h3>
+            <h3>{{ user.username }}发布的回复</h3>
             <ul class="reply-list">
                 {% for reply in replies %}
                     <li>
-                        <a href="/user/{{ reply.reply_author.user_name }}">{{ reply.reply_author.user_name }}</a>
+                        <a href="/user/{{ reply.reply_user.username }}">{{ reply.reply_user.username }}</a>
                         {% if reply.reply_author == reply.reply_topic.topic_author %}
-                            <span class="text-blue">帖子作者</span>
+                            <span class="text-red">帖子作者</span>
                         {% endif %}
-                        <span title="回复于{{ reply.reply_create_date }}">{{ reply.reply_create_date}}</span>
-                        <span>在帖子</span><a href="/topic/{{ reply.reply_topic.id }}">{{ reply.reply_topic.topic_title }}</a><span>的回复</span>
+                        <span title="回复于{{ reply.reply_create_time }}">{{ reply.reply_create_time}}</span>
+                        <span>在帖子</span><a href="http://localhost:8000/moviesForum/index/topic/{{ reply.reply_Blog.id }}">{{ reply.reply_Blog.title }}</a><span>的回复</span>
                         <div class="hr"></div>
-                        {{ reply.reply_content|linebreaks }}
+                        {{ reply.reply_body|linebreaks }}
                     </li>
                 {% endfor %}
             </ul>

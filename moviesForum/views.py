@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 from moviesForum.models import Reply
 
-from moviesList.models import BlogPost,userinformation
+from moviesList.models import BlogPost, moviesInformation,userinformation
 from user.models import MySession
 from user.models import userinformation as User
 # from user.views import getSession
@@ -37,7 +37,7 @@ def index(request):
             "topics": BlogPost.objects.count(),
             "replies": Reply.objects.count()
         },
-        "topped_topics": BlogPost.objects.filter(BlogPostTop=True).order_by('-publish_date')
+        # "topped_topics": BlogPost.objects.filter(BlogPostTop=True).order_by('-publish_date')
     })
 
 
@@ -56,6 +56,8 @@ def create(request):
             BlogPosttitle = request.POST.get('title')
             BlogPostcontent = request.POST.get('content')
             BlogId = User.objects.filter(userid=request.user.userid).first()
+            # movie=moviesInformation.objects.filter(movies_title=str(BlogPosttitle)).first()
+            # movieid=movie.id
 
             if BlogPosttitle == "" or BlogPostcontent == "":
                 return render(request, 'create.html', {
@@ -63,7 +65,7 @@ def create(request):
                     "logged_in_user": request.user
                 })
 
-            BlogPost1 = BlogPost(title=BlogPosttitle,  body=BlogPostcontent, user_id=BlogId)
+            BlogPost1 = BlogPost(movie_id=1,title=BlogPosttitle,  body=BlogPostcontent, user_id=BlogId)
             BlogPost1.save()
             print('文章已保存')
         else:
