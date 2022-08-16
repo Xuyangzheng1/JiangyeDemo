@@ -662,15 +662,37 @@ def publish_post(request):
        print('-----------------',movie)
        print('-----------------',movie.id)
        movieid=movie.id
-       
+       #===================================================================================
+       url = "https://badword.p.rapidapi.com/"
+
+       querystring = {"content":"fuck"}
+       querystring["content"] =  request.POST.get('content')
 
 
-       print(title,number,context)
-       userid=request.user.userid
-       userObject = userinformation.objects.get(userid =userid)
-       post = BlogPost.objects.create(movie_id=movieid,title=title,save_number=number,body=context,user_id=userObject)
-       if post:
-        return HttpResponse('ok')
+       headers = {
+"X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
+"X-RapidAPI-Host": "badword.p.rapidapi.com"
+}
+
+       response = requests.request("GET", url, headers=headers, params=querystring)
+
+       print(response.text)
+
+       badWord=response.json()
+       if badWord == True:
+         return render(request,'superindex.html',{"error":"There are inappropriate words in the content you are about to post."})
+
+    
+
+       #=====================================================================================
+
+       else:
+        print(title,number,context)
+        userid=request.user.userid
+        userObject = userinformation.objects.get(userid =userid)
+        post = BlogPost.objects.create(movie_id=movieid,title=title,save_number=number,body=context,user_id=userObject)
+        if post:
+            return HttpResponse('ok')
 
        
 

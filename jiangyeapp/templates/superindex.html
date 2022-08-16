@@ -266,6 +266,10 @@
       
       <p><input type="submit" value="publish"></p>
     </form>
+    
+    {% if error %}
+                    <div class="alert-error">{{ error }}</div>
+                {% endif %}
 
 
 

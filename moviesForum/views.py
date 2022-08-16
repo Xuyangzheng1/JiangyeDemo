@@ -40,7 +40,7 @@ def index(request):
         # "topped_topics": BlogPost.objects.filter(BlogPostTop=True).order_by('-publish_date')
     })
 
-
+import requests
 def create(request):
     """ 创建帖子 GET/POST """
     if request.method == "GET":
@@ -56,20 +56,47 @@ def create(request):
             BlogPosttitle = request.POST.get('title')
             BlogPostcontent = request.POST.get('content')
             BlogId = User.objects.filter(userid=request.user.userid).first()
+            
+
+            url = "https://badword.p.rapidapi.com/"
+
+            querystring = {"content":"fuck"}
+            querystring["content"] = BlogPostcontent = request.POST.get('content')
+
+
+            headers = {
+	"X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
+	"X-RapidAPI-Host": "badword.p.rapidapi.com"
+}
+
+            response = requests.request("GET", url, headers=headers, params=querystring)
+
+            print(response.text)
+
+            badWord=response.json()
+            
             # movie=moviesInformation.objects.filter(movies_title=str(BlogPosttitle)).first()
             # movieid=movie.id
 
             if BlogPosttitle == "" or BlogPostcontent == "":
                 return render(request, 'create.html', {
-                    "error": "请填写完整信息",
+                    "error": "You have no input!",
                     "logged_in_user": request.user
                 })
+            else:
+                print('is_bad',badWord['is-bad'])
+                if badWord['is-bad']==True:
+                    return render(request, 'create.html', {
+                        "error": "There are inappropriate words in the content you are about to post.",
+                        "logged_in_user": request.user
+                    })
+
 
             BlogPost1 = BlogPost(movie_id=1,title=BlogPosttitle,  body=BlogPostcontent, user_id=BlogId)
             BlogPost1.save()
             print('文章已保存')
         else:
-            return redirect('/login/')
+            return redirect('http://localhost:8000/user/login/')
         # return redirect('')
         return redirect('http://localhost:8000/moviesForum/index/')
 
@@ -102,6 +129,7 @@ def reply(request, Blog_id):
                 reply = Reply(reply_body=form_content, reply_user=form_author, reply_Blog=form_topic)
                 reply.save()
                 print('使用了reply')
+            
             return redirect('http://localhost:8000/moviesForum/index/topic/{}/'.format(Blog_id))
             
         else:
