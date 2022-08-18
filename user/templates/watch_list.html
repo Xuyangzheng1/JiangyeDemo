@@ -13,6 +13,66 @@
         <img src="http://localhost:8000/static/images/loading.gif" style="width:60px;height:60px;position: absolute;margin-left: 50%;margin-top: 300px;">
       
       </div>
+    <script>
+        function clickFunOne() {
+         console.log('one click');
+         console.log(document.getElementById('input').value);
+       $("#loading").attr('style',"z-index:2000;width:100%;display:block;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
+      
+      console.log(document.getElementById('input').value);
+      // const text1 = document.getElementById('input').value
+      // console.log(text1 + text1)
+        $.ajax({
+        type: 'POST',
+            url: '/testjs/',
+            data: {
+      
+          n1: $("#input").val(),},
+            success: function(result) {
+          if(result){
+            // window.location.href='https://www.javbus.com/'
+            // window.location.href='/test/'
+            $(document.body).html(result);
+    
+          }
+        
+          $("#loading").attr('style',"z-index:2000;width:100%;display:none;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
+      
+            }
+        });
+    }
+    
+    function clickFunTwo() {
+      $("#loading").attr('style',"z-index:2000;width:100%;display:block;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
+      console.log('otwo click');
+      console.log(document.getElementById('input').value);
+      const text = document.getElementById('input').value
+      console.log(text)
+        $.ajax({
+        type: 'POST',
+            url: '/testjs/',
+            data: {
+      
+          n2: $("#input").val(),},
+            success: function(result) {
+          if(result){
+            // window.location.href='https://www.javbus.com/uncensored/star/sfy'
+            // window.location.href='/test1/'
+            $(document.body).html(result);
+    
+    
+          }
+          $("#loading").attr('style',"z-index:2000;width:100%;display:none;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
+                console.log(result);
+          
+          
+            }
+        });
+    }
+    
+    
+    
+      </script>
 <style>
 
 
@@ -313,66 +373,7 @@ label {
 
 
 
-<script>
-    function clickFunOne() {
-	 console.log('one click');
-	 console.log(document.getElementById('input').value);
-   $("#loading").attr('style',"z-index:2000;width:100%;display:block;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
-  
-  console.log(document.getElementById('input').value);
-  // const text1 = document.getElementById('input').value
-  // console.log(text1 + text1)
-	$.ajax({
-    type: 'POST',
-		url: '/testjs/',
-		data: {
-  
-      n1: $("#input").val(),},
-		success: function(result) {
-      if(result){
-        // window.location.href='https://www.javbus.com/'
-        // window.location.href='/test/'
-        $(document.body).html(result);
 
-      }
-	
-      $("#loading").attr('style',"z-index:2000;width:100%;display:none;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
-  
-		}
-	});
-}
-
-function clickFunTwo() {
-  $("#loading").attr('style',"z-index:2000;width:100%;display:block;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
-  console.log('otwo click');
-  console.log(document.getElementById('input').value);
-  const text = document.getElementById('input').value
-  console.log(text)
-	$.ajax({
-    type: 'POST',
-		url: '/testjs/',
-		data: {
-  
-      n2: $("#input").val(),},
-		success: function(result) {
-      if(result){
-        // window.location.href='https://www.javbus.com/uncensored/star/sfy'
-        // window.location.href='/test1/'
-        $(document.body).html(result);
-
-
-      }
-      $("#loading").attr('style',"z-index:2000;width:100%;display:none;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
-			console.log(result);
-      
-      
-		}
-	});
-}
-
-
-
-  </script>
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
@@ -383,7 +384,7 @@ function clickFunTwo() {
         <div class="collapse navbar-collapse" id="navbarCollapse">
           <ul class="navbar-nav me-auto mb-2 mb-md-0">
             <li class="nav-item">
-                <a class="nav-link active" href="http://localhost:8000/moviesForum/index/">Home</a>
+              <a class="nav-link active" href="http://localhost:8000/moviesForum/index/">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="http://localhost:8000/user/register">register</a>
@@ -441,33 +442,24 @@ function clickFunTwo() {
             <p title="{{ user.create_time }}">于{{ user.create_time }}加入</p>
         </div>
         <div class="content">
-            <h3>{{ user.username }}发布的帖子</h3>
+            <h3>{{ user.username }}收藏的电影</h3>
             <ul class="topic-list">
-                {% for topic in topics %}
-                    <li class="flex">
-                        <a href="http://localhost:8000/moviesForum/index/topic/{{ topic.id }}/"><b>{{ topic.title }}</b></a>
-                        <span style="color: #888; font-size: 14px;" title="{{ user.user_bio }}">{{ user.user_bio|slice:":30" }}{% if user.user_bio|length > 30 %}…{% endif %}</span>
-                        <div class="header-spacer"></div>
-                        <span>#{{ topic.id }}</span>
-                        <span><span title="{{ topic.publish_date }}">发布于{{ topic.publish_date}}</span></span>
-                    </li>
+                {% for movie in movies %}
+                    <div align="center">
+                        <li class="flex" style="width:900px">
+                            <img style="width:150px;height: 200px;" src="{{ movie.img }}">
+                            <b style="width:600px"">{{ movie.movieName }}</b>
+                            <div align="right" style="width:100%">
+                                <h3><a type="button" href="{{ movie.url1 }}" target="_blank" class="btn btn-primary">view imdb</a></h3>
+                                <h3><a type="button" href="{{ movie.url2 }}" target="_blank" class="btn btn-primary">view natflix</a></h3>
+                            </div>
+                        </li>
+                        <br/>
+                        <br/>
+                    </div>
                 {% endfor %}
             </ul>
-            <h3>{{ user.username }}发布的回复</h3>
-            <ul class="reply-list">
-                {% for reply in replies %}
-                    <li>
-                        <a href="/user/{{ reply.reply_user.username }}">{{ reply.reply_user.username }}</a>
-                        {% if reply.reply_author == reply.reply_topic.topic_author %}
-                            <span class="text-red">帖子作者</span>
-                        {% endif %}
-                        <span title="回复于{{ reply.reply_create_time }}">{{ reply.reply_create_time}}</span>
-                        <span>在帖子</span><a href="http://localhost:8000/moviesForum/index/topic/{{ reply.reply_Blog.id }}">{{ reply.reply_Blog.title }}</a><span>的回复</span>
-                        <div class="hr"></div>
-                        {{ reply.reply_body|linebreaks }}
-                    </li>
-                {% endfor %}
-            </ul>
+    
         </div>
     </div>
 </body>

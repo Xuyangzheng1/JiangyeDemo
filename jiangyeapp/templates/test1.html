@@ -74,7 +74,61 @@
     padding: 100px;
     margin-top: 500px;
   }
-   
+  .dropdown {
+    position: relative;
+    display: inline-block;
+}
+.button-dropdown {
+    background: transparent;
+    color: #2962FF;
+    margin: 0;
+}
+.button-dropdown:hover {
+    background-color: #82B1FF;
+}
+.dropdown-content {
+    display: block;
+    opacity: 0;
+    position: absolute;
+    background-color: white;
+    min-width: 140px;
+    z-index: 114514;
+    right: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+.dropdown:hover .dropdown-content {
+    opacity: 1;
+    pointer-events: all;
+}
+.dropdown-content > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.dropdown-content > ul > li {
+    cursor: pointer;
+}
+.dropdown-content div {
+    background-color: white;
+    transition: all 0.3s ease;
+}
+.dropdown-content div:hover {
+    background-color: #2962FF;
+    color: white;
+}
+.dropdown-content div:active {
+    background-color: #82B1FF;
+}
+.dropdown-content a > div {
+    padding: 5px 10px;
+    color: black;
+    font-size: 14px;
+}
+.dropdown-content * {
+    margin: 0;
+}
   /* 列后面清除浮动 */
   .row:after {
     content: "";
@@ -106,14 +160,19 @@
     }
   }
   </style>
+<input id="userId" style="display: none;" value="{{request.user.userid}}">
+<div id="loading" style="z-index:2000;width:100%;display:none;height: 900px;position: absolute;background-color: gray;opacity: 0.5;">
+  <img src="http://localhost:8000/static/images/loading.gif" style="width:60px;height:60px;position: absolute;margin-left: 50%;margin-top: 300px;">
 
+</div>
 {% for obj in moviesdata %}
 <div class="row">
   <div class="leftcolumn">
     
     <div class="card" >
 
-
+     
+      
       <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="255" height="255"  src="{{ obj.imdbposter }}" onerror="this.src='/static/images/cat.jpg'"/>
       <h2 class="featurette-heading">{{obj.title}} <span class="text-muted"></span></h2>
         <p class="lead" ><span class="text-muted">movieType:</span>{{ obj.imdbgenre}}</p>
@@ -137,19 +196,20 @@
         
       <h3><a type="button" href="{{ obj.movieId }}" target="_blank" class="btn btn-primary">view imdb</a></h3>
       <h3><a type="button" href="{{ obj.natflix }}" target="_blank" class="btn btn-primary">view natflix</a></h3>
+      <h3><a type="button" onclick="add2watchlist('{{obj.id}}')" target="_blank" class="btn btn-primary">add to watch list</a></h3>
 
-      <form action="{% url 'post' %}" method="post">
+      
         {% csrf_token%}
        rating:<p><input type="number" name="save_number" value="0" placeholder="number"></p>
-       
+       <input type="text" style="display: none;" name="id" placeholder="{{obj.id}}" value="{{obj.id}}"></p>
   
        Blog title: <p><input type="text" name="title" placeholder="{{obj.title}}" value="{{obj.title}}"></p>
   <p>
-          <textarea id="mytextarea" name="context">Hello, World!</textarea>
+          <textarea id="mytextarea_{{obj.id}}" name="context">Hello, World!</textarea>
         </p>
         
-        <p><input type="submit" value="publish"></p>
-      </form>
+        <p><button onclick="publish_my('{{obj.id}}')">publish</button></p>
+      
       </div>
       
         
@@ -214,61 +274,108 @@
 
 
 <script>
-  function clickFunOne() {
- console.log('one click');
- console.log(document.getElementById('input').value);
-
-console.log(document.getElementById('input').value);
-// const text1 = document.getElementById('input').value
-// console.log(text1 + text1)
-$.ajax({
-  type: 'POST',
-  url: '',
-  data: {
-
-    n1: $("#input").val(),},
-  success: function(result) {
-    if(result){
-      // window.location.href='https://www.javbus.com/'
-      // window.location.href='/test/'
-      $(document.body).html(result);
-
-    }
-    console.log(result);
-    
+  function publish_my(id){
+    var context=$("#mytextarea_"+id).val()
+    $.ajax({
+      type: 'POST',
+      url: '/post',
+      data: {
+        id: id,
+        context:context
+      },
+      success: function(result) {
+        if(result.code==200){
+          alert('publish successly')
+        }else if(result.code==500){
+          alert('There are inappropriate words in the content you are about to post. ')
+        }else{
+          alert('please login')
+        }
+      }
+    });
   }
-});
+  function add2watchlist(a){
+    var userid=$("#userId").attr('value')
+    var movieId=a
+    $.ajax({
+      type: 'POST',
+      url: '/user/add2watchlist',
+      data: {
+        userId: userid,
+        movieId:movieId
+      },
+      success: function(result) {
+        if(result.code==200){
+          
+          alert('add to watch list success')
+
+        }else{
+          alert('the movie has been added!!! ')
+        }
+        console.log(result);
+        
+      }
+    });
 }
-
-function clickFunTwo() {
-console.log('otwo click');
-console.log(document.getElementById('input').value);
-const text = document.getElementById('input').value
-console.log(text)
-$.ajax({
-  type: 'POST',
-  url: '',
-  data: {
-
-    n2: $("#input").val(),},
-  success: function(result) {
-    if(result){
-      // window.location.href='https://www.javbus.com/uncensored/star/sfy'
-      // window.location.href='/test1/'
-      $(document.body).html(result);
-
-
-    }
-    console.log(result);
+      function clickFunOne() {
+       console.log('one click');
+       console.log(document.getElementById('input').value);
+     $("#loading").attr('style',"z-index:2000;width:100%;display:block;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
     
+    console.log(document.getElementById('input').value);
+    // const text1 = document.getElementById('input').value
+    // console.log(text1 + text1)
+      $.ajax({
+      type: 'POST',
+          url: '/testjs/',
+          data: {
     
+        n1: $("#input").val(),},
+          success: function(result) {
+        if(result){
+          // window.location.href='https://www.javbus.com/'
+          // window.location.href='/test/'
+          $(document.body).html(result);
+  
+        }
+      
+        $("#loading").attr('style',"z-index:2000;width:100%;display:none;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
+    
+          }
+      });
   }
-});
-}
-
-
-
-</script>
+  
+  function clickFunTwo() {
+    $("#loading").attr('style',"z-index:2000;width:100%;display:block;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
+    console.log('otwo click');
+    console.log(document.getElementById('input').value);
+    const text = document.getElementById('input').value
+    console.log(text)
+      $.ajax({
+      type: 'POST',
+          url: '/testjs/',
+          data: {
+    
+        n2: $("#input").val(),},
+          success: function(result) {
+        if(result){
+          // window.location.href='https://www.javbus.com/uncensored/star/sfy'
+          // window.location.href='/test1/'
+          $(document.body).html(result);
+  
+  
+        }
+        $("#loading").attr('style',"z-index:2000;width:100%;display:none;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
+              console.log(result);
+        
+        
+          }
+      });
+  }
+  
+  
+  
+    </script>
 
 
 
@@ -297,37 +404,41 @@ $.ajax({
     <link href="carousel.css" rel="stylesheet">
   </head>
   <body>
+    <div id="loading" style="z-index:2000;width:100%;display:none;height: 900px;position: absolute;background-color: gray;opacity: 0.5;">
+      <img src="http://localhost:8000/static/images/loading.gif" style="width:60px;height:60px;position: absolute;margin-left: 50%;margin-top: 300px;">
     
+    </div>
+  
 <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Carousel</a>
+      <a class="navbar-brand" href="http://localhost:8000/superindex">superindex</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link active" href="http://localhost:8000/moviesForum/index/">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="http://localhost:8000/user/register">register</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="http://localhost:8000/moviesForum/index/">forum</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            <a class="nav-link disabled" href="http://localhost:8000/index" tabindex="-1" aria-disabled="true">index</a>
+          </li>
+          <li>
+            
           </li>
         </ul>
-        <!-- <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="input">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-           <div class="submit">
-            <button class="btn btn-outline-success" onclick="clickFunOne()">YouTube</button>
-            <button class="btn btn-outline-success" onclick="clickFunTwo()">post</button>
-          </div> 
-        </form> -->
-        <div class="d-flex">
+        
+        <div class="d-flex" style="width:25%">
           
-           <input class="form-control me-2" type="text" placeholder="placeholder" id="input" >
+           <input  style="width:71%" class="form-control me-2" type="text" placeholder="placeholder" id="input" >
         
         
           <div class="submit">
@@ -335,179 +446,32 @@ $.ajax({
             <button class="btn btn-outline-success" style="width: 90px;" onclick="clickFunTwo()">post</button>
           </div>
         </div>
+       <div style="width:30%"></div>
+        {% if user.is_authenticated %}
+        <div class="dropdown">
+            <button class="button-dropdown"><a style="color:white;">welcome {{ request.user.username }}</a></button>
+            <div class="dropdown-content">
+                <ul>
+                    <li><a href="/user/{{ request.user.username }}"><div>个人主页</div></a></li>
+                    <li><a href="/user/watchList/{{ request.user.username }}"><div>watch list</div></a></li>
+                    <li><a href="/settings/"><div>设置</div></a></li>
+                    
+                    <div class="hr" style="margin: 4% 3px;"></div>
+                    <li><a href="http://localhost:8000/user/login"><div class="logout-button">退出登录</div></a></li>
+                </ul>
+            </div>
+        </div>
+    {% else %}
+        
+        <a href="http://localhost:8000/user/login/" class="a-button"><button class="button-white">登录</button></a>
+        <a href="http://localhost:8000/user/register/" class="a-button"><button>注册</button></a>
+    {% endif %}
       </div>
     </div>
   </nav>
 </header>
 
-<main>
-
-
-
-
-
-  {% for obj in moviesdata %}
-    <hr class="featurette-divider">
-
-    <div class="row featurette">
-      <div class="col-md-7">
-        <h2 class="featurette-heading">{{obj.title}} <span class="text-muted"></span></h2>
-        <p class="lead" ><span class="text-muted">movieType:</span>{{ obj.imdbgenre}}</p>
-         <p class="lead"> <span class="text-muted">title:</span>{{obj.title}}</p>
-         <p class="lead"> <span class="text-muted">language:</span>{{obj.imdblanguage}}</p>
-         <p class="lead"> <span class="text-muted">country:</span>{{obj.imdbcountry}}</p>
-        
-        <!-- <p class="lead"> <span class="text-muted">synopsis:</span>{{obj.synopsis}}</p> -->
-        <p class="lead"> <span class="text-muted">Movie viewing suggestions:</span>{{obj.matlabel}}</p>
-        <p class="lead"> <span class="text-muted">matlevel:</span>{{obj.matlevel}}</p>
-        <p class="lead"> <span class="text-muted">avg rating:</span>{{obj.avgrating}}</p>
-        <p class="lead"> <span class="text-muted">Movie Introduction:</span>{{obj.imdbplot}}</p>
-        <p class="lead"> <span class="text-muted">movie runtime:</span>{{obj.imdbruntime}}</p>
-        <p class="lead"> <span class="text-muted">release date:</span>{{obj.year}}</p>
-        <!-- <p class="lead"> <span class="text-muted">nfdate:</span>{{obj.nfdate}}</p> -->
-        <!-- <p class="lead"> <span class="text-muted">curdate:</span>{{obj.curdate}}</p> -->
-
-
-
-
-        
-      <h3><a type="button" href="{{ obj.movieId }}" target="_blank" class="btn btn-primary">view imdb</a></h3>
-      <h3><a type="button" href="{{ obj.natflix }}" target="_blank" class="btn btn-primary">view natflix</a></h3>
-
-      <form action="{% url 'post' %}" method="post">
-        {% csrf_token%}
-        <p><input type="number" name="save_number" value="0" placeholder="number"></p>
-       
-  
-        <p><input type="text" name="title" placeholder="inputyouidea" style="width:200px; height:200px;margin:0 auto;"></p>
-  <p>
-          <textarea id="mytextarea" name="context">Hello, World!</textarea>
-        </p>
-        
-        <p><input type="submit" value="publish"></p>
-      </form>
-      </div>
-      <div class="col-md-5">
-        
-        <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="255" height="255"  src="{{ obj.imdbposter }}" onerror="this.src='/static/images/cat.jpg'"/>
-      </div>
-    </div>
-    {% endfor %}
-
-   
-
-  </div>
-
-
-  <!-- FOOTER -->
-  <footer class="container">
-    <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; Xuyangzheng &middot; <a href="https://github.com/Xuyangzheng1/JiangyeDemo/tree/master">MyGithub</a>
-  </footer>
-</main>
-
-
     <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- -=-=-=//////////////////////////////////////////////////////////////////////////////// &middot; <a href="#">Terms</a></p>///////test area/////////////////////////////////// -->
--->
--->
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  <!-- <div>
-    {% for obj in moviesdata %}
-    <div class="card" style="width: 70rem">
-
-      <li>{{obj.actor}}</li>
-
-
-
-      {{ obj.movieType}}
-      {{obj.title}}
-      <li>{{ obj.movieActor }}</li>
-      <li>{{obj.synopsis}}</li>
-      <li>{{obj.matlabel}}</li>
-      <li>{{obj.matlevel}}</li>
-      <li>{{obj.avgrating}}</li>
-      <li>{{obj.imdbplot}}</li>
-      <li>{{obj.imdbruntime}}</li>
-      <li>{{obj.year}}</li>
-      <li>{{obj.nfdate}}</li>
-      <li>{{obj.curdate}}</li>
-      <li>{{obj.actor}}</li>
-      <li>{{obj.}}</li>
-
-      
-
-      <img class="card-img-top" width="255" height="me-auto" src="{{ obj.imdbposter }}">
-      <h3 class="card-title">{{ obj.movieName }}</h3>
-      <h3><a type="button" href="{{ obj.movieId }}" class="btn btn-primary">view imdb</a></h3>
-      <h3><a type="button" href="{{ obj.natflix }}" class="btn btn-primary">view natflix</a></h3>
-      {% for a in moviesdataactor %}
-       <h3><a type="button" href="{{ a.actor }}" class="btn btn-primary">{{ a.actor }}</a></h3> -->
-      
-<!-- {% endfor %}
-<h3>rank:{{ obj.movieRank}}</h3>
-
-
-      {% endfor %}
-
-  
-
-
-    </div>
-
-  </div> --> 
-
-
-
-<!-- 
-
-  <div class="card" style="width: 18rem">
-    <img src="/static/images/cat.jpg" class="card-img-top" />
-    <div class="card-body">
-      <h5 class="card-title">title</h5>
-      <p class="card-text">
-        dasda
-      </p>
-      <a href="#" class="btn btn-primary">sda</a>
-
-    </div>
-
-
-
-  </div>
-
-
-
-
- -->
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
 
   <style>
     .search {
@@ -552,74 +516,70 @@ $.ajax({
       transform: translate(-50%, -50%);
     }
   </style> 
+</head>
+<body>
+   
 
- 
-
-
-
-  <!-- Gallery 
-
-  <div class="row">
-    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-      <img
-        src="/static/images/cat.jpg"
-        class="w-100 shadow-1-strong rounded mb-4"
-        alt="Boat on Calm Water"
-      />
   
-      <img
-        src="/static/images/cat.jpg"
-        class="w-100 shadow-1-strong rounded mb-4"
-        alt="Wintry Mountain Landscape"
-      />
+  
+    {% for obj in moviesdata %}
+      <hr class="featurette-divider">
+  
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">{{obj.title}} <span class="text-muted"></span></h2>
+          <p class="lead" ><span class="text-muted">movieType:</span>{{ obj.imdbgenre}}</p>
+           <p class="lead"> <span class="text-muted">title:</span>{{obj.title}}</p>
+           <p class="lead"> <span class="text-muted">language:</span>{{obj.imdblanguage}}</p>
+           <p class="lead"> <span class="text-muted">country:</span>{{obj.imdbcountry}}</p>
+          
+          <!-- <p class="lead"> <span class="text-muted">synopsis:</span>{{obj.synopsis}}</p> -->
+          <p class="lead"> <span class="text-muted">Movie viewing suggestions:</span>{{obj.matlabel}}</p>
+          <p class="lead"> <span class="text-muted">matlevel:</span>{{obj.matlevel}}</p>
+          <p class="lead"> <span class="text-muted">avg rating:</span>{{obj.avgrating}}</p>
+          <p class="lead"> <span class="text-muted">Movie Introduction:</span>{{obj.imdbplot}}</p>
+          <p class="lead"> <span class="text-muted">movie runtime:</span>{{obj.imdbruntime}}</p>
+          <p class="lead"> <span class="text-muted">release date:</span>{{obj.year}}</p>
+          <!-- <p class="lead"> <span class="text-muted">nfdate:</span>{{obj.nfdate}}</p> -->
+          <!-- <p class="lead"> <span class="text-muted">curdate:</span>{{obj.curdate}}</p> -->
+  
+  
+  
+  
+          
+        <h3><a type="button" href="{{ obj.movieId }}" target="_blank" class="btn btn-primary">view imdb</a></h3>
+        <h3><a type="button" href="{{ obj.natflix }}" target="_blank" class="btn btn-primary">view natflix</a></h3>
+  
+        <form action="{% url 'post' %}" method="post">
+          {% csrf_token%}
+          <p><input type="number" name="save_number" value="0" placeholder="number"></p>
+         
+    
+          <p><input type="text" name="title" placeholder="inputyouidea" style="width:200px; height:200px;margin:0 auto;"></p>
+    <p>
+            <textarea id="mytextarea" name="context">Hello, World!</textarea>
+          </p>
+          
+          <p><input type="submit" value="publish"></p>
+        </form>
+        </div>
+        <div class="col-md-5">
+          
+          <img class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="255" height="255"  src="{{ obj.imdbposter }}" onerror="this.src='/static/images/cat.jpg'"/>
+        </div>
+      </div>
+      {% endfor %}
+  
+     
+  
     </div>
   
   
-    {% load static %}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <link rel="stylesheet" href='/static/plugins/bootstrap-5.2.0-beta1-dist/css/bootstrap.css'>
-<script src="/static/plugins/bootstrap-5.2.0-beta1-dist/js/bootstrap.js"></script>
-    <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script> -->
-</head>
-<body>
-
- 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-
-<!-- <div>
-  {% for obj in moviesdata %}
-  <div class="card" style="width: 18rem">
-    {{ obj.movieType}}
-    <li>{{ obj.movieActor }}</li>
-    <img class="card-img-top" width="255" height="me-auto" src="{{ obj.imageUrl }}">
-    <h3 class="card-title">{{ obj.movieName }}</h3>
-    <h3><a type="button" href="{{ obj.movieId }}" class="btn btn-primary">view</a></h3>
-    <h3>rank:{{ obj.movieRank}}</h3>
-    {% endfor %}
-  </div>
-
-</div> -->
-
-   
-<!--
-  youtube
--->
+    <!-- FOOTER -->
+    <footer class="container">
+      <p class="float-end"><a href="#">Back to top</a></p>
+      <p>&copy; Xuyangzheng &middot; <a href="https://github.com/Xuyangzheng1/JiangyeDemo/tree/master">MyGithub</a>
+    </footer>
 {% for video in videos %}
 <div class="card" style="width: 18rem">
 

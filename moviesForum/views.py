@@ -30,7 +30,8 @@ def index(request):
 
 
    
-    return render(request, 'indexBlog.html', {
+    # return render(request, 'indexBlog.html', {
+    return render(request, 'testjs.html', {
                                     "topics": topics,
         "stats": {
             "users": userinformation.objects.count(),

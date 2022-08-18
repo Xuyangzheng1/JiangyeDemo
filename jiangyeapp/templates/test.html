@@ -8,108 +8,110 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>test</title>
 </head>
+<style>
+    .dropdown {
+    position: relative;
+    display: inline-block;
+}
+.button-dropdown {
+    background: transparent;
+    color: #2962FF;
+    margin: 0;
+}
+.button-dropdown:hover {
+    background-color: #82B1FF;
+}
+.dropdown-content {
+    display: block;
+    opacity: 0;
+    position: absolute;
+    background-color: white;
+    min-width: 140px;
+    z-index: 114514;
+    right: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+.dropdown:hover .dropdown-content {
+    opacity: 1;
+    pointer-events: all;
+}
+.dropdown-content > ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.dropdown-content > ul > li {
+    cursor: pointer;
+}
+.dropdown-content div {
+    background-color: white;
+    transition: all 0.3s ease;
+}
+.dropdown-content div:hover {
+    background-color: #2962FF;
+    color: white;
+}
+.dropdown-content div:active {
+    background-color: #82B1FF;
+}
+.dropdown-content a > div {
+    padding: 5px 10px;
+    color: black;
+    font-size: 14px;
+}
+.dropdown-content * {
+    margin: 0;
+}
+</style>
 <body>
+<div id="loading" style="z-index:2000;width:100%;display:none;height: 900px;position: absolute;background-color: gray;opacity: 0.5;">
+  <img src="http://localhost:8000/static/images/loading.gif" style="width:60px;height:60px;position: absolute;margin-left: 50%;margin-top: 300px;">
 
-  <div>
-    {% if user.is_authenticated %}
-  
-    <a>giaogiaogiao</a>
-    <li>
-         {{ request.user.username }}
-         {{ request.user.email }}
-      <img src="{{ MEDIA_URL }}{{ user.userImg}}"+ alt="">
-    </li>
-  
-    <a href="{%url  'user:logout' %}">logout</a>
-    {% else %}
-    123123
-  
-    {% endif %}
-   </div>
-    
-
-
-<li>-------------------test</li>
-
-<link rel="stylesheet" href='/static/plugins/bootstrap-5.2.0-beta1-dist/css/bootstrap.css'>
-<script src="/static/plugins/bootstrap-5.2.0-beta1-dist/js/bootstrap.js"></script>
-<!-- <script src="/jiangye/jiangyeapp/static/plugins/bootstrap-5.2.0-beta1-dist/cs"></script> -->
-
-<!--test----------------1------------------------------------------------------------------------------------------------------------------------------------------------------>
-
-
-  {% load static %}
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <link rel="stylesheet" href='/static/plugins/bootstrap-5.2.0-beta1-dist/css/bootstrap.css'>
-<script src="/static/plugins/bootstrap-5.2.0-beta1-dist/js/bootstrap.js"></script>
-  <!-- <script type="text/javascript" src="{% static 'js/jquery-3.6.0.min.js' %}"></script> -->
-
-  
-  <a href="http://localhost:8000/index" type="button">index</a>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="body">
-  <div class="input">
-    <input type="text" placeholder="placeholder" id="input" />
-  </div>
-
-  <div class="submit">
-    <button onclick="clickFunOne()">YouTube</button>
-    <button onclick="clickFunTwo()">post</button>
-  </div>
 </div>
-
-
 <script>
   function clickFunOne() {
- console.log('one click');
- console.log(document.getElementById('input').value);
+   console.log('one click');
+   console.log(document.getElementById('input').value);
+ $("#loading").attr('style',"z-index:2000;width:100%;display:block;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
 
 console.log(document.getElementById('input').value);
 // const text1 = document.getElementById('input').value
 // console.log(text1 + text1)
-$.ajax({
+  $.ajax({
   type: 'POST',
-  url: '',
-  data: {
+      url: '/testjs/',
+      data: {
 
     n1: $("#input").val(),},
-  success: function(result) {
+      success: function(result) {
     if(result){
       // window.location.href='https://www.javbus.com/'
       // window.location.href='/test/'
       $(document.body).html(result);
 
     }
-    console.log(result);
-    
-  }
-});
+  
+    $("#loading").attr('style',"z-index:2000;width:100%;display:none;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
+
+      }
+  });
 }
 
 function clickFunTwo() {
+$("#loading").attr('style',"z-index:2000;width:100%;display:block;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
 console.log('otwo click');
 console.log(document.getElementById('input').value);
 const text = document.getElementById('input').value
 console.log(text)
-$.ajax({
+  $.ajax({
   type: 'POST',
-  url: '',
-  data: {
+      url: '/testjs/',
+      data: {
 
     n2: $("#input").val(),},
-  success: function(result) {
+      success: function(result) {
     if(result){
       // window.location.href='https://www.javbus.com/uncensored/star/sfy'
       // window.location.href='/test1/'
@@ -117,17 +119,78 @@ $.ajax({
 
 
     }
-    console.log(result);
+    $("#loading").attr('style',"z-index:2000;width:100%;display:none;height: 2000px;position: absolute;background-color: gray;opacity: 0.5;");
+          console.log(result);
     
     
-  }
-});
+      }
+  });
 }
 
 
 
 </script>
+<header>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<div class="container-fluid">
+  <a class="navbar-brand" href="http://localhost:8000/superindex">superindex</a>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav me-auto mb-2 mb-md-0">
+      <li class="nav-item">
+        <a class="nav-link active" href="http://localhost:8000/moviesForum/index/">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="http://localhost:8000/user/register">register</a>
+      </li>
 
+      <li class="nav-item">
+        <a class="nav-link" href="http://localhost:8000/moviesForum/index/">forum</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="http://localhost:8000/index" tabindex="-1" aria-disabled="true">index</a>
+      </li>
+      <li>
+        
+      </li>
+    </ul>
+    
+    <div class="d-flex" style="width:25%">
+      
+       <input  style="width:71%" class="form-control me-2" type="text" placeholder="placeholder" id="input" >
+    
+    
+      <div class="submit">
+        <button class="btn btn-outline-success" onclick="clickFunOne()">YouTube</button>
+        <button class="btn btn-outline-success" style="width: 90px;" onclick="clickFunTwo()">post</button>
+      </div>
+    </div>
+   <div style="width:30%"></div>
+    {% if user.is_authenticated %}
+    <div class="dropdown">
+        <button class="button-dropdown"><a style="color:white;">welcome {{ request.user.username }}</a></button>
+        <div class="dropdown-content">
+            <ul>
+                <li><a href="/user/{{ request.user.username }}"><div>个人主页</div></a></li>
+                <li><a href="/user/watchList/{{ request.user.username }}"><div>watch list</div></a></li>
+                <li><a href="/settings/"><div>设置</div></a></li>
+                
+                <div class="hr" style="margin: 4% 3px;"></div>
+                <li><a href="http://localhost:8000/user/login"><div class="logout-button">退出登录</div></a></li>
+            </ul>
+        </div>
+    </div>
+{% else %}
+    
+    <a href="http://localhost:8000/user/login/" class="a-button"><button class="button-white">登录</button></a>
+    <a href="http://localhost:8000/user/register/" class="a-button"><button>注册</button></a>
+{% endif %}
+  </div>
+</div>
+</nav>
+</header>
 
 <div>
 {% for obj in moviesdata %}
@@ -147,14 +210,24 @@ $.ajax({
 <!--
 youtube
 -->
-{% for video in videos %}
-<div class="card" style="width: 18rem">
+<div  align="center" style="width: 100%;margin-top: 100px;">
+<div align="center" style="width: 60rem">
 
-  <img class="card-img-top" width="255" height="me-auto" src="{{ video.thumbnail }}">
-  <h3 class="card-title">{{ video.title }}</h3>
-  <h3><a type="button" href="{{ video.url }}" class="btn btn-primary">view</a></h3>
- <h3>{{ video.duration }} mins</h3>
-    {% endfor %}
+{% for video in videos %}
+
+  <div align="center" style="width: 19rem;float: left; height:500px;">
+  <div class="card" style="width: 18rem; height:482px;">
+
+    <img class="card-img-top"  height="me-auto" src="{{ video.thumbnail }}">
+    <h3 class="card-title">{{ video.title }}</h3>
+    <div style="position:absolute;bottom: 10px;height:75px;width:150px;align-self: center;">
+      <h3><a type="button" href="{{ video.url }}" class="btn btn-primary">view</a></h3>
+    <h3>{{ video.duration }} mins</h3>
+  </div>
+</div>
+  </div>
+{% endfor %}
+</div>
 </div>
 <!--
 youtube
@@ -316,7 +389,7 @@ $.ajax({
 
 
 
-<!--导航条-->
+<!-- 导航条
    
           <a class="navbar-brand" href="/testjs/">首页</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -338,14 +411,14 @@ $.ajax({
 
 
 
-  </div> 
+  </div>  -->
 
 
 
 <!--
   youtube
 -->
-    {% for video in videos %}
+    <!-- {% for video in videos %}
 <div class="card" style="width: 18rem">
 
     <img class="card-img-top" width="255" height="me-auto" src="{{ video.thumbnail }}">
@@ -353,7 +426,7 @@ $.ajax({
     <h3><a type="button" href="{{ video.url }}" class="btn btn-primary">view</a></h3>
    <h3>{{ video.duration }} mins</h3>
       {% endfor %}
-  </div>
+  </div> -->
  <!--
   youtube
 -->

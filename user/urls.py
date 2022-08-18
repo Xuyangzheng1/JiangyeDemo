@@ -24,8 +24,9 @@ urlpatterns = [
     path('login/',views.userlogin,name='login'),
 
     path('tbase/',views.base),
-
+    path('add2watchlist',views.add2watchlist,name='add2watchlist'),
     path('<str:user_name>/', views.user, name="user"), 
+    path('watchList/<str:user_name>/', views.watchList, name="watchList"), 
     # path('active/',views.user_active,name='active'),
     path('logout/',views.loginoutUser,name='logout'),
     re_path('media/(?P<path>.*)',serve,{'document_root': settings.MEDIA_ROOT}, name='media'),

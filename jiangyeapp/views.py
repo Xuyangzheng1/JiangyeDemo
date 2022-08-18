@@ -300,6 +300,8 @@ def test1(request):
 
 # ajax
 def testjs(request):
+    for i in range(0,5):
+        print("-------")
     context = {}
     if request.method == 'POST':
         print('testjs')
@@ -586,7 +588,7 @@ def testjs(request):
                     'netflixruntime':item['netflixruntime'],
                     }
 
-                    moviesdata.append(moviesInfo)
+                    
 
                     moviesInformation1 = moviesInformation.objects.filter(movie_imdbid= item['imdbid'])
                     if moviesInformation1.exists():
@@ -620,8 +622,9 @@ def testjs(request):
                                                        )
                     
                     moviesInformation1.save()
-
-
+                    ll=moviesInformation.objects.filter(movie_imdbid= item['imdbid'])
+                    moviesInfo['id']=ll[0].id
+                    moviesdata.append(moviesInfo)
 
                     # allmovies=zip(moviesdata,moviesdataactor)
             context = {
@@ -654,50 +657,47 @@ def youtube(request):
 @login_required(login_url='/user/login/')
 
 def publish_post(request):
-    if request.method=='POST':
-       title= request.POST.get('title')
-       number = request.POST.get('save_number')
-       context = request.POST.get('context')
-       movie=moviesInformation.objects.filter(movies_title=str(title)).first()
-       print('-----------------',movie)
-       print('-----------------',movie.id)
-       movieid=movie.id
-       #===================================================================================
-       url = "https://badword.p.rapidapi.com/"
-
-       querystring = {"content":"fuck"}
-       querystring["content"] =  request.POST.get('content')
-
-
-       headers = {
-"X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
-"X-RapidAPI-Host": "badword.p.rapidapi.com"
-}
-
-       response = requests.request("GET", url, headers=headers, params=querystring)
-
-       print(response.text)
-
-       badWord=response.json()
-       if badWord == True:
-         return render(request,'superindex.html',{"error":"There are inappropriate words in the content you are about to post."})
-
+    if not request.user or not request.user.userid:
+        re={'code':400}
+        return JsonResponse(re)
+    id=request.POST.get('id')
     
+    context = request.POST.get('context')
+    movie=moviesInformation.objects.filter(id=str(id)).first()
+    print('-----------------',movie)
+    print('-----------------',movie.id)
+    title= movie.movies_title
+    number = movie.movies_avg_rating
+    movieid=movie.id
+    #===================================================================================
+    url = "https://badword.p.rapidapi.com/"
 
-       #=====================================================================================
+    querystring = {"content":context}
 
-       else:
-        print(title,number,context)
-        userid=request.user.userid
-        userObject = userinformation.objects.get(userid =userid)
-        post = BlogPost.objects.create(movie_id=movieid,title=title,save_number=number,body=context,user_id=userObject)
-        if post:
-            return HttpResponse('ok')
+    headers = {
+    "X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
+    "X-RapidAPI-Host": "badword.p.rapidapi.com"
+    }
 
-       
+    response = requests.request("GET", url, headers=headers, params=querystring)
 
+    print(response.text)
 
-    return render(request,'superindex.html')
+    badWord=response.json()
+
+    # movie=moviesInformation.objects.filter(movies_title=str(BlogPosttitle)).first()
+    # movieid=movie.id
+    print('is_bad',badWord['is-bad'])
+    re={}
+    if badWord['is-bad']==True:
+        re['code']=500
+        return JsonResponse(re)
+    print(title,number,context)
+    userid=request.user.userid
+    userObject = userinformation.objects.get(userid =userid)
+    post = BlogPost.objects.create(movie_id=movieid,title=title,save_number=number,body=context,user_id=userObject)
+    re['code']=200
+    return JsonResponse(re)
 
 
 def show_post_user(request):

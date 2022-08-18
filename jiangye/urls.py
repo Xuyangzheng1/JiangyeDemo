@@ -46,7 +46,7 @@ urlpatterns = [
     #test
     path('info_list/',views.info_list),
     path('show_post_user/',views.show_post_user),
-     path('showpostlist_pre',views.showpostlist_pre),
+    path('showpostlist_pre',views.showpostlist_pre),
     path('showpost_list',views.showpost_list),
    
     path('info/add/',views.info_add),
@@ -65,7 +65,7 @@ urlpatterns = [
     path('searchmovies/',views.testjs,name='searchmovies'),
     path('superindex/',views.superindex,name='superindex'),
     path('youtube/',views.youtube,name='youtube'),
-    path('post/',views.publish_post,name='post'),
+    path('post',views.publish_post,name='post'),
     path('show_post',views.show_post),
     path('quote/',views.Famous_Quotes),
     path('posts/<int:pk>/', views.detail, name='detail'),

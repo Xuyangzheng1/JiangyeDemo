@@ -10,255 +10,351 @@
     <title>resgister</title>
     {%csrf_token%}
     <a href="http://localhost:8000/index" type="button">index</a>
-</head>
-<body>
+    <!-- <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
 
-   
-    {%csrf_token%}
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        .container {
+            max-width: 960px;
+        }
+    </style>
 
 
 
 
     <script>
-var errorName = true
-var errorPwd = true
-var errorConfirmPwd = true
-var errorCheckout = false
-var errorEmail = true
-$(function () {
-    //失去焦点时检验合法性
-    $('#user_name').blur(function () {
-        checkName()
-    })
-    $('#pwd').blur(function () {
-        checkPwd()
-    })
-    $('#cpwd').blur(function () {
-        checkConfirmPwd()
-    })
-    $('#email').blur(function () {
-        checkEmail()
-    })
-    // 判断用户是否同意协议
-    $('#allow').click(function() {
-        console.log('sbsbsbsbs')
+        var errorName = true
+        var errorPwd = true
+        var errorConfirmPwd = true
+        var errorCheckout = false
+        var errorEmail = true
+        $(function () {
+            //失去焦点时检验合法性
+            $('#user_name').blur(function () {
+                checkName()
+            })
+            $('#pwd').blur(function () {
+                checkPwd()
+            })
+            $('#cpwd').blur(function () {
+                checkConfirmPwd()
+            })
+            $('#email').blur(function () {
+                checkEmail()
+            })
+            // 判断用户是否同意协议
+            $('#allow').click(function () {
+                console.log('sbsbsbsbs')
 
-		if($(this).is(':checked'))
-		{
-			errorCheckout = false;
-			$(this).siblings('span').hide();
-		}
-		else
-		{
-			errorCheckout = true;
-			$(this).siblings('span').html('请勾选同意');
-            console.log('sbsbsbsbs')
-			$(this).siblings('span').show();
-		}
-	});
+                if ($(this).is(':checked')) {
+                    errorCheckout = false;
+                    $(this).siblings('span').hide();
+                }
+                else {
+                    errorCheckout = true;
+                    $(this).siblings('span').html('请勾选同意');
+                    console.log('sbsbsbsbs')
+                    $(this).siblings('span').show();
+                }
+            });
 
-});
-//检验用户名的合法性
-function checkName() {
-    console.log('进入checkname')
-    name = $('#user_name').val().length;
-    if (name==0){
-        $('#user_name').next().html('用户名不能为空');
-        $('#user_name').next().show();
-                                                                            console.log('call if ')
-        errorName = true
-        return;
-    }
-    else if(name > 15){
-        $('#user_name').next().html('用户名不能超过20个字符')
-        $('#user_name').next().show();
-                                                                         console.log('call else if ')
-        errorName = true
-        return;
-    }
-        var username = $('#user_name').val();
-        // 发起ajax请求，判断用户名是否已经注册过
-        $.getJSON('/user/check_user/',{username:username}, function (data) {
-            if (data.status=='fail'){                                       console.log('call show ')
-                $('#user_name').next().html(data.msg);
-                                                                                console.log(data.msg)
-                                                                                // alert(data.msg)
+        });
+        //检验用户名的合法性
+        function checkName() {
+            console.log('进入checkname')
+            name = $('#user_name').val().length;
+            if (name == 0) {
+                $('#user_name').next().html('用户名不能为空');
                 $('#user_name').next().show();
+                console.log('call if ')
                 errorName = true
+                return;
+            }
+            else if (name > 15) {
+                $('#user_name').next().html('用户名不能超过20个字符')
+                $('#user_name').next().show();
+                console.log('call else if ')
+                errorName = true
+                return;
+            }
+            var username = $('#user_name').val();
+            // 发起ajax请求，判断用户名是否已经注册过
+            $.getJSON('/user/check_user/', { username: username }, function (data) {
+                if (data.status == 'fail') {
+                    console.log('call show ')
+                    $('#user_name').next().html(data.msg);
+                    console.log(data.msg)
+                    // alert(data.msg)
+                    $('#user_name').next().show();
+                    errorName = true
+                }
+                else {
+                    $('#user_name').next().hide();
+                    errorName = false
+                }
+            })
+
+        }
+        //检验密码的合法性
+        function checkPwd() {
+            console.log('检查密码')
+            pwdLength = $('#pwd').val().length;
+            if (pwdLength < 6 || pwdLength > 20) {
+                console.log('检查密码')
+                $('#pwd').next().html('密码长度最少6位，最长12位')
+                $('#pwd').next().show()
+                errorPwd = true
+                return;
             }
             else {
-                $('#user_name').next().hide();
-                errorName = false
+                $('#pwd').next().hide()
+                errorPwd = false
+                return;
             }
+        }
+        //检验两次输入密码是否一致
+        function checkConfirmPwd() {
+            pwd = $('#pwd').val();
+            cpwd = $('#cpwd').val();
+            if (pwd != cpwd) {
+                $('#cpwd').next().html('两次密码输入不一致')
+                $('#cpwd').next().show()
+                errorConfirmPwd = true
+            }
+            else {
+                $('#cpwd').next().hide()
+                errorConfirmPwd = false
+            }
+        }
+        //check email
+        function checkEmail() {
+            var re = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+
+            if (re.test($('#email').val())) {
+                $('#email').next().hide();
+                errorEmail = false;
+            }
+            else {
+                $('#email').next().html('你输入的邮箱格式不正确')
+                $('#email').next().show();
+                errorEmail = true;
+            }
+        }
+        //发送post请求时在进行检验输入合法性
+        $(function () {
+            $('#reg_form').submit(function () {
+                //     alert('jiance')
+                checkName()
+                checkPwd()
+                checkConfirmPwd()
+                checkEmail()
+                if (errorName == false && errorPwd == false && errorConfirmPwd == false && errorEmail == false && errorCheckout == false) {
+                    // 验证成功，提交
+                    return true
+                }
+                // 验证不成功，阻止表单的默认行为。
+                return false
+
+            })
         })
-    
-}
-//检验密码的合法性
-function checkPwd() {
-    console.log('检查密码')
-    pwdLength = $('#pwd').val().length;
-    if(pwdLength<6 || pwdLength > 20){
-        console.log('检查密码')
-        $('#pwd').next().html('密码长度最少6位，最长12位')
-        $('#pwd').next().show()
-        errorPwd = true
-        return;
-    }
-    else {
-        $('#pwd').next().hide()
-        errorPwd = false
-        return;
-    }
-}
-//检验两次输入密码是否一致
-function checkConfirmPwd() {
-    pwd = $('#pwd').val();
-    cpwd = $('#cpwd').val();
-    if(pwd != cpwd){
-        $('#cpwd').next().html('两次密码输入不一致')
-        $('#cpwd').next().show()
-        errorConfirmPwd = true
-    }
-    else {
-        $('#cpwd').next().hide()
-        errorConfirmPwd  = false
-    }
-}
-//check email
-function checkEmail() {
-    var re = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
-
-		if(re.test($('#email').val()))
-		{
-			$('#email').next().hide();
-			errorEmail = false;
-		}
-		else
-		{
-			$('#email').next().html('你输入的邮箱格式不正确')
-			$('#email').next().show();
-			errorEmail = true;
-		}
-}
-//发送post请求时在进行检验输入合法性
-$(function () {
-    $('#reg_form').submit(function () {
-    //     alert('jiance')
-    checkName()
-    checkPwd()
-    checkConfirmPwd()
-    checkEmail()
-    if(errorName == false && errorPwd == false && errorConfirmPwd == false &&errorEmail == false && errorCheckout==false){
-        // 验证成功，提交
-        return true
-    }
-    // 验证不成功，阻止表单的默认行为。
-    return false
-
-})
-})
-$(function(){
-    $file = $("#userimg")
-    $file.change(function(){
-        var formData = new FormData();
-        formData.append('file', $('#userimg')[0].files[0]); // 固定格式
-        alert(formData)
-        $.ajax({        // ajax前记得加点 . !!!!!!!!!!!!!!!!!
-            url:"http://127.0.0.1:8000/user/userimg_upload",
-            type:"POST",
-            cache:false,
-            data:formData,
-            processData:false,
-            contentType:false,
-            success:function(data){
-                //alert(data)
-            },
-            fail:function(data){
-               // alert("++++++++++++++++")
-            }
+        $(function () {
+            $file = $("#userimg")
+            $file.change(function () {
+                var formData = new FormData();
+                formData.append('file', $('#userimg')[0].files[0]); // 固定格式
+                // alert(formData)
+                $.ajax({        // ajax前记得加点 . !!!!!!!!!!!!!!!!!
+                    url: "http://127.0.0.1:8000/user/userimg_upload",
+                    type: "POST",
+                    cache: false,
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (data) {
+                        //alert(data)
+                    },
+                    fail: function (data) {
+                        // alert("++++++++++++++++")
+                    }
+                });
+            });
         });
-    });
-});
+
+
+
     </script>
 
 
-    <div class="reg_form clearfix">
-    <form action="" method="post" id="reg_form" >
-        {% csrf_token %}
-    <ul>
-        <li>
-<label>username</label>
-<input type="text" name="user_name" id="user_name">
-<span class="error_tip">提示信息</span>
 
-    </li>
 
-    <li>
+</head>
+
+<body class="bg-light">
+
+    <div class="container">
+        <main>
+            {%csrf_token%}
+
+            <div class="row g-5" style="margin:0 auto;">
+
+                <div class="d-block mx-auto mb-4">
+
+
+                    <form action="" method="post" id="reg_form">
+                        {% csrf_token %}
+                        <!-- <ul>
+        <li> -->
+                        <!-- <label></label>
+            <input type="text" name="" id="user_name">
+            <span class="error_tip">提示信息</span> -->
+                        <div class="col-12">
+                            <label class="form-label">username</label>
+                            <div class="input-group has-validation">
+
+                                <input type="text" class="form-control" id="user_name" name="user_name"
+                                    placeholder="Username" required>
+                                <div class="invalid-feedback">
+                                    Your username is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- </li> -->
+
+                        <!-- <li>
         <label>password</label>
         <input type="password" name="pwd" id="pwd">
         <span class="error_tip">提示信息</span>
         
-            </li>
+            </li> -->
+                        <div class="col-12">
+                            <label class="form-label">password</label>
+                            <div class="input-group has-validation">
 
-            <li>
+                                <input type="password" class="form-control" id="pwd" name="pwd"
+                                    placeholder="password" required>
+                                <div class="invalid-feedback">
+                                    Your username is required.
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <li>
                 <label>confirmPassword</label>
                 <input type="password" name="cpwd" id="cpwd">
                 <span class="error_tip">提示信息</span>
                 
-                    </li>
-                    <li>
+                    </li> -->
+                        <div class="col-12">
+                            <label class="form-label">confirmPassword</label>
+                            <div class="input-group has-validation">
+
+                                <input type="password" class="form-control" id="cpwd" name="cpwd"
+                                    placeholder="confirmPassword" required>
+                                <div class="invalid-feedback">
+                                    Your username is required.
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <li>
                         <label>email</label>
                         <input type="text" name="email" id="email">
                         <span class="error_tip">提示信息</span>
                         
-                            </li>
+                            </li> -->
+                        <div class="col-12">
+                            <label class="form-label">email</label>
+                            <div class="input-group has-validation">
 
-                            <li>
+                                <input type="text" class="form-control" id="email" name="email" placeholder="email"
+                                    required>
+                                <div class="invalid-feedback">
+                                    Your username is required.
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <li>
                                 <label>age</label>
                                 <input type="number" name="age" id="age">
                                 <span class="error_tip">提示信息</span>
                                 
-                                    </li>
-                                    <!-- <li>
-                                        <label>date</label>
-                                        <input type="number" name="date" id="date">
-                                        <span class="error_tip">提示信息</span>
-                                        
-                                            </li> -->
-                                            <!-- <li>
-                                                <label>time</label>
-                                                <input type="time" name="time" id="time">
-                                                
-                                                    </li> -->
-                                                    <li>
+                                    </li> -->
+                        <div class="col-12">
+                            <label class="form-label">age</label>
+                            <div class="input-group has-validation">
+
+                                <input type="number" class="form-control" id="age" name="age" placeholder="age"
+                                    required>
+                                <div class="invalid-feedback">
+                                    Your username is required.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <li>
                                                         <label>IMG</label>
                                                         <input type="file" name='userimg' id="userimg">
 
                                                         
-                                                    </li>
-                            <li class="agreement">
-                                <input type="checkbox" name="allow" id="allow" checked="checked">
-                                <label> agreement with giaogiao promote</label>
-                                <span class="error_tip2"></span>
-                            </li>
+                                                    </li> -->
+                        <div class="col-12">
+                            <label class="form-label">IMG</label>
+                            <div class="input-group has-validation">
 
-                            <li class="reg_sub">
-                                <input type="submit" value="resgister" >
-                            </li>
-                        </form>
-                    </div>
-                            <li>
+                                <input language='EN' type="file" class="form-control" id="userimg" name="userimg" required>
+                                <div class="invalid-feedback">
+                                    Your username is required.
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <li class="agreement">
+                            <input type="checkbox" name="allow" id="allow" checked="checked">
+                            <label> agreement with promote</label>
+                            <span class="error_tip2"></span>
+                        </li> -->
+                        <hr class="my-4">
+                        <div class="form-check">
+                            <input type="checkbox" class="form-check-input" id="allow" name="allow" checked="checked">
+                            <label class="form-check-label">agreement with promote</label>
+                            <span class="invalid-feedback"></span>
+                        </div>
+                        <hr class="my-4">
+                        <!-- <li class="reg_sub">
+                            <input type="submit" value="resgister">
+                        </li> -->
+                        <button class="w-100 btn btn-primary btn-lg" type="submit">resgister</button>
+                    </form>
+                </div>
+            </div>
+            <!-- <li>
                                 <p style="color: royalblue;">{{ errmsg }}</p>
                             </li>
 
 
                             <li><img src="{{MEDIA_URL}}{{userinformation.userImg}}" alt="aaa"></li>
-                            <li><img src="{{icon}}" alt="aaa"></li>
-</ul>
+                            <li><img src="{{icon}}" alt="aaa"></li> -->
+            <!-- </ul> -->
 
 
 
+        </main>
+    </div>
 
 </body>
-</html>
 
+</html>

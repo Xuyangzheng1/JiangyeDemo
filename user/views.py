@@ -10,10 +10,10 @@ from django.contrib.auth import login
 
 # Create your views here.
 from django.http import HttpResponse, JsonResponse
-
+from django.db import connection
 from moviesForum.models import Reply
 from moviesList.models import BlogPost
-from user.models import MySession
+from user.models import MySession, WatchMovie
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from user.models import userinformation as User
@@ -234,7 +234,7 @@ def userlogin(request):
 
 
                     
-                    return redirect('/testjs/')
+                    return redirect('/moviesForum/index/')
                     #zxy是傻逼
                 else:
                     return render (request,'login.html',{'errmsg':'密码错误'})
@@ -284,3 +284,31 @@ def user(request, user_name):
             'topics': BlogPost.objects.filter(user_id=user_obj),
             'replies': Reply.objects.filter(reply_user=user_obj),
         })
+def watchList(request, user_name):
+    """ 用户 GET """
+    users = list(User.objects.filter(username=user_name))
+    if len(users) == 0:
+        raise Http404("用户不存在")
+    user_obj = users[0]
+    ll=WatchMovie.objects.raw("select m.id,m.movies_title as movieName,m.movie_imdblink as url1,m.movie_natflixlink as url2,m.img_url as img from movieslist_moviesinformation_user_id u left join  movieslist_moviesinformation m on m.id=moviesinformation_id where u.userinformation_id='"+str(user_obj.userid)+"'")
+    return render(request, 'watch_list.html', {
+        'user': user_obj,
+        'movies': ll,
+        'logged_in_user': request.user
+    })
+    
+def add2watchlist(req):
+    userId=req.POST.get("userId")
+    movieId=req.POST.get("movieId")
+    cur = connection.cursor()
+    re={}
+    
+    ll=WatchMovie.objects.raw("select m.id,m.movies_title as movieName,m.movie_imdblink as url1,m.movie_natflixlink as url2,m.img_url as img from movieslist_moviesinformation_user_id u left join  movieslist_moviesinformation m on m.id=moviesinformation_id where m.id='"+movieId+"' and u.userinformation_id='"+userId+"'")
+    if len(ll)>0:
+        re['code']=500
+        return JsonResponse(re)
+    re['code']=200  
+    cur.execute("insert into movieslist_moviesinformation_user_id(moviesinformation_id,userinformation_id) value('"+movieId+"','"+userId+"')")
+    
+    
+    return JsonResponse(re)

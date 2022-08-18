@@ -53,3 +53,10 @@ class MySession(models.Model):
 
     class Meta:
         verbose_name_plural = 'MySession'
+class WatchMovie(models.Model):
+    id=models.CharField(primary_key=True,max_length=225,verbose_name='id')
+    movieName=models.CharField(max_length=225,verbose_name='movieName')
+    url1=models.CharField(max_length=225,verbose_name='url1')
+    url2=models.CharField(max_length=225,verbose_name='url2')
+    img=models.CharField(max_length=225,verbose_name='img')
+    userId=models.CharField(max_length=225,verbose_name='userId')
