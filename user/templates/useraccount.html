@@ -427,8 +427,8 @@ function clickFunTwo() {
           </div>
       {% else %}
           
-          <a href="http://localhost:8000/user/login/" class="a-button"><button class="button-white">登录</button></a>
-          <a href="http://localhost:8000/user/register/" class="a-button"><button>注册</button></a>
+          <a href="http://localhost:8000/user/login/" class="a-button"><button class="button-white">login</button></a>
+          <a href="http://localhost:8000/user/register/" class="a-button"><button>Register</button></a>
       {% endif %}
         </div>
       </div>
@@ -441,7 +441,7 @@ function clickFunTwo() {
             <p title="{{ user.create_time }}">Join in{{ user.create_time }}</p>
         </div>
         <div class="content">
-            <h3>{{ user.username }}发布的帖子</h3>
+            <h3>Blog by {{ user.username }}</h3>
             <ul class="topic-list">
                 {% for topic in topics %}
                     <li class="flex">
@@ -453,16 +453,16 @@ function clickFunTwo() {
                     </li>
                 {% endfor %}
             </ul>
-            <h3>{{ user.username }}发布的回复</h3>
+            <h3>{{ user.username }}Posted in reply to</h3>
             <ul class="reply-list">
                 {% for reply in replies %}
                     <li>
                         <a href="/user/{{ reply.reply_user.username }}">{{ reply.reply_user.username }}</a>
                         {% if reply.reply_author == reply.reply_topic.topic_author %}
-                            <span class="text-red">帖子作者</span>
+                            <span class="text-red">Blogger</span>
                         {% endif %}
-                        <span title="回复于{{ reply.reply_create_time }}">{{ reply.reply_create_time}}</span>
-                        <span>在帖子</span><a href="http://localhost:8000/moviesForum/index/topic/{{ reply.reply_Blog.id }}">{{ reply.reply_Blog.title }}</a><span>的回复</span>
+                        <span title="Replied in{{ reply.reply_create_time }}">{{ reply.reply_create_time}}</span>
+                        <span>Reply in</span> <span>blog</span><a href="http://localhost:8000/moviesForum/index/topic/{{ reply.reply_Blog.id }}">{{ reply.reply_Blog.title }}</a>
                         <div class="hr"></div>
                         {{ reply.reply_body|linebreaks }}
                     </li>

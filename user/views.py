@@ -88,7 +88,7 @@ def register(request):
             username=username1, password=pwd, email=email, age=age,create_time=time1,userImg=userimg)
     # userinformationv.is_active()=0
     #-----------------------------------------test area------------------------<>-----------
-        uuu.is_active =1
+        uuu.is_active =0
         uuu.save()
 
 
@@ -155,12 +155,10 @@ def getSession(key):
         return ""
     return ll[0].Sessionkey
     
-# def setSession(k,v):
-#     mySession= MySession(k=k,value=v)
-#     mySession.save()
+
 
 def user_active(request):
-    # MySession.objects.get(token=)
+    
     
     token=request.GET.get('token')
     print('[][][][][][-----------------------][][][]][',token)
@@ -189,9 +187,9 @@ def check_user(request):
    username= request.GET.get('username')
    user = User.objects.filter(username=username).first()
    if user:
-        return JsonResponse({'status':'fail','msg':'此用户名已被注册'})
+        return JsonResponse({'status':'fail','msg':'Username has been registered'})
    else:
-        return JsonResponse({'status':'success','msg':'giao!'})
+        return JsonResponse({'status':'success','msg':''})
 
 
 from django.contrib.auth.backends import ModelBackend
@@ -209,27 +207,27 @@ def userlogin(request):
         
     
         if user:
-            print('用户存在...')
+            
             print(".....")
             if user.is_active:
                 # flag= check_password(pwd,user.password)
                 
                 flag = authenticate(username=username, password=pwd)
                 print(flag)
-                print('判断密码')
+               
                 if flag:
                     print('mimazhengque')
                     # return HttpResponse('success')
                     login(request,flag,backend='django.contrib.auth.backends.ModelBackend')
                     print('////////////////userobj',login(request,flag))
                     if request.user.is_authenticated:
-                        print('登录')
+                        print('login')
                         print(request.user.is_authenticated)
 
 
                        
                     else:
-                        print('未登录')    
+                        print('未login')    
                         print(request.user.is_authenticated)
 
 

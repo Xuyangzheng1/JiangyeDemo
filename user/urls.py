@@ -22,12 +22,12 @@ urlpatterns = [
     path('register/',views.register,name='register'),
     path('check_user/',views.check_user,name='check_user'),
     path('login/',views.userlogin,name='login'),
-
+path('active/',views.user_active,name='active'),
     path('tbase/',views.base),
     path('add2watchlist',views.add2watchlist,name='add2watchlist'),
     path('<str:user_name>/', views.user, name="user"), 
     path('watchList/<str:user_name>/', views.watchList, name="watchList"), 
-    # path('active/',views.user_active,name='active'),
+    
     path('logout/',views.loginoutUser,name='logout'),
     re_path('media/(?P<path>.*)',serve,{'document_root': settings.MEDIA_ROOT}, name='media'),
     re_path('media/usersImg/(?P<path>.*)',serve,{'document_root': settings.MEDIA_ROOT}, name='media'),

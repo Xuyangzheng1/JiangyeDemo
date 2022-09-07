@@ -45,7 +45,7 @@
         var errorCheckout = false
         var errorEmail = true
         $(function () {
-            //失去焦点时检验合法性
+            //Checking legality when out of focus
             $('#user_name').blur(function () {
                 checkName()
             })
@@ -58,9 +58,9 @@
             $('#email').blur(function () {
                 checkEmail()
             })
-            // 判断用户是否同意协议
+            
             $('#allow').click(function () {
-                console.log('sbsbsbsbs')
+                console.log('----')
 
                 if ($(this).is(':checked')) {
                     errorCheckout = false;
@@ -68,33 +68,33 @@
                 }
                 else {
                     errorCheckout = true;
-                    $(this).siblings('span').html('请勾选同意');
+                    $(this).siblings('span').html('Please check the box to agree');
                     console.log('sbsbsbsbs')
                     $(this).siblings('span').show();
                 }
             });
 
         });
-        //检验用户名的合法性
+        
         function checkName() {
-            console.log('进入checkname')
+            console.log('checkname')
             name = $('#user_name').val().length;
             if (name == 0) {
-                $('#user_name').next().html('用户名不能为空');
+                $('#user_name').next().html('Username cannot be empty');
                 $('#user_name').next().show();
                 console.log('call if ')
                 errorName = true
                 return;
             }
             else if (name > 15) {
-                $('#user_name').next().html('用户名不能超过20个字符')
+                $('#user_name').next().html('Username cannot exceed 20 characters')
                 $('#user_name').next().show();
                 console.log('call else if ')
                 errorName = true
                 return;
             }
             var username = $('#user_name').val();
-            // 发起ajax请求，判断用户名是否已经注册过
+            // Initiate an ajax request to determine if the username has already been registered
             $.getJSON('/user/check_user/', { username: username }, function (data) {
                 if (data.status == 'fail') {
                     console.log('call show ')
@@ -111,13 +111,13 @@
             })
 
         }
-        //检验密码的合法性
+        //Checking the legitimacy of passwords
         function checkPwd() {
-            console.log('检查密码')
+            console.log('Check password')
             pwdLength = $('#pwd').val().length;
             if (pwdLength < 6 || pwdLength > 20) {
-                console.log('检查密码')
-                $('#pwd').next().html('密码长度最少6位，最长12位')
+                console.log('Check password')
+                $('#pwd').next().html('Minimum 6 digits and maximum 20 digits password length')
                 $('#pwd').next().show()
                 errorPwd = true
                 return;
@@ -128,12 +128,12 @@
                 return;
             }
         }
-        //检验两次输入密码是否一致
+        //Verify that the password entered twice is the same
         function checkConfirmPwd() {
             pwd = $('#pwd').val();
             cpwd = $('#cpwd').val();
             if (pwd != cpwd) {
-                $('#cpwd').next().html('两次密码输入不一致')
+                $('#cpwd').next().html('Two inconsistent password entries')
                 $('#cpwd').next().show()
                 errorConfirmPwd = true
             }
@@ -151,12 +151,12 @@
                 errorEmail = false;
             }
             else {
-                $('#email').next().html('你输入的邮箱格式不正确')
+                $('#email').next().html('The email you entered is not in the correct format')
                 $('#email').next().show();
                 errorEmail = true;
             }
         }
-        //发送post请求时在进行检验输入合法性
+        //Checking input legitimacy when sending a post request
         $(function () {
             $('#reg_form').submit(function () {
                 //     alert('jiance')
@@ -165,10 +165,10 @@
                 checkConfirmPwd()
                 checkEmail()
                 if (errorName == false && errorPwd == false && errorConfirmPwd == false && errorEmail == false && errorCheckout == false) {
-                    // 验证成功，提交
+                    // Validation successful, submit
                     return true
                 }
-                // 验证不成功，阻止表单的默认行为。
+                // Validation is unsuccessful and the default behaviour of the form is blocked.
                 return false
 
             })
@@ -177,9 +177,9 @@
             $file = $("#userimg")
             $file.change(function () {
                 var formData = new FormData();
-                formData.append('file', $('#userimg')[0].files[0]); // 固定格式
+                formData.append('file', $('#userimg')[0].files[0]); 
                 // alert(formData)
-                $.ajax({        // ajax前记得加点 . !!!!!!!!!!!!!!!!!
+                $.ajax({        
                     url: "http://127.0.0.1:8000/user/userimg_upload",
                     type: "POST",
                     cache: false,
@@ -218,11 +218,7 @@
 
                     <form action="" method="post" id="reg_form">
                         {% csrf_token %}
-                        <!-- <ul>
-        <li> -->
-                        <!-- <label></label>
-            <input type="text" name="" id="user_name">
-            <span class="error_tip">提示信息</span> -->
+          
                         <div class="col-12">
                             <label class="form-label">username</label>
                             <div class="input-group has-validation">
@@ -235,14 +231,7 @@
                             </div>
                         </div>
 
-                        <!-- </li> -->
-
-                        <!-- <li>
-        <label>password</label>
-        <input type="password" name="pwd" id="pwd">
-        <span class="error_tip">提示信息</span>
-        
-            </li> -->
+                       
                         <div class="col-12">
                             <label class="form-label">password</label>
                             <div class="input-group has-validation">
@@ -254,12 +243,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <li>
-                <label>confirmPassword</label>
-                <input type="password" name="cpwd" id="cpwd">
-                <span class="error_tip">提示信息</span>
-                
-                    </li> -->
+                        
                         <div class="col-12">
                             <label class="form-label">confirmPassword</label>
                             <div class="input-group has-validation">
@@ -271,12 +255,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <li>
-                        <label>email</label>
-                        <input type="text" name="email" id="email">
-                        <span class="error_tip">提示信息</span>
                         
-                            </li> -->
                         <div class="col-12">
                             <label class="form-label">email</label>
                             <div class="input-group has-validation">
@@ -288,12 +267,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- <li>
-                                <label>age</label>
-                                <input type="number" name="age" id="age">
-                                <span class="error_tip">提示信息</span>
-                                
-                                    </li> -->
+                        
                         <div class="col-12">
                             <label class="form-label">age</label>
                             <div class="input-group has-validation">
@@ -306,49 +280,31 @@
                             </div>
                         </div>
 
-                        <!-- <li>
-                                                        <label>IMG</label>
-                                                        <input type="file" name='userimg' id="userimg">
-
-                                                        
-                                                    </li> -->
+                        
                         <div class="col-12">
                             <label class="form-label">IMG</label>
                             <div class="input-group has-validation">
 
-                                <input language='EN' type="file" class="form-control" id="userimg" name="userimg" required>
+                                <input language="en" type="file" class="form-control" id="userimg" name="userimg" required>
                                 <div class="invalid-feedback">
                                     Your username is required.
                                 </div>
                             </div>
                         </div>
-                        <!-- <li class="agreement">
-                            <input type="checkbox" name="allow" id="allow" checked="checked">
-                            <label> agreement with promote</label>
-                            <span class="error_tip2"></span>
-                        </li> -->
+                       
                         <hr class="my-4">
                         <div class="form-check">
                             <input type="checkbox" class="form-check-input" id="allow" name="allow" checked="checked">
-                            <label class="form-check-label">agreement with promote</label>
+                            <label class="form-check-label">I agree to the User Agreement</label>
                             <span class="invalid-feedback"></span>
                         </div>
                         <hr class="my-4">
-                        <!-- <li class="reg_sub">
-                            <input type="submit" value="resgister">
-                        </li> -->
+                       
                         <button class="w-100 btn btn-primary btn-lg" type="submit">resgister</button>
                     </form>
                 </div>
             </div>
-            <!-- <li>
-                                <p style="color: royalblue;">{{ errmsg }}</p>
-                            </li>
-
-
-                            <li><img src="{{MEDIA_URL}}{{userinformation.userImg}}" alt="aaa"></li>
-                            <li><img src="{{icon}}" alt="aaa"></li> -->
-            <!-- </ul> -->
+          
 
 
 

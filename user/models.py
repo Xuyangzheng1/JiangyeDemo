@@ -33,13 +33,13 @@ MEDIA_ADDR = 'http://localhost:8000/media/uesrsImg/'
 
 class userinformation(AbstractUser):
     userid = models.AutoField(primary_key=True)
-    username = models.CharField(max_length=32,verbose_name='usersname',null=True,unique=True)#如果是charfield 必须写max_length
-    password = models.TextField(max_length=225,verbose_name='userpassword',null=True)#1406 charfied更改为text field
+    username = models.CharField(max_length=32,verbose_name='usersname',null=True,unique=True)
+    password = models.TextField(max_length=225,verbose_name='userpassword',null=True)
     age = models.IntegerField(null=True,blank=False)
     sex = models.CharField(max_length=10,default='man',verbose_name='sex')
     
-   # account=models.DecimalField(max_digits=10,decimal_places=2,default=0)#decimal保留两位小数
-    create_time = models.DateTimeField(null=True,blank=True,auto_now_add=True)#添加新字段需要在sql上同步
+   
+    create_time = models.DateTimeField(null=True,blank=True,auto_now_add=True)
     email = models.CharField(max_length=32,verbose_name='email',null=True)
     userImg = models.ImageField(upload_to='usersImg',verbose_name=u'img')
 

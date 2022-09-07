@@ -214,7 +214,7 @@ EMAIL_PORT=465
 
 
 EMAIL_HOST_USER='654427140@qq.com'
-EMAIL_HOST_PASSWORD='ijlzajryyrzqbedc'
+EMAIL_HOST_PASSWORD='ilrcmwvqpubzbddc'
 EMAIL_USE_TLS=False
 EMAIL_USE_SSL = True
 

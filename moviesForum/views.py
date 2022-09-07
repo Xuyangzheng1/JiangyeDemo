@@ -12,16 +12,15 @@ from django.http import Http404
 from django.shortcuts import render, redirect
 
 def index(request):
-    """ 首页 GET """
-    # 将All Blogs按时间排序
+    
     topics = BlogPost.objects.order_by('-publish_date')
     # userid=request.POST['userid']
 
     if request.user.is_authenticated:
-    # 用户已登陆
+    
      print('yidenglu1')
     else:
-    # 用户未登陆
+    
         print('[][][][]')
     userid=request.user.userid
     print('...................',userid)
@@ -30,7 +29,7 @@ def index(request):
 
 
    
-    # return render(request, 'indexBlog.html', {
+   
     return render(request, 'testjs.html', {
                                     "topics": topics,
         "stats": {
@@ -38,10 +37,13 @@ def index(request):
             "topics": BlogPost.objects.count(),
             "replies": Reply.objects.count()
         },
-        # "topped_topics": BlogPost.objects.filter(BlogPostTop=True).order_by('-publish_date')
+        
     })
 
 import requests
+from django.contrib.auth.decorators import login_required
+
+@login_required(login_url='/user/login/', redirect_field_name='testjs/')
 def create(request):
     """ Create you blog GET/POST """
     if request.method == "GET":
@@ -120,12 +122,32 @@ def reply(request, Blog_id):
     
     if request.method == "POST":
         if request.user.is_authenticated:
-            form_content = request.POST.get('content')
-            form_author = User.objects.filter(username=request.user).first()
-            form_topic = BlogPost.objects.filter(id=Blog_id).first()
+            content = request.POST.get('content')
+            author = User.objects.filter(username=request.user).first()
+            topic = BlogPost.objects.filter(id=Blog_id).first()
 
-            if form_content != "":
-                reply = Reply(reply_body=form_content, reply_user=form_author, reply_Blog=form_topic)
+            url = "https://badword.p.rapidapi.com/"
+
+            querystring = {"content":"1"}
+            querystring["content"] = content
+
+
+            headers = {
+	"X-RapidAPI-Key": "300c876097msha9c4cc55679cfb6p1fe8ccjsn430c7177ad1b",
+	"X-RapidAPI-Host": "badword.p.rapidapi.com"
+}
+
+            response = requests.request("GET", url, headers=headers, params=querystring)
+
+            print(response.text)
+
+            badWord=response.json()
+            print(badWord)
+            chcekBadword = badWord['is-bad']
+
+            if content != "" and chcekBadword!=True:
+                print('re')
+                reply = Reply(reply_body=content, reply_user=author, reply_Blog=topic)
                 reply.save()
                 print('reply')
             

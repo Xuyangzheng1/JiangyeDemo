@@ -288,7 +288,7 @@ label {
         </style>
         <header class="header">
             <div class="margin"></div>
-            <a href="/" class="a-button header-title">论坛</a>
+            <a href="http://localhost:8000/moviesForum/index/" class="a-button header-title">homepage</a>
 
             <div class="header-spacer"></div>
 
@@ -306,8 +306,8 @@ label {
                 </div>
             {% else %}
                
-                <a href="/login/" class="a-button"><button class="button-white">登录</button></a>
-                <a href="/register/" class="a-button"><button>注册</button></a>
+                <a href="/login/" class="a-button"><button class="button-white">login</button></a>
+                <a href="/register/" class="a-button"><button>Register</button></a>
             {% endif %}
             <div class="margin"></div>
         </header>
@@ -316,9 +316,7 @@ label {
                 <h2>{{ topic.title }}</h2>
                 <p>
                     <a href="/user/{{ topic.user.user.name }}">{{ topic.user.user.name }}</a> <span title="{{ topic.publish_date }}">released in{{ topic.publish_date }}</span>
-                    <!-- {% if topic.topic_topped %}
-                        <span class="text-red">已置顶</span>
-                    {% endif %} -->
+                    
                 </p>
             </div>
             <div class="content">
@@ -326,14 +324,14 @@ label {
                     <li>
                         {{ topic.body|linebreaks }}
                     </li>
-                    <h3>{{ replies|length }}条回复</h3>
+                    <h3>{{ replies|length }}replies</h3>
                     {% for reply in replies %}
 
                     
                         <li>
                             <a href="/user/{{ reply.reply_user }}">{{ reply.reply_user }}</a>
                             {% if reply.reply_user == topic.user.user.name %}
-                                <span class="text-blue">帖子作者</span>
+                                <span class="text-blue">Blogger</span>
                             {% endif %}
                             <span title="回复于{{ reply.reply_create_date }}">{{ reply.reply_create_time}}</span>
                             <div class="hr"></div>
@@ -343,11 +341,11 @@ label {
                 </ul>
                 <form action="reply/" method="post">
                     {% csrf_token %}
-                    <p style="margin-top: 0;">回复</p>
-                    <label for="content">内容</label>
+                    <p style="margin-top: 0;">reply</p>
+                    <label for="content">content</label>
                     <textarea type="text" name="content" id="content" maxlength="4096"></textarea>
                 
-                    <input type="submit" value="发布" />
+                    <input type="submit" value="post" />
                 </form>
             </div>
         </div>

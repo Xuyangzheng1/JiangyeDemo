@@ -309,7 +309,7 @@ function toggle_theme() {
 
         <header class="header">
             <div class="margin"></div>
-            <a href="/" class="a-button header-title">论坛</a>
+            <a href="/" class="a-button header-title">homepage</a>
 
             <div class="header-spacer"></div>
 
@@ -329,8 +329,8 @@ function toggle_theme() {
                 </div>
             {% else %}
                 
-                <a href="/login/" class="a-button"><button class="button-white">登录</button></a>
-                <a href="/register/" class="a-button"><button>注册</button></a>
+                <a href="/login/" class="a-button"><button class="button-white">login</button></a>
+                <a href="/register/" class="a-button"><button>Register</button></a>
             {% endif %}
             <div class="margin"></div>
         </header>
@@ -344,12 +344,12 @@ function toggle_theme() {
                 {% endif %}
                 <form action="" method="post">
                     {% csrf_token %}
-                    <label for="title">标题</label>
+                    <label for="title">Title</label>
                     <input type="text" name="title" id="title" maxlength="32" /><br />
-                    <label for="content">内容</label>
+                    <label for="content">content</label>
                     <textarea type="text" name="content" id="content" maxlength="4096"></textarea>
                     <br>
-                    <input type="submit" value="发布" />
+                    <input type="submit" value="post" />
                 </form>
             </div>
         </div>
