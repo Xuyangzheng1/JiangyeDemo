@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>创建帖子</title>
+        <title>Create you blog</title>
         <link rel="stylesheet" type="text/css" href="{% static 'forum_app/style.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'forum_app/style-forum.css' %}" />
         <link rel="stylesheet" type="text/css" href="{% static 'forum_app/style-dark.css' %}" />
@@ -319,16 +319,16 @@ function toggle_theme() {
                        </button>
                     <div class="dropdown-content">
                         <ul>
-                            <li><a href="/user/{{ request.user.username }}"><div>个人主页</div></a></li>
-                            <li><a href="/settings/"><div>设置</div></a></li>
-                            <li><a onclick="toggle_theme()"><div>切换主题</div></a></li>
+                            <li><a href="/user/{{ request.user.username }}"><div>Personal homepage</div></a></li>
+                            
+                           
                             <div class="hr" style="margin: 4% 3px;"></div>
-                            <li><a href="/logout/"><div class="logout-button">退出登录</div></a></li>
+                            <li><a href="/logout/"><div class="logout-button">log out</div></a></li>
                         </ul>
                     </div>
                 </div>
             {% else %}
-                <a onclick="toggle_theme()" style="cursor: pointer;">切换主题</a>
+                
                 <a href="/login/" class="a-button"><button class="button-white">登录</button></a>
                 <a href="/register/" class="a-button"><button>注册</button></a>
             {% endif %}
@@ -336,7 +336,7 @@ function toggle_theme() {
         </header>
         <div id="main">
             <div class="banner">
-                <h2>创建帖子</h2>
+                <h2>Create you blog</h2>
             </div>
             <div class="content">
                 {% if error %}

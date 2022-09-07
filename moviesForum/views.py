@@ -13,7 +13,7 @@ from django.shortcuts import render, redirect
 
 def index(request):
     """ 首页 GET """
-    # 将所有帖子按时间排序
+    # 将All Blogs按时间排序
     topics = BlogPost.objects.order_by('-publish_date')
     # userid=request.POST['userid']
 
@@ -43,11 +43,11 @@ def index(request):
 
 import requests
 def create(request):
-    """ 创建帖子 GET/POST """
+    """ Create you blog GET/POST """
     if request.method == "GET":
-        print('get方法')
+        print('get')
         if request.user.is_authenticated:
-            print('用户存在')
+            print('have user')
             return render(request, 'create.html', {"logged_in_user": request.user })
             
         else:
@@ -61,7 +61,7 @@ def create(request):
 
             url = "https://badword.p.rapidapi.com/"
 
-            querystring = {"content":"fuck"}
+            querystring = {"content":"1"}
             querystring["content"] = BlogPostcontent = request.POST.get('content')
 
 
@@ -91,11 +91,9 @@ def create(request):
                         "error": "There are inappropriate words in the content you are about to post.",
                         "logged_in_user": request.user
                     })
-
-
             BlogPost1 = BlogPost(movie_id=1,title=BlogPosttitle,  body=BlogPostcontent, user_id=BlogId)
             BlogPost1.save()
-            print('文章已保存')
+            print('saved')
         else:
             return redirect('http://localhost:8000/user/login/')
         # return redirect('')
@@ -103,11 +101,11 @@ def create(request):
 
 
 def topic(request,Blog_id):
-    """ 帖子 GET """
+    
     try:
         topic = BlogPost.objects.get(id=Blog_id)
     except:
-        raise Http404("帖子不存在")
+        raise Http404("no blog")
     
     
     return render(request, 'topic.html', {
@@ -119,7 +117,7 @@ def topic(request,Blog_id):
 
 
 def reply(request, Blog_id):
-    """ 回复 POST """
+    
     if request.method == "POST":
         if request.user.is_authenticated:
             form_content = request.POST.get('content')
@@ -129,7 +127,7 @@ def reply(request, Blog_id):
             if form_content != "":
                 reply = Reply(reply_body=form_content, reply_user=form_author, reply_Blog=form_topic)
                 reply.save()
-                print('使用了reply')
+                print('reply')
             
             return redirect('http://localhost:8000/moviesForum/index/topic/{}/'.format(Blog_id))
             

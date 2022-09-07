@@ -103,10 +103,10 @@ WSGI_APPLICATION = 'jiangye.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'zxyforever',  # 数据库名字
+        'NAME': 'zxyforever',  
         'USER': 'root',
         'PASSWORD': 'zxy013',
-        'HOST': '127.0.0.1',  # 那台机器安装了MySQL
+        'HOST': '127.0.0.1',  
         'PORT': 3306,
         'TEST': {
             'CHARSET' : 'utf8',

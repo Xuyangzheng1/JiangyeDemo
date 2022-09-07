@@ -595,33 +595,24 @@ def testjs(request):
                         print('exits')
                     else:
                         print('not exits')
-                    moviesInformation1 = moviesInformation(
-
-                       
-                        
+                        moviesInformation1 = moviesInformation(
                         movie_imdbid=item['imdbid'],
-                                                    classification =str(item['imdbgenre']),
-                                                       movies_title=str(item['title']),
-                                                       movies_language=str(item['imdblanguage']),
-                                                       movies_country=str(item['imdbcountry']),
-                                                       movies_suggestions=str(item['matlabel']),
-                                                       movies_matlevel=str(item['matlevel']),
-                                                       movies_avg_rating=float(item['avgrating']),
-                                                       movie_introduction=str(item['imdbplot']),
-                                                        movie_runtime=str(item['imdbruntime']),
-                                                         movie_imdblink=str(f'''https://www.imdb.com/title/{  item["imdbid"] }'''),
-                                                         movie_natflixlink=str(f'''https://www.netflix.com/title/{ item['nfid'] }'''),
-                                                         release_data=item['year'],
-                                                          img_url=item['imdbposter'],
-
-
-
-
-
-                                                       
-                                                       )
-                    
-                    moviesInformation1.save()
+                        classification =str(item['imdbgenre']),
+                        movies_title=str(item['title']),
+                        movies_language=str(item['imdblanguage']),
+                        movies_country=str(item['imdbcountry']),
+                        movies_suggestions=str(item['matlabel']),
+                        movies_matlevel=str(item['matlevel']),
+                        movies_avg_rating=float(item['avgrating']),
+                        movie_introduction=str(item['imdbplot']),
+                            movie_runtime=str(item['imdbruntime']),
+                            movie_imdblink=str(f'''https://www.imdb.com/title/{  item["imdbid"] }'''),
+                            movie_natflixlink=str(f'''https://www.netflix.com/title/{ item['nfid'] }'''),
+                            release_data=item['year'],
+                            img_url=item['imdbposter'],
+                                                        )
+                        
+                        moviesInformation1.save()
                     ll=moviesInformation.objects.filter(movie_imdbid= item['imdbid'])
                     moviesInfo['id']=ll[0].id
                     moviesdata.append(moviesInfo)

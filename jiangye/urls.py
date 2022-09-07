@@ -32,8 +32,7 @@ from jiangyeapp import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     
-    #www.jiangye.com/index/  ->函数
-    #注意，更新完路由信息后要重启django
+   
     path('', views.index,name='index'),
     path('user/list/', views.user_list),
     path('user/add/', views.user_add),
@@ -84,13 +83,13 @@ urlpatterns = [
  #movieslist
     
     path('moviesList/',include(('moviesList.urls','moviesList'),namespace='moviesList')),
-    path('user/',include(('user.urls','user'),namespace='user')),#一定要加上app名字
-    path('moviesForum/',include(('moviesForum.urls','moviesForum'),namespace='moviesForum')),#一定要加上app名字
+    path('user/',include(('user.urls','user'),namespace='user')),
+    path('moviesForum/',include(('moviesForum.urls','moviesForum'),namespace='moviesForum')),
 
     
-    # 配置媒体文件的路由地址
+    # Configure the routing address of the media file
     re_path('media/(?P<path>.*)',serve,{'document_root': MEDIA_ROOT}, name='media'),
-       #正则表达[0-9]从0到9，{4}四位
+       
     re_path('(?P<year>[0-9]{4})/(?P<month>[0-9]{2})/(?P<day>[0-9]{2}).html',
 views.mydate)   
     

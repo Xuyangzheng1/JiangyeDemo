@@ -381,65 +381,62 @@ label {
                     <button class="button-dropdown">{{ request.user.username }}</button>
                     <div class="dropdown-content">
                         <ul>
-                            <li><a href="/user/{{ request.user.username }}"><div>个人主页</div></a></li>
+                            <li><a href="/user/{{ request.user.username }}"><div>Personal homepage</div></a></li>
                             <li><a href="/user/watchList/{{ request.user.username }}"><div>watch list</div></a></li>
-                            <li><a href="/settings/"><div>设置</div></a></li>
+                           
                             
                             <div class="hr" style="margin: 4% 3px;"></div>
-                            <li><a href="/logout/"><div class="logout-button">退出登录</div></a></li>
+                            <li><a href="/logout/"><div class="logout-button">log out</div></a></li>
                         </ul>
                     </div>
                 </div>
             {% else %}
                 
-                <a href="/login/" class="a-button"><button class="button-white">登录</button></a>
-                <a href="/register/" class="a-button"><button>注册</button></a>
+                <a href="/login/" class="a-button"><button class="button-white">login</button></a>
+                <a href="/register/" class="a-button"><button>register</button></a>
             {% endif %}
             <div class="margin"></div>
         </header>
         <div id="main">
             <div class="banner">
-                <h2>欢迎</h2>
-                <p>Lorem ipsum dolor sit am55555555555555555555555t consectetur adipisicing elit. Sapiente eveniet fuga dolore velit et quam dolores eos, distinctio perferendis. In consequuntur ipsam eaque delectus repellat. Dolore quod magni minima numquam.</p>
-
-
-                -==================================
+                <h2>welcome</h2>
+                
             </div>
             <div class="content flex">
                 <div style="margin-top: 18px; padding-right: 8px; border-right: 1px solid #BBB; min-width: 150px;">
-                    <a href="http://localhost:8000/moviesForum/create/" class="a-button"><button style="width: calc(100%); margin-bottom: 5px;">创建帖子</button></a>
-                    <a href="/users/">用户列表</a>
+                    <a href="http://localhost:8000/moviesForum/create/" class="a-button"><button style="width: calc(100%); margin-bottom: 5px;">Create you blog</button></a>
+                    <a href="/users/">USER LIST</a>
                     <div class="stats">
-                        <h3 style="margin: 0;">统计</h3>
+                        <h3 style="margin: 0;">Statistics</h3>
                         <ul style="padding-left: 20px; margin-bottom: 0;">
-                            <li>用户总数：{{ stats.users }}</li>
-                            <li>帖子总数：{{ stats.topics }}</li>
-                            <li>回复总数：{{ stats.replies }}</li>
+                            <li>Total number of users：{{ stats.users }}</li>
+                            <li>Total number of Blogs：{{ stats.topics }}</li>
+                            <li>Total number of replies：{{ stats.replies }}</li>
                         </ul>
                     </div>
                 </div>
                 <div>
                    
                     {% if topics %}
-                        <h3>所有帖子</h3>
+                        <h3>All Blogs</h3>
                         <ul class="topic-list">
                             {% for topic in topics %}
                                 <li class="flex">
                                     <a href="topic/{{ topic.id }}/"><b>{{ topic.title }}</b></a>
                                     <div class="header-spacer"></div>
                                     <span>#{{ topic.id }}</span>
-                                    <span><a href="/user/{{ topic.topic_author }}">{{ topic.topic_author }}</a> <span title="{{ topic.topic_create_date }}">发布于{{ topic.publish_date }}</span></span>
+                                    <span><a href="/user/{{ topic.topic_author }}">{{ topic.topic_author }}</a> <span title="{{ topic.topic_create_date }}">released in{{ topic.publish_date }}</span></span>
                                 </li>
                             {% endfor %}
                         </ul>
                     {% else %}
-                        <p>空空如也</p>
+                        <p>UNLL</p>
                     {% endif %}
                 </div>
             </div>
         </div>
         <div id="footer">
-            <p>底部内容</p>
+            <p>https://github.com/Xuyangzheng1/JiangyeDemo/commits/master</p>
         </div>
         <script src="{% static 'forum_app/forum.js' %}"></script>
     </body>

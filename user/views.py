@@ -95,7 +95,7 @@ def register(request):
 
         #>------------------------------mail test-------------------------------------------{
         # send_mail()
-        token = str(uuid.uuid4()).replace('-','')#随机数
+        token = str(uuid.uuid4()).replace('-','')
         session= MySession.objects.create(token=token,Sessionkey=uuu.userid)
         session.save()
 
@@ -119,11 +119,11 @@ def register(request):
        
         
         path='http://127.0.0.1:8000/user/active?token={}'.format(token)
-        subject='giaogiaogiao'
+        subject='welcome!'
 
-        message='''8====D >>>>>>>>>>
-        <li>giao</li>
-        <li><a href='{}'>点击激活</a>
+        message='''>>>>>>>>>>
+        <li>welcome</li>
+        <li><a href='{}'>Click to activate</a>
         test:{}
         
         '''.format(path,path)

@@ -92,7 +92,7 @@ class BlogPost(models.Model):
     publish_date = models.DateTimeField(auto_now_add=True,verbose_name='publish_date')
     user_id = models.ForeignKey(verbose_name="userBlog",to=userinformation,on_delete=models.CASCADE)
     movie = models.ForeignKey(verbose_name="movies",to=moviesInformation,on_delete=models.CASCADE,blank=True)
-    # BlogPostTop=models.BooleanField("BlogPostTop", default=False)
+    BlogPostTop=models.BooleanField("BlogPostTop", default=False)
     class Meta:
         db_table = 'article'
         verbose_name = 'article_table'

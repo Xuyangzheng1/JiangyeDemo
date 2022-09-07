@@ -376,7 +376,7 @@ function clickFunTwo() {
 <header>
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <div class="container-fluid">
-        <a class="navbar-brand" href="http://localhost:8000/superindex">superindex</a>
+        <!-- <a class="navbar-brand" href="http://localhost:8000/superindex">superindex</a> -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -416,12 +416,12 @@ function clickFunTwo() {
               <button class="button-dropdown"><a style="color:white;">welcome {{ request.user.username }}</a></button>
               <div class="dropdown-content">
                   <ul>
-                      <li><a href="/user/{{ request.user.username }}"><div>个人主页</div></a></li>
+                      <li><a href="/user/{{ request.user.username }}"><div>Personal homepage</div></a></li>
                       <li><a href="/user/watchList/{{ request.user.username }}"><div>watch list</div></a></li>
-                      <li><a href="/settings/"><div>设置</div></a></li>
+                     
                       
                       <div class="hr" style="margin: 4% 3px;"></div>
-                      <li><a href="http://localhost:8000/user/login"><div class="logout-button">退出登录</div></a></li>
+                      <li><a href="http://localhost:8000/user/login"><div class="logout-button">log out</div></a></li>
                   </ul>
               </div>
           </div>
@@ -438,7 +438,7 @@ function clickFunTwo() {
         <div class="banner">
             <h2>{{ user.username }}</h2>
             
-            <p title="{{ user.create_time }}">于{{ user.create_time }}加入</p>
+            <p title="{{ user.create_time }}">Join in{{ user.create_time }}</p>
         </div>
         <div class="content">
             <h3>{{ user.username }}发布的帖子</h3>
@@ -449,7 +449,7 @@ function clickFunTwo() {
                         <span style="color: #888; font-size: 14px;" title="{{ user.user_bio }}">{{ user.user_bio|slice:":30" }}{% if user.user_bio|length > 30 %}…{% endif %}</span>
                         <div class="header-spacer"></div>
                         <span>#{{ topic.id }}</span>
-                        <span><span title="{{ topic.publish_date }}">发布于{{ topic.publish_date}}</span></span>
+                        <span><span title="{{ topic.publish_date }}">released in{{ topic.publish_date}}</span></span>
                     </li>
                 {% endfor %}
             </ul>

@@ -24,7 +24,7 @@
 <header>
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" href="http://localhost:8000/superindex">superindex</a>
+      <!-- <a class="navbar-brand" href="http://localhost:8000/superindex">superindex</a> -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -41,7 +41,7 @@
             <a class="nav-link" href="http://localhost:8000/moviesForum/index/">forum</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link disabled" href="http://localhost:8000/index" tabindex="-1" aria-disabled="true">index</a>
+            <!-- <a class="nav-link disabled" href="http://localhost:8000/index" tabindex="-1" aria-disabled="true">index</a> -->
           </li>
           <li>
             
@@ -64,12 +64,12 @@
             <button class="button-dropdown"><a style="color:white;">welcome {{ request.user.username }}</a></button>
             <div class="dropdown-content">
                 <ul>
-                    <li><a href="/user/{{ request.user.username }}"><div>个人主页</div></a></li>
+                    <li><a href="/user/{{ request.user.username }}"><div>Personal homepage</div></a></li>
                     <li><a href="/user/watchList/{{ request.user.username }}"><div>watch list</div></a></li>
-                    <li><a href="/settings/"><div>设置</div></a></li>
+                   
                     
                     <div class="hr" style="margin: 4% 3px;"></div>
-                    <li><a href="http://localhost:8000/user/login"><div class="logout-button">退出登录</div></a></li>
+                    <li><a href="http://localhost:8000/user/login"><div class="logout-button">log out</div></a></li>
                 </ul>
             </div>
         </div>
@@ -85,28 +85,28 @@
 <div id="main">
   <div class="content flex" style="margin-top:100px;">
       <div style="margin-top: 18px; padding-right: 8px; border-right: 1px solid #BBB; min-width: 150px;">
-          <a href="http://localhost:8000/moviesForum/create/" class="a-button"><button style="width: calc(100%); margin-bottom: 5px;">创建帖子</button></a>
+          <a href="http://localhost:8000/moviesForum/create/" class="a-button"><button style="width: calc(100%); margin-bottom: 5px;">Create you blog</button></a>
           <!-- <a href="/users/">用户列表</a> -->
           <div class="stats">
-              <h3 style="margin: 0;">统计</h3>
+              <h3 style="margin: 0;">Statistics</h3>
               <ul style="padding-left: 20px; margin-bottom: 0;">
-                  <li>用户总数：{{ stats.users }}</li>
-                  <li>帖子总数：{{ stats.topics }}</li>
-                  <li>回复总数：{{ stats.replies }}</li>
+                  <li>Total number of users：{{ stats.users }}</li>
+                  <li>Total number of Blogs：{{ stats.topics }}</li>
+                  <li>Total number of replies：{{ stats.replies }}</li>
               </ul>
           </div>
       </div>
       <div>
          
           {% if topics %}
-              <h3>所有帖子</h3>
+              <h3>All Blogs</h3>
               <ul class="topic-list">
                   {% for topic in topics %}
                       <li class="flex">
                           <a href="topic/{{ topic.id }}/"><b>{{ topic.title }}</b></a>
                           <div class="header-spacer"></div>
                           <span>#{{ topic.id }}</span>
-                          <span><a href="/user/{{ topic.topic_author }}">{{ topic.topic_author }}</a> <span title="{{ topic.topic_create_date }}">发布于{{ topic.publish_date }}</span></span>
+                          <span><a href="/user/{{ topic.topic_author }}">{{ topic.topic_author }}</a> <span title="{{ topic.topic_create_date }}">released in{{ topic.publish_date }}</span></span>
                       </li>
                   {% endfor %}
               </ul>
